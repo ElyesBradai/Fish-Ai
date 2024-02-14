@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Maven: org.openjfx:javafx-controls:mac:21-ea+5" type="java-imported" external-system-id="Maven">
+    <properties groupId="org.openjfx" artifactId="javafx-controls" version="21-ea+5" classifier="mac" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/21-ea+5/javafx-controls-21-ea+5-mac.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/21-ea+5/javafx-controls-21-ea+5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/21-ea+5/javafx-controls-21-ea+5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
