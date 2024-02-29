@@ -10,21 +10,21 @@ public class Simulation {
     public static final int GRID_SIZE = 5;
     public static final int SQUARE_SIZE = 100;
     int[][] map;
-    Pane root;//???????????????
+    Pane simPane;//???????????????
     Rectangle player = new Rectangle(50,50);
     private NeuralNetwork neuralNetwork;
     public Simulation(){
 
         this.neuralNetwork = new NeuralNetwork();
-        this.map = new int[GRID_SIZE][GRID_SIZE];
-        this.root = new Pane();
+        this.map = new int[4][3];
+        this.simPane = new Pane();
         bckg();
     }
 
     void bckg() {
 
         boolean color = true;
-
+    if (map[0].length %2 ==1) {
         for (int i = 0; i < map.length; i++) {
 
             for (int j = 0; j < map[i].length; j++) {
@@ -33,7 +33,7 @@ public class Simulation {
 
                     Rectangle temp = new Rectangle(SQUARE_SIZE, SQUARE_SIZE, Color.BROWN);
                     //map[i][j] = temp;
-                    root.getChildren().add(temp);
+                    this.simPane.getChildren().add(temp);
                     temp.setTranslateX(i*SQUARE_SIZE);
                     temp.setTranslateY(j*SQUARE_SIZE);
                     color = false;
@@ -42,17 +42,54 @@ public class Simulation {
                 else {
                     Rectangle temp = new Rectangle(SQUARE_SIZE, SQUARE_SIZE, Color.BEIGE);
                     //map[i][j] = temp;
-                    root.getChildren().add(temp);
+                    this.simPane.getChildren().add(temp);
                     temp.setTranslateX(i*SQUARE_SIZE);
                     temp.setTranslateY(j*SQUARE_SIZE);
                     color = true;
 
                 }
 
-
             }
 
         }
+    }
+
+        if (map[0].length %2 ==0) {
+            for (int i = 0; i < map.length; i++) {
+
+                if (color) color = false;
+
+                else color = true;
+
+
+                for (int j = 0; j < map[i].length; j++) {
+
+                    if (color) {
+
+                        Rectangle temp = new Rectangle(SQUARE_SIZE, SQUARE_SIZE, Color.BROWN);
+                        //map[i][j] = temp;
+                        this.simPane.getChildren().add(temp);
+                        temp.setTranslateX(i*SQUARE_SIZE);
+                        temp.setTranslateY(j*SQUARE_SIZE);
+                        color = false;
+
+                    }
+                    else {
+                        Rectangle temp = new Rectangle(SQUARE_SIZE, SQUARE_SIZE, Color.BEIGE);
+                        //map[i][j] = temp;
+                        this.simPane.getChildren().add(temp);
+                        temp.setTranslateX(i*SQUARE_SIZE);
+                        temp.setTranslateY(j*SQUARE_SIZE);
+                        color = true;
+
+                    }
+
+                }
+
+            }
+        }
+
+
 
     }
 
@@ -117,7 +154,7 @@ public class Simulation {
 
     }
 
-    public Pane getRoot() {
-        return root;
+    public Pane getSimPane() {
+        return simPane;
     }
 }

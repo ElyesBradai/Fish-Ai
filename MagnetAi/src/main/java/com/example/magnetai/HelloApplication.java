@@ -1,12 +1,8 @@
 package com.example.magnetai;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,13 +24,14 @@ public class HelloApplication extends Application {
 //        setPlayerPos(indexToPos(playerPos));
 
 //        root.getChildren().add(player);
+        root.setSpacing(Simulation.GRID_SIZE * Simulation.SQUARE_SIZE);
         VBox vb1 = new VBox();
-        //VBox vb2 = new VBox();
-        root.getChildren().addAll(vb1);
+        VBox vb2 = new VBox();
+        root.getChildren().addAll(vb1,vb2);
         Simulation s1 = new Simulation();
-        //Simulation s2 = new Simulation();
-        vb1.getChildren().add(s1.getRoot());
-        //vb2.getChildren().add(s2.getRoot());
+        Simulation s2 = new Simulation();
+        vb1.getChildren().add(s1.getSimPane());
+        vb2.getChildren().add(s2.getSimPane());
 
 
         Scene scene = new Scene(root, 1200, 800);
