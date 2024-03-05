@@ -4,21 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d72f2373-ad69-44f9-bdaa-d6c0611ca66d" name="Changes" comment="">
+    <list default="true" id="f1a0f422-14b8-40a0-95a2-34b3a9e80a57" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Charge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Charge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Component.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Obstacle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Obstacle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Charge.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Charge.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Component.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Component.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/HelloApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/HelloApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Obstacle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Obstacle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -30,36 +37,37 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 1
-}</component>
-  <component name="ProjectId" id="2cMYvZ5gjnWYSC5KwDMxxaMHNC4" />
+  <component name="ProjectId" id="2dGtH5Y1TJ9OzmKPAN8E1d62dBy" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Elyes's-grinding-zone",
-    "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.importing"
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d72f2373-ad69-44f9-bdaa-d6c0611ca66d" name="Changes" comment="" />
-      <created>1707923148082</created>
+      <changelist id="f1a0f422-14b8-40a0-95a2-34b3a9e80a57" name="Changes" comment="" />
+      <created>1709646153322</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1707923148082</updated>
+      <updated>1709646153322</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -4,18 +4,20 @@ import javafx.geometry.Point2D;
 import javafx.scene.effect.Light;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 
 public class Charge extends Circle implements Component{
 
 
+
     private static final int CAR_RADIUS = 15;
-    private static final Color CHARGE_COLOR = Color.IVORY;
+    private static final Color CHARGE_COLOR = Color.RED;
 //    double angle;
 //    double xVelocity;
 //    double yVelocity;
     boolean negativelyCharged;
     int startingIndex;
-
+    double[] velocity;
 
     public Charge(Point2D initialPosition) {
 
@@ -27,6 +29,7 @@ public class Charge extends Circle implements Component{
         this.setCenterY(initialPosition.getY());
 
 
+        this.velocity = new double[]{0, 0, 0};
 
 
 
@@ -68,12 +71,12 @@ public class Charge extends Circle implements Component{
     }
 
     @Override
-    public void collide() {
-
+    public String getType() {
+        return null;
     }
 
     @Override
-    public String getType() {
-        return null;
+    public Shape getBody() {
+        return this;
     }
 }

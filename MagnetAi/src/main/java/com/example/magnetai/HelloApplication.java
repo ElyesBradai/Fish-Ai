@@ -1,6 +1,7 @@
 package com.example.magnetai;
 
 import javafx.application.Application;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -26,12 +27,16 @@ public class HelloApplication extends Application {
 //        root.getChildren().add(player);
         root.setSpacing(Simulation.GRID_SIZE * Simulation.SQUARE_SIZE);
         VBox vb1 = new VBox();
-        VBox vb2 = new VBox();
-        root.getChildren().addAll(vb1,vb2);
+        //VBox vb2 = new VBox();
+        root.getChildren().addAll(vb1);
         Simulation s1 = new Simulation();
-        Simulation s2 = new Simulation();
+        //Simulation s2 = new Simulation();
         vb1.getChildren().add(s1.getSimPane());
-        vb2.getChildren().add(s2.getSimPane());
+        Charge c1 = new Charge(new Point2D(0,0));
+        s1.addToMap(c1,6);
+        //vb2.getChildren().add(s2.getSimPane());
+
+
 
 
         Scene scene = new Scene(root, 1200, 800);
