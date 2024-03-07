@@ -8,14 +8,18 @@ public class Obstacle extends Rectangle implements Component {
 
 
     int index;
+    String type;
 
 
 
     public Obstacle(int index){
 
 
-        super(SQUARE_SIZE,SQUARE_SIZE, Color.BLACK); //creates a square of size 50 by 50
+        super(SQUARE_SIZE,SQUARE_SIZE, Color.BLUE); //creates a square of size 50 by 50
         this.index = index;
+        this.type = "obstacle";
+        this.setStroke(Color.BLACK);
+        this.setStrokeWidth(3);
 
     }
 
@@ -36,7 +40,7 @@ public class Obstacle extends Rectangle implements Component {
 
     @Override
     public String getType() {
-        return null;
+        return this.type;
     }
 
     @Override

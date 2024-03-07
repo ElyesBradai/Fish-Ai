@@ -36,8 +36,12 @@ public class Simulation {
                 this.simPane.getChildren().add(temp);
                 temp.setTranslateX(i*SQUARE_SIZE);
                 temp.setTranslateY(j*SQUARE_SIZE);
+                temp.setOnMouseClicked(mouseEvent -> {
+                    //this.addToMap(new Obstacle(posToIndex({i,j})));});
+                    //help
             }
         }
+     }
     }
 
     void setPlayerPos(int[] pos) {
@@ -50,6 +54,9 @@ public class Simulation {
         return map[pos[0]][pos[1]];
     }
 
+    int posToIndex(int[] pos) {
+        return pos[0]*GRID_SIZE+pos[1];
+    }
 
     int[] indexToPos(int index) {
         return new int[]{index/map[0].length, index %map[0].length};
@@ -74,8 +81,10 @@ public class Simulation {
         int[] pos = indexToPos(index);
         this.map[pos[0]][pos[1]] = component;
         this.simPane.getChildren().add(component.getBody());
-        component.getBody().setTranslateX(pos[0]*SQUARE_SIZE+SQUARE_SIZE/2);
-        component.getBody().setTranslateY(pos[1]*SQUARE_SIZE+SQUARE_SIZE/2);
+
+        boolean isObstacle=component.getType().equals("obstacle") || component.getType().equals("superconductor");
+        component.getBody().setTranslateX(isObstacle ? pos[0]*SQUARE_SIZE : pos[0]*SQUARE_SIZE+SQUARE_SIZE/2);
+        component.getBody().setTranslateY(isObstacle ? pos[1]*SQUARE_SIZE : pos[1]*SQUARE_SIZE+SQUARE_SIZE/2);
     }
 
     public Pane getSimPane() {

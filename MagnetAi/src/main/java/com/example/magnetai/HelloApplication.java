@@ -32,6 +32,12 @@ public class HelloApplication extends Application {
         Simulation s1 = new Simulation();
         //Simulation s2 = new Simulation();
         vb1.getChildren().add(s1.getSimPane());
+        Obstacle o1 = new Obstacle(10);
+        s1.addToMap(o1,o1.index);
+        Obstacle o2 = new Obstacle(11);
+        s1.addToMap(o2,o2.index);
+        Obstacle o3 = new Obstacle(17);
+        s1.addToMap(o3,o3.index);
         Charge c1 = new Charge(new Point2D(0,0));
         s1.addToMap(c1,6);
         //vb2.getChildren().add(s2.getSimPane());
