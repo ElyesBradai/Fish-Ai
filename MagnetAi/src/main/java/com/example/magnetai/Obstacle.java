@@ -30,7 +30,7 @@ public class Obstacle extends Rectangle implements Component {
 
     @Override
     public int getIndex() {
-        return 0;
+        return this.index;
     }
 
     @Override
