@@ -9,14 +9,13 @@ import java.util.ArrayList;
 public class SimulationDisplay extends Simulation{
 
     private String selectedComponentType;
-    private NeuralNetwork neuralNetwork;
     boolean isDisplay;
 //    private boolean hasFinishLine;
 
     public SimulationDisplay() {
 
         super();
-//        this.hasFinishLine = false;
+//        this.hasFinishLine = false;   //will make finishline a singleton within the grid (and charge too)
         this.selectedComponentType = "Obstacle";
         bckg();
         this.addClickable();
@@ -32,16 +31,14 @@ public class SimulationDisplay extends Simulation{
             square.setOnMouseClicked(event -> {
 
                 int index = posToIndex(absolutePosToGridPos(square.getTranslateX(),square.getTranslateY()));
-//
-//                System.out.println("abs pos(x,y): "+ square.getTranslateX() + ", " +square.getTranslateY());
-//
-//                System.out.println("grid pos: ["+ absolutePosToGridPos(square.getTranslateX(),square.getTranslateY())[0] + "," +absolutePosToGridPos(square.getTranslateX(),square.getTranslateY())[1]+"]");
-//
-//                System.out.println("index is: "+index);
 
                 switch (this.selectedComponentType) {
 
-                    case "obstacle": {Obstacle o1 = new Obstacle(index);this.addToMap(o1,o1.getIndex());break;}
+                    case "obstacle": {
+                        Obstacle o1 = new Obstacle(index);
+                        this.addToMap(o1,o1.getIndex());
+                        break;
+                    }
                     case "finishLine": {
                         //TODO ALLOW ONLY ONE
 //                        if (this.hasFinishLine) {}
@@ -49,7 +46,11 @@ public class SimulationDisplay extends Simulation{
                         this.addToMap(f1, f1.getIndex());
                         break;
                     }
-                    case "superConductor": {Superconductor s1 = new Superconductor(index); this.addToMap(s1, s1.getIndex());break;}
+                    case "superConductor": {
+                        Superconductor s1 = new Superconductor(index);
+                        this.addToMap(s1, s1.getIndex());
+                        break;
+                    }
                     //case "Charge": {break;}
                     default: System.out.println("please select a valid type");
                 }

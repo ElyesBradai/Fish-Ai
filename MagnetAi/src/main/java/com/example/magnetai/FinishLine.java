@@ -20,15 +20,6 @@ public class FinishLine extends Rectangle implements Component {
         this.setOnMouseEntered(event -> {this.setOpacity(0.5);});
 
     }
-
-
-
-
-
-
-
-
-
     @Override
     public int getIndex() {
         return this.index;

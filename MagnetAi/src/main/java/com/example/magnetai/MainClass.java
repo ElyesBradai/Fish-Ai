@@ -69,44 +69,13 @@ public class MainClass extends Application {
         Rectangle superConductor = new Rectangle(100,100, Color.CYAN);
         superConductor.setOnMouseClicked(event -> {s1.setSelectedComponentType("superConductor");selectedShape.set(superConductor);});
 
-        VBox selectorBox = new VBox(obSelector,finishSelector,selected);
+        VBox selectorBox = new VBox(obSelector,finishSelector,superConductor,selected);
         root.getChildren().add(selectorBox);
         //vb2.getChildren().add(s2.getSimPane());
 
 
 
         Scene scene = new Scene(root, 1200, 800);
-
-
-
-//        scene.setOnKeyPressed(event -> {
-//
-//
-//            switch (event.getCode()) {
-//
-//                case W: {
-//                    player.setUserData((int)(player.getUserData())-5);
-//                    setPlayerPos(indexToPos((int)(player.getUserData())));
-//                    break;
-//                }
-//                case A: {
-//                    player.setUserData((int)(player.getUserData())-1);
-//                    setPlayerPos(indexToPos((int)(player.getUserData())));
-//                    break;}
-//                case S: {
-//                    player.setUserData((int)(player.getUserData())+5);
-//                    setPlayerPos(indexToPos((int)(player.getUserData())));
-//                    break;}
-//                case D: {
-//                    player.setUserData((int)(player.getUserData())+1);
-//                    setPlayerPos(indexToPos((int)(player.getUserData())));
-//                    break;
-//                }
-//
-//            }
-//
-//
-//        });
 
         stage.setTitle("Hello!");
         stage.setScene(scene);

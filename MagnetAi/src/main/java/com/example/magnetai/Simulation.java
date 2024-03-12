@@ -21,11 +21,10 @@ public class Simulation {
     public Simulation(){
 
         this.neuralNetwork = new NeuralNetwork();
-        this.map = new Component[5][6];
+        this.map = new Component[GRID_SIZE_X][GRID_SIZE_Y];
         this.simPane = new Pane();
         this.squareList = new ArrayList<Rectangle>();
     }
-
 
     void bckg() {
         boolean isColored = true;
@@ -66,13 +65,16 @@ public class Simulation {
     Component checkRightValue(int index) {
         return posToValue(indexToPos(++index));
     }
+
     Component checkLeftValue(int index) {
         return posToValue(indexToPos(--index));
     }
+
     Component checkUpValue(int index) {
         index-=GRID_SIZE_Y;
         return posToValue(indexToPos(index));
     }
+
     Component checkDownValue(int index) {
         index+=GRID_SIZE_Y;
         return posToValue(indexToPos(index));
@@ -89,8 +91,6 @@ public class Simulation {
         component.getBody().setTranslateX(isObstacle ? pos[0]*SQUARE_SIZE : pos[0]*SQUARE_SIZE+SQUARE_SIZE/2);
         component.getBody().setTranslateY(isObstacle ? pos[1]*SQUARE_SIZE : pos[1]*SQUARE_SIZE+SQUARE_SIZE/2);
     }
-
-
 
     public int[] absolutePosToGridPos(double translateX, double translateY) {
         return new int[]{(int)(translateX/SQUARE_SIZE), (int)(translateY/SQUARE_SIZE)};
