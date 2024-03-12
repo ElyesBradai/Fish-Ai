@@ -23,33 +23,12 @@ public class Charge extends Circle implements Component{
     public Charge(Point2D initialPosition) {
 
         super(CAR_RADIUS);
-
         this.setFill(CHARGE_COLOR);
-
         this.setCenterX(initialPosition.getX());
         this.setCenterY(initialPosition.getY());
         this.type = "charge";
-
-
         this.velocity = new double[]{0, 0, 0};
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     public void move() {
 

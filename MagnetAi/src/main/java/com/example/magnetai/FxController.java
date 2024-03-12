@@ -3,7 +3,7 @@ package com.example.magnetai;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class FxController {
     @FXML
     private Label welcomeText;
 

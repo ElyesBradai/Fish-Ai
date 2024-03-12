@@ -11,7 +11,7 @@ public class Superconductor extends Rectangle implements Component {
 
     public Superconductor(int index){
 
-        super(SQUARE_SIZE,SQUARE_SIZE, Color.BLUE); //creates a square of size 50 by 50
+        super(SQUARE_SIZE,SQUARE_SIZE, Color.CYAN); //creates a square of size 50 by 50
         this.index = index;
         this.type = "obstacle";
         this.setStroke(Color.BLACK);
