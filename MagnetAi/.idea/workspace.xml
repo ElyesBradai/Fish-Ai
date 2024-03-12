@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37a5a29e-4296-4ca3-9501-62de87d43e89" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/SimulationDisplay.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Superconductor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/FinishLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/FinishLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Obstacle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Obstacle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/FinishLine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/FinishLine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/HelloApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/HelloApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Obstacle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Obstacle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
