@@ -1,9 +1,17 @@
 package com.example.magnetai;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,7 +37,7 @@ public class HelloApplication extends Application {
         VBox vb1 = new VBox();
         //VBox vb2 = new VBox();
         root.getChildren().addAll(vb1);
-        Simulation s1 = new Simulation();
+        SimulationDisplay s1 = new SimulationDisplay();
         //Simulation s2 = new Simulation();
         vb1.getChildren().add(s1.getSimPane());
         Obstacle o1 = new Obstacle(10);
@@ -42,9 +50,27 @@ public class HelloApplication extends Application {
         s1.addToMap(c1,6);
         FinishLine f1 = new FinishLine(20);
         s1.addToMap(f1,f1.getIndex());
-        s1.addClickable();
-        //vb2.getChildren().add(s2.getSimPane());
 
+
+
+        // Create an object property to hold the selected rectangle
+        ObjectProperty<Shape> selectedShape = new SimpleObjectProperty<>();
+        Circle selected = new Circle(50);
+        selected.setStrokeWidth(3);
+        // Bind the fill property of the circle to the fill property of the selected rectangle
+        selected.fillProperty().bind(Bindings.createObjectBinding(() ->
+                        selectedShape.get() != null ? selectedShape.get().getFill() : Color.BLACK, selectedShape));
+
+        Rectangle obSelector = new Rectangle(100,100, Color.BLUE);
+        obSelector.setOnMouseClicked(event -> {s1.setSelectedComponentType("obstacle");selectedShape.set(obSelector);});
+        Rectangle finishSelector = new Rectangle(100,100, Color.YELLOW);
+        finishSelector.setOnMouseClicked(event -> {s1.setSelectedComponentType("finishLine");selectedShape.set(finishSelector);});
+        Rectangle superConductor = new Rectangle(100,100, Color.CYAN);
+        superConductor.setOnMouseClicked(event -> {s1.setSelectedComponentType("superConductor");selectedShape.set(superConductor);});
+
+        VBox selectorBox = new VBox(obSelector,finishSelector,selected);
+        root.getChildren().add(selectorBox);
+        //vb2.getChildren().add(s2.getSimPane());
 
 
 
