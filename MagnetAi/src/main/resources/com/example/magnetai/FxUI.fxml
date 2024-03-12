@@ -19,10 +19,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1333.0" prefWidth="1688.0" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="com.example.magnetai.HelloController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1333.0" prefWidth="1688.0" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="com.example.magnetai.FxController">
     <top>
-        <MenuBar BorderPane.alignment="CENTER">
+        <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
@@ -94,7 +93,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Input Hidden&#10; Layers" GridPane.rowIndex="6">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Input Layers" GridPane.rowIndex="6">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -109,36 +108,36 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Save" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+                        <Button fx:id="saveButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Save" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Start" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
+                        <Button fx:id="startButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Start" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Reset" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+                        <Button fx:id="resetButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Reset" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Pause" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
+                        <Button fx:id="pauseButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Pause" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="inwardTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="outwardTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="mutationRateTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="inputLayersTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="simulationsTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="generationCounterTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <VBox prefHeight="200.0" prefWidth="147.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                             <children>
-                                <TextField />
-                                <Slider />
+                                <TextField fx:id="VelocityTextField" />
+                                <Slider fx:id="velocitySlider" />
                             </children>
                             <padding>
                                 <Insets bottom="20.0" top="40.0" />
@@ -146,14 +145,14 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                             <children>
-                                <TextField />
-                                <Slider />
+                                <TextField fx:id="strengthTextField" />
+                                <Slider fx:id="strengthTextField" />
                             </children>
                             <padding>
                                 <Insets bottom="20.0" top="40.0" />
                             </padding>
                         </VBox>
-                        <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" />
+                        <ChoiceBox fx:id="chargeChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" />
                     </children>
                 </GridPane>
             </children>
@@ -164,7 +163,7 @@
             <children>
                 <VBox prefHeight="231.0" prefWidth="300.0">
                     <children>
-                        <Circle fill="#ff1f1f" radius="70.0" stroke="BLACK" strokeType="INSIDE">
+                        <Circle fx:id="chargeCircle" fill="#ff1f1f" radius="70.0" stroke="BLACK" strokeType="INSIDE">
                             <VBox.margin>
                                 <Insets left="70.0" />
                             </VBox.margin>
@@ -181,7 +180,7 @@
                 </VBox>
                 <VBox prefHeight="231.0" prefWidth="300.0">
                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="143.0" stroke="BLACK" strokeType="INSIDE" width="200.0">
+                        <Rectangle fx:id="obstacleRectangle" arcHeight="5.0" arcWidth="5.0" height="143.0" stroke="BLACK" strokeType="INSIDE" width="200.0">
                             <VBox.margin>
                                 <Insets left="50.0" />
                             </VBox.margin>
@@ -198,7 +197,7 @@
                 </VBox>
                 <VBox prefHeight="200.0" prefWidth="300.0">
                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="143.0" stroke="BLACK" strokeType="INSIDE" width="200.0">
+                        <Rectangle fx:id="superConductorRectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="143.0" stroke="BLACK" strokeType="INSIDE" width="200.0">
                             <VBox.margin>
                                 <Insets left="50.0" />
                             </VBox.margin>
@@ -215,7 +214,7 @@
                 </VBox>
                 <VBox prefHeight="200.0" prefWidth="300.0">
                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ecff16" height="143.0" stroke="BLACK" strokeType="INSIDE" width="200.0">
+                        <Rectangle fx:id="finishLineRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ecff16" height="143.0" stroke="BLACK" strokeType="INSIDE" width="200.0">
                             <VBox.margin>
                                 <Insets left="50.0" />
                             </VBox.margin>
