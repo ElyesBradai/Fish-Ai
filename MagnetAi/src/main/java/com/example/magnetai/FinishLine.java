@@ -39,4 +39,10 @@ public class FinishLine extends Rectangle implements Component {
     public Shape getBody() {
         return this;
     }
+
+    @Override
+    public Component clone() {
+        return new FinishLine(this.getIndex());
+    }
+
 }

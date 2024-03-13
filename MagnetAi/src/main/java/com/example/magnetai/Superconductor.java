@@ -40,4 +40,8 @@ public class Superconductor extends Rectangle implements Component {
     public Shape getBody() {
         return this;
     }
+    @Override
+    public Component clone() {
+        return new Superconductor(this.getIndex());
+    }
 }

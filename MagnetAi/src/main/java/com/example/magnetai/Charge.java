@@ -20,17 +20,19 @@ public class Charge extends Circle implements Component{
     String type;
     double[] velocity;
 
-    public Charge(Point2D initialPosition) {
+    public Charge(int startingIndex) {
 
         super(CAR_RADIUS);
         this.setFill(CHARGE_COLOR);
-        this.setCenterX(initialPosition.getX());
-        this.setCenterY(initialPosition.getY());
         this.type = "charge";
         this.velocity = new double[]{0, 0, 0};
     }
 
     public void move() {
+
+        this.setTranslateX(this.getTranslateX()+velocity[0]);
+        this.setTranslateX(this.getTranslateY()+velocity[1]);
+
 
 
     }
@@ -60,4 +62,10 @@ public class Charge extends Circle implements Component{
     public Shape getBody() {
         return this;
     }
+
+    @Override
+    public Component clone() {
+        return new Charge(this.startingIndex);
+    }
+
 }

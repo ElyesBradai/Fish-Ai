@@ -1,5 +1,6 @@
 package com.example.magnetai;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -9,14 +10,16 @@ import java.util.ArrayList;
 
 public class Simulation {
 
-    public static final int GRID_SIZE_X = 5;
-    public static final int GRID_SIZE_Y = 6;
+    public static final int GRID_SIZE_X = 6;
+    public static final int GRID_SIZE_Y = 8;
     public static final int SQUARE_SIZE = 100;
     Component[][] map;
     Pane simPane;//not sure if i should use pane or other :/
     Rectangle player = new Rectangle(50,50);
     ArrayList<Rectangle> squareList;
     private NeuralNetwork neuralNetwork;
+    private static myTimer timer;
+    private static ArrayList<Simulation> simulationList = new ArrayList<Simulation>();
 
     public Simulation(){
 
@@ -24,6 +27,8 @@ public class Simulation {
         this.map = new Component[GRID_SIZE_X][GRID_SIZE_Y];
         this.simPane = new Pane();
         this.squareList = new ArrayList<Rectangle>();
+        simulationList.add(this);
+        bckg();
     }
 
     void bckg() {
@@ -38,6 +43,7 @@ public class Simulation {
                 isColored = !isColored;
                 Rectangle temp = new Rectangle(SQUARE_SIZE, SQUARE_SIZE, isColored ? Color.BROWN : Color.BEIGE);
                 this.simPane.getChildren().add(temp);
+                this.squareList.add(temp);
                 temp.setTranslateX(i*SQUARE_SIZE);
                 temp.setTranslateY(j*SQUARE_SIZE);
         }
@@ -102,6 +108,45 @@ public class Simulation {
 
     public void setSimPane(Pane simPane) {
         this.simPane = simPane;
+    }
+
+    public static ArrayList<Simulation> getSimulationList() {
+        return simulationList;
+    }
+
+    public void moveAllCharges() {
+
+        for (Simulation sim:simulationList) {
+
+            for (Component[] row: this.map) {
+
+                for (Component charge:row) {
+
+                    if(charge.getType().equals("charge")) {
+
+                        ((Charge) charge).move();
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    private class myTimer extends AnimationTimer {
+
+
+        @Override
+        public void handle(long now) {
+
+        moveAllCharges();
+
+
+        }
+    }
+
+    public static myTimer getTimer() {
+        return timer;
     }
 
 }

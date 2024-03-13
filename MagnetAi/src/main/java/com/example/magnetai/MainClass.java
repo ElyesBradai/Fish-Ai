@@ -6,6 +6,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -17,9 +18,6 @@ import java.io.IOException;
 
 public class MainClass extends Application {
 
-
-
-
     HBox root = new HBox();
 
     public static void main(String[] args) {
@@ -29,30 +27,33 @@ public class MainClass extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-//        int playerPos = 5;
-//        player.setUserData(playerPos);
-//        setPlayerPos(indexToPos(playerPos));
-
-//        root.getChildren().add(player);
         root.setSpacing(Simulation.GRID_SIZE_X * Simulation.SQUARE_SIZE);
+
         VBox vb1 = new VBox();
-        //VBox vb2 = new VBox();
         root.getChildren().addAll(vb1);
+
         SimulationDisplay s1 = new SimulationDisplay();
-        //Simulation s2 = new Simulation();
         vb1.getChildren().add(s1.getSimPane());
-        Obstacle o1 = new Obstacle(10);
-        //s1.addToMap(o1,o1.index);
-        Obstacle o2 = new Obstacle(11);
-        //s1.addToMap(o2,o2.index);
-        Obstacle o3 = new Obstacle(17);
-        //s1.addToMap(o3,o3.index);
-        Charge c1 = new Charge(new Point2D(0,0));
+        Charge c1 = new Charge(1);
         s1.addToMap(c1,6);
-        FinishLine f1 = new FinishLine(20);
-        s1.addToMap(f1,f1.getIndex());
 
-
+        Simulation s2 = new Simulation();
+        Simulation s3 = new Simulation();
+        Simulation s4 = new Simulation();
+        Simulation s5 = new Simulation();
+        Simulation s6 = new Simulation();
+        Simulation s7 = new Simulation();
+        Simulation s8 = new Simulation();
+        Simulation s9 = new Simulation();
+        Simulation s10 = new Simulation();
+        Simulation s11 = new Simulation();
+        Simulation s12 = new Simulation();
+        Simulation s13 = new Simulation();
+        Simulation s14 = new Simulation();
+        Simulation s15 = new Simulation();
+        Simulation s16 = new Simulation();
+        Simulation s17 = new Simulation();
+        Simulation s18 = new Simulation();
 
         // Create an object property to hold the selected rectangle
         ObjectProperty<Shape> selectedShape = new SimpleObjectProperty<>();
@@ -69,11 +70,17 @@ public class MainClass extends Application {
         Rectangle superConductor = new Rectangle(100,100, Color.CYAN);
         superConductor.setOnMouseClicked(event -> {s1.setSelectedComponentType("superConductor");selectedShape.set(superConductor);});
 
-        VBox selectorBox = new VBox(obSelector,finishSelector,superConductor,selected);
+        Button b1 = new Button("Save");
+        b1.setOnAction(event -> {
+
+            s1.saveDesign();
+            s1.showAllSimulations();
+
+        });
+
+        VBox selectorBox = new VBox(obSelector,finishSelector,superConductor,selected,b1);
         root.getChildren().add(selectorBox);
         //vb2.getChildren().add(s2.getSimPane());
-
-
 
         Scene scene = new Scene(root, 1200, 800);
 

@@ -21,6 +21,7 @@ public class Obstacle extends Rectangle implements Component {
         this.setStrokeWidth(3);
         this.setMouseTransparent(true);
         this.setOnMouseEntered(event -> {this.setOpacity(0.5);});
+
     }
     @Override
     public int getIndex() {
@@ -37,5 +38,9 @@ public class Obstacle extends Rectangle implements Component {
     @Override
     public Shape getBody() {
         return this;
+    }
+    @Override
+    public Component clone() {
+        return new Obstacle(this.getIndex());
     }
 }
