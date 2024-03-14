@@ -54,6 +54,17 @@ public class MainClass extends Application {
         Simulation s16 = new Simulation();
         Simulation s17 = new Simulation();
         Simulation s18 = new Simulation();
+        Simulation s19 = new Simulation();
+        Simulation s20 = new Simulation();
+        Simulation s21 = new Simulation();
+        Simulation s22 = new Simulation();
+        Simulation s23 = new Simulation();
+        Simulation s24 = new Simulation();
+        Simulation s25 = new Simulation();
+        Simulation s26 = new Simulation();
+        Simulation s27 = new Simulation();
+
+
 
         // Create an object property to hold the selected rectangle
         ObjectProperty<Shape> selectedShape = new SimpleObjectProperty<>();

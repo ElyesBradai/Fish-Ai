@@ -25,16 +25,13 @@ public class Charge extends Circle implements Component{
         super(CAR_RADIUS);
         this.setFill(CHARGE_COLOR);
         this.type = "charge";
-        this.velocity = new double[]{0, 0, 0};
+        this.velocity = new double[]{0.1, 0.1, 0};
     }
 
     public void move() {
 
-        this.setTranslateX(this.getTranslateX()+velocity[0]);
-        this.setTranslateX(this.getTranslateY()+velocity[1]);
-
-
-
+//        this.setTranslateX(this.getTranslateX()+velocity[0]);
+//        this.setTranslateY(this.getTranslateY()+velocity[1]);
     }
 
     public void checkObstacleCollision() {

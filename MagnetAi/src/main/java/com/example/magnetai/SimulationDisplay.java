@@ -21,13 +21,11 @@ public class SimulationDisplay extends Simulation{
 //    private boolean hasFinishLine;
 
     public SimulationDisplay() {
-
         super();
 //        this.hasFinishLine = false;   //will make finishline a singleton within the grid (and charge too)
         this.selectedComponentType = "";
         bckg();
         this.addClickable();
-
     }
 
 
@@ -84,7 +82,7 @@ public class SimulationDisplay extends Simulation{
     }
 
     public void showAllSimulations() {
-
+        //This method opens a window with all the simulations with copied map
         Simulation.getSimulationList().remove(this);
 
         FlowPane root = new FlowPane();
@@ -96,7 +94,7 @@ public class SimulationDisplay extends Simulation{
             root.getChildren().add(sim.getSimPane());
 
         }
-
+        //scaling down to fit all simulations
         int numSimulations = Simulation.getSimulationList().size();
         int numRows = (int) Math.ceil(Math.sqrt(numSimulations));
         int numCols = (int) Math.ceil((double) numSimulations / numRows);
@@ -104,14 +102,16 @@ public class SimulationDisplay extends Simulation{
         double scaleX = (double) 1 / numCols;
         double scaleY = (double) 1 / numRows;
 
-//        root.setScaleX(scaleY);
-//        root.setScaleY(scaleX);
-
         root.setHgap((GRID_SIZE_X*SQUARE_SIZE + SQUARE_SIZE)*scaleX);
         root.setVgap((GRID_SIZE_Y*SQUARE_SIZE + SQUARE_SIZE)*scaleY);
 
-        int WIDTH = 1600;
+
+        int WIDTH = 1200;
         int HEIGHT = 1000;
+
+        WIDTH += SQUARE_SIZE*scaleX*GRID_SIZE_X;
+        HEIGHT -= SQUARE_SIZE * scaleY * GRID_SIZE_Y;
+
 
         for (Simulation sim : Simulation.getSimulationList()) {
 
@@ -121,46 +121,38 @@ public class SimulationDisplay extends Simulation{
                 square.setHeight(square.getHeight()*scaleY);
                 square.setTranslateX(square.getTranslateX()*scaleX);
                 square.setTranslateY(square.getTranslateY()*scaleY);
-
             }
 
 
             for (Component[] row:sim.map) {
 
                 for (Component component:row) {
-                        if (component != null) {
-                            switch (component.getType()) {
+                    if (component != null) {
+                        switch (component.getType()) {
 
-                                case "obstacle":
-                                case "superConductor":
-                                case "finishLine": {
+                            case "obstacle":
+                            case "superConductor":
+                            case "finishLine": {
 
+                                ((Rectangle) component.getBody()).setWidth(((Rectangle) component.getBody()).getWidth() * scaleX);
+                                ((Rectangle) component.getBody()).setHeight(((Rectangle) component.getBody()).getHeight() * scaleY);
+                                ((Rectangle) component.getBody()).setTranslateX(((Rectangle) component.getBody()).getTranslateX() * scaleX);
+                                ((Rectangle) component.getBody()).setTranslateY(((Rectangle) component.getBody()).getTranslateY() * scaleY);
+                                break;
+                            }
+                            case "charge": {
 
-                                    ((Rectangle) component.getBody()).setWidth(((Rectangle) component.getBody()).getWidth() * scaleX);
-                                    ((Rectangle) component.getBody()).setHeight(((Rectangle) component.getBody()).getHeight() * scaleY);
-                                    ((Rectangle) component.getBody()).setTranslateX(((Rectangle) component.getBody()).getTranslateX() * scaleX);
-                                    ((Rectangle) component.getBody()).setTranslateY(((Rectangle) component.getBody()).getTranslateY() * scaleY);
-                                    break;
-                                }
-                                case "charge": {
-
-                                    ((Circle) component.getBody()).setRadius(((Circle) component.getBody()).getRadius() * scaleX);
-                                    ((Circle) component.getBody()).setTranslateX(((Circle) component.getBody()).getTranslateX() * scaleX);
-                                    ((Circle) component.getBody()).setTranslateY(((Circle) component.getBody()).getTranslateY() * scaleY);
-
-                                }
-
+                                ((Circle) component.getBody()).setRadius(((Circle) component.getBody()).getRadius() * scaleX);
+                                ((Circle) component.getBody()).setTranslateX(((Circle) component.getBody()).getTranslateX() * scaleX);
+                                ((Circle) component.getBody()).setTranslateY(((Circle) component.getBody()).getTranslateY() * scaleY);
+                                break;
                             }
                         }
+                    }
                 }
-
             }
-
-
-
         }
-
-
+        this.getTimerInstance().start();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         Stage stage = new Stage();
         stage.setScene(scene);

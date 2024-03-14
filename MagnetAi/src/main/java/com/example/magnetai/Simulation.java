@@ -18,7 +18,7 @@ public class Simulation {
     Rectangle player = new Rectangle(50,50);
     ArrayList<Rectangle> squareList;
     private NeuralNetwork neuralNetwork;
-    private static myTimer timer;
+    private myTimer timer = new myTimer();
     private static ArrayList<Simulation> simulationList = new ArrayList<Simulation>();
 
     public Simulation(){
@@ -46,8 +46,8 @@ public class Simulation {
                 this.squareList.add(temp);
                 temp.setTranslateX(i*SQUARE_SIZE);
                 temp.setTranslateY(j*SQUARE_SIZE);
+            }
         }
-     }
     }
 
     void setPlayerPos(int[] pos) {
@@ -118,11 +118,11 @@ public class Simulation {
 
         for (Simulation sim:simulationList) {
 
-            for (Component[] row: this.map) {
+            for (Component[] row: sim.map) {
 
                 for (Component charge:row) {
 
-                    if(charge.getType().equals("charge")) {
+                    if(charge != null && charge.getType().equals("charge")) {
 
                         ((Charge) charge).move();
                     }
@@ -133,7 +133,7 @@ public class Simulation {
 
 
 
-    private class myTimer extends AnimationTimer {
+    public class myTimer extends AnimationTimer {
 
 
         @Override
@@ -145,8 +145,10 @@ public class Simulation {
         }
     }
 
-    public static myTimer getTimer() {
-        return timer;
+    public myTimer getTimerInstance() {
+        if (timer == null) return new myTimer();
+
+        else return timer;
     }
 
 }
