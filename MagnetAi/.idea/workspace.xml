@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b274570a-48d6-44a0-a81e-48e204055ef6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Charge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Charge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/FinishLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/FinishLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MagneticField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MagneticField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Obstacle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Obstacle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MainClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Superconductor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Superconductor.java" afterDir="false" />
     </list>

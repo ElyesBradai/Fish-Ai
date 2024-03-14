@@ -9,7 +9,7 @@ import javafx.scene.shape.Shape;
 public class Charge extends Circle implements Component{
 
 
-
+    final static double CHARGE_RADIUS =  15;
     final static String type = "charge";
     private static final Color CHARGE_COLOR = Color.RED;
 //    double angle;
@@ -19,12 +19,12 @@ public class Charge extends Circle implements Component{
     int startingIndex;
     double[] velocity;
 
-    public Charge(Point2D initialPosition,ChargeType type) {
+    public Charge(int startingIndex,ChargeType type) {
 
+        super(CHARGE_RADIUS,Color.RED);
+        this.startingIndex = startingIndex;
         this.chargeType=type;
         this.setFill(CHARGE_COLOR);
-        this.setCenterX(initialPosition.getX());
-        this.setCenterY(initialPosition.getY());
         this.velocity = new double[]{0, 0, 0};
     }
 
@@ -44,7 +44,7 @@ public class Charge extends Circle implements Component{
                     this.setTranslateY(this.getTranslateY()+this.velocity[1]);
 
                 }
-                else if (this.chargeType.equals( ChargeType.POSITIVE)) {
+                else if (this.chargeType.equals(ChargeType.POSITIVE)) {
                     double[] newVelocity = MathFunctions.calcFinalVelocity(MathFunctions.PROTON_CONSTANT,MathFunctions.PROTON_MASS,((MagneticField) component).getStrength(),this.velocity);
                     this.velocity=newVelocity;
                     this.setTranslateX(this.getTranslateX()+this.velocity[0]);
@@ -52,24 +52,15 @@ public class Charge extends Circle implements Component{
                     
                 }
                 break;
-
             }
-
-
-
-
-
         }
     }
 
     public String checkCollision(Component component) {
      if(component!=null && this.intersects(component.getBody().getBoundsInParent())){
-
          return component.getType();
-     }
-
+        }
      return "nothing";
-
     }
 
 
@@ -96,6 +87,6 @@ public class Charge extends Circle implements Component{
 
     @Override
     public Component clone() {
-        return null;
+        return new Charge(this.startingIndex,this.chargeType);
     }
 }

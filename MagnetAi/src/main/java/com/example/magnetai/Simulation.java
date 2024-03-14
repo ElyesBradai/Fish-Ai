@@ -113,22 +113,22 @@ public class Simulation {
         this.simPane = simPane;
     }
 
-//    public void moveAllCharges() {
-//
-//        for (Simulation sim:simulationList) {
-//
-//            for (Component[] row: sim.map) {
-//
-//                for (Component charge:row) {
-//
-//                    if(charge != null && charge.getType().equals("charge")) {
-//
+    public void moveAllCharges() {
+
+        for (Simulation sim:simulationList) {
+
+            for (Component[] row: sim.map) {
+
+                for (Component charge:row) {
+
+                    if(charge != null && charge.getType().equals("charge")) {
+                        //TODO have a check collision method that returns what the charge collides with (component)
 //                        ((Charge) charge).move();
-//                    }
-//                }
-//            }
-//        }
-//    }
+                    }
+                }
+            }
+        }
+    }
 
     public myTimer getTimerInstance() {
         if (timer == null) return new myTimer();
@@ -137,14 +137,9 @@ public class Simulation {
     }
 
     public class myTimer extends AnimationTimer {
-
-
         @Override
         public void handle(long now) {
-
        // moveAllCharges();
-
-
         }
     }
 
