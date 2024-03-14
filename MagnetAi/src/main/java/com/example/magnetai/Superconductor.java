@@ -17,7 +17,6 @@ public class Superconductor extends Rectangle implements Component {
         this.setStroke(Color.BLACK);
         this.setStrokeWidth(3);
         this.setMouseTransparent(true);
-        this.setOnMouseEntered(event -> {this.setOpacity(0.5);});
     }
 
 
@@ -39,5 +38,9 @@ public class Superconductor extends Rectangle implements Component {
     @Override
     public Shape getBody() {
         return this;
+    }
+    @Override
+    public Component clone() {
+        return new Superconductor(this.getIndex());
     }
 }

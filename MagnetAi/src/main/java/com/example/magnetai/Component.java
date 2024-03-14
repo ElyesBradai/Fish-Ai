@@ -12,6 +12,7 @@ public interface Component {
     int[] getPosition();
     String getType(); // can also be char
     Shape getBody();
+    Component clone();
     
 
 
