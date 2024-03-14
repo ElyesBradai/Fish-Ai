@@ -5,21 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8cba36e6-8023-4cfb-9541-fa93ece83a86" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/MagnetAi/src/main/java/com/example/magnetai/ChargeType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MagnetAi/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MagnetAi/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/MagnetAi/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MagnetAi/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/MagnetAi/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MagnetAi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/MagnetAi/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MagnetAi/src/main/java/com/example/magnetai/Charge.java" beforeDir="false" afterPath="$PROJECT_DIR$/MagnetAi/src/main/java/com/example/magnetai/Charge.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MagnetAi/src/main/java/com/example/magnetai/FinishLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/MagnetAi/src/main/java/com/example/magnetai/FinishLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MagnetAi/src/main/java/com/example/magnetai/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/MagnetAi/src/main/java/com/example/magnetai/MainClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MagnetAi/src/main/java/com/example/magnetai/MagneticField.java" beforeDir="false" afterPath="$PROJECT_DIR$/MagnetAi/src/main/java/com/example/magnetai/MagneticField.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MagnetAi/src/main/java/com/example/magnetai/Obstacle.java" beforeDir="false" afterPath="$PROJECT_DIR$/MagnetAi/src/main/java/com/example/magnetai/Obstacle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MagnetAi/src/main/java/com/example/magnetai/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/MagnetAi/src/main/java/com/example/magnetai/Simulation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MagnetAi/src/main/java/com/example/magnetai/Superconductor.java" beforeDir="false" afterPath="$PROJECT_DIR$/MagnetAi/src/main/java/com/example/magnetai/Superconductor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MagnetAi/target/classes/com/example/magnetai/HelloApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MagnetAi/target/classes/com/example/magnetai/HelloController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MagnetAi/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/MagnetAi/target/classes/module-info.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,21 +33,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Ziad's-cooking-spot",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/ziadagha/Documents/GitHub/Fish-Ai",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.43448275",
-    "rearrange.code.on.save": "true",
-    "settings.editor.selected.configurable": "preferences.sourceCode.Java"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Ziad's-cooking-spot&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/ziadagha/Documents/GitHub/Fish-Ai&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.43448275&quot;,
+    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.Java&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

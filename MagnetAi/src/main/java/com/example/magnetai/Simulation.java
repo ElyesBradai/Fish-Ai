@@ -13,13 +13,13 @@ public class Simulation {
     public static final int GRID_SIZE_X = 6;
     public static final int GRID_SIZE_Y = 8;
     public static final int SQUARE_SIZE = 100;
+    private static ArrayList<Simulation> simulationList = new ArrayList<Simulation>();
     Component[][] map;
     Pane simPane;//not sure if i should use pane or other :/
     Rectangle player = new Rectangle(50,50);
     ArrayList<Rectangle> squareList;
     private NeuralNetwork neuralNetwork;
     private myTimer timer = new myTimer();
-    private static ArrayList<Simulation> simulationList = new ArrayList<Simulation>();
 
     public Simulation(){
 
@@ -50,26 +50,29 @@ public class Simulation {
         }
     }
 
+    public static ArrayList<Simulation> getSimulationList() {
+        return simulationList;
+    }
+
     void setPlayerPos(int[] pos) {
         player.setTranslateY(pos[0]*SQUARE_SIZE);
         player.setTranslateX(pos[1]*SQUARE_SIZE);
-    }
-
-
-    Component posToValue(int[] pos) {
-        return map[pos[0]][pos[1]];
     }
 
     int posToIndex(int[] pos) {
         return pos[0]*GRID_SIZE_Y+pos[1];
     }
 
-    int[] indexToPos(int index) {
-        return new int[]{index/map[0].length, index %map[0].length};
-    }
-
     Component checkRightValue(int index) {
         return posToValue(indexToPos(++index));
+    }
+
+    Component posToValue(int[] pos) {
+        return map[pos[0]][pos[1]];
+    }
+
+    int[] indexToPos(int index) {
+        return new int[]{index/map[0].length, index %map[0].length};
     }
 
     Component checkLeftValue(int index) {
@@ -110,28 +113,28 @@ public class Simulation {
         this.simPane = simPane;
     }
 
-    public static ArrayList<Simulation> getSimulationList() {
-        return simulationList;
+//    public void moveAllCharges() {
+//
+//        for (Simulation sim:simulationList) {
+//
+//            for (Component[] row: sim.map) {
+//
+//                for (Component charge:row) {
+//
+//                    if(charge != null && charge.getType().equals("charge")) {
+//
+//                        ((Charge) charge).move();
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+    public myTimer getTimerInstance() {
+        if (timer == null) return new myTimer();
+
+        else return timer;
     }
-
-    public void moveAllCharges() {
-
-        for (Simulation sim:simulationList) {
-
-            for (Component[] row: sim.map) {
-
-                for (Component charge:row) {
-
-                    if(charge != null && charge.getType().equals("charge")) {
-
-                        ((Charge) charge).move();
-                    }
-                }
-            }
-        }
-    }
-
-
 
     public class myTimer extends AnimationTimer {
 
@@ -139,16 +142,10 @@ public class Simulation {
         @Override
         public void handle(long now) {
 
-        moveAllCharges();
+       // moveAllCharges();
 
 
         }
-    }
-
-    public myTimer getTimerInstance() {
-        if (timer == null) return new myTimer();
-
-        else return timer;
     }
 
 }

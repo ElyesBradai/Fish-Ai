@@ -10,39 +10,65 @@ public class Charge extends Circle implements Component{
 
 
 
+    final static String type = "charge";
     private static final Color CHARGE_COLOR = Color.RED;
-    static String type;
 //    double angle;
 //    double xVelocity;
 //    double yVelocity;
-    ChargeType ChargeType;
+    ChargeType chargeType;
     int startingIndex;
     double[] velocity;
 
     public Charge(Point2D initialPosition,ChargeType type) {
 
-        this.ChargeType=type;
+        this.chargeType=type;
         this.setFill(CHARGE_COLOR);
         this.setCenterX(initialPosition.getX());
         this.setCenterY(initialPosition.getY());
-        this.type = "charge";
         this.velocity = new double[]{0, 0, 0};
     }
 
-    public void move(double chargeValue, double chargeMass, Component component) {
-        if (checkCollision(component)==Obstacle.type){
+    public void move(Component component) {
+        switch (checkCollision(component)){
+            case "nothing": {
+                this.setTranslateX(this.getTranslateX() + this.velocity[0]);
+                this.setTranslateY(this.getTranslateY() + this.velocity[1]);
+                break;
+            }
+            case MagneticField.type:{
+
+                if(this.chargeType.equals( ChargeType.NEGATIVE)) {
+                    double[] newVelocity = MathFunctions.calcFinalVelocity(MathFunctions.ELECTRON_CONSTANT,MathFunctions.ELECTRON_MASS,((MagneticField) component).getStrength(),this.velocity);
+                    this.velocity=newVelocity;
+                    this.setTranslateX(this.getTranslateX()+this.velocity[0]);
+                    this.setTranslateY(this.getTranslateY()+this.velocity[1]);
+
+                }
+                else if (this.chargeType.equals( ChargeType.POSITIVE)) {
+                    double[] newVelocity = MathFunctions.calcFinalVelocity(MathFunctions.PROTON_CONSTANT,MathFunctions.PROTON_MASS,((MagneticField) component).getStrength(),this.velocity);
+                    this.velocity=newVelocity;
+                    this.setTranslateX(this.getTranslateX()+this.velocity[0]);
+                    this.setTranslateY(this.getTranslateY()+this.velocity[1]);
+                    
+                }
+                break;
+
+            }
+
+
+
+
 
         }
-   double[] newVelocity = MathFunctions.calcFinalVelocity(chargeValue, chargeMass,magneticField,velocity);
-
     }
 
     public String checkCollision(Component component) {
-     if(this.intersects(component.getBody().getBoundsInParent())){
+     if(component!=null && this.intersects(component.getBody().getBoundsInParent())){
 
          return component.getType();
      }
-     return"nothing";
+
+     return "nothing";
 
     }
 
@@ -66,5 +92,10 @@ public class Charge extends Circle implements Component{
     @Override
     public Shape getBody() {
         return this;
+    }
+
+    @Override
+    public Component clone() {
+        return null;
     }
 }
