@@ -7,8 +7,8 @@ import javafx.scene.shape.Shape;
 public class Obstacle extends Rectangle implements Component {
 
 
+   static String type;
     int index;
-    String type;
 
 
 

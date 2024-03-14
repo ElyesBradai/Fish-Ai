@@ -47,7 +47,7 @@ public class MainClass extends Application {
         //s1.addToMap(o2,o2.index);
         Obstacle o3 = new Obstacle(17);
         //s1.addToMap(o3,o3.index);
-        Charge c1 = new Charge(new Point2D(0,0));
+        Charge c1 = new Charge(new Point2D(0,0),ChargeType.NEGATIVE);
         s1.addToMap(c1,6);
         FinishLine f1 = new FinishLine(20);
         s1.addToMap(f1,f1.getIndex());

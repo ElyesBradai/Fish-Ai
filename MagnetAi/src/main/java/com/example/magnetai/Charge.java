@@ -10,19 +10,18 @@ public class Charge extends Circle implements Component{
 
 
 
-    private static final int CAR_RADIUS = 15;
     private static final Color CHARGE_COLOR = Color.RED;
+    static String type;
 //    double angle;
 //    double xVelocity;
 //    double yVelocity;
-    boolean negativelyCharged;
+    ChargeType ChargeType;
     int startingIndex;
-    String type;
     double[] velocity;
 
-    public Charge(Point2D initialPosition) {
+    public Charge(Point2D initialPosition,ChargeType type) {
 
-        super(CAR_RADIUS);
+        this.ChargeType=type;
         this.setFill(CHARGE_COLOR);
         this.setCenterX(initialPosition.getX());
         this.setCenterY(initialPosition.getY());
@@ -30,12 +29,20 @@ public class Charge extends Circle implements Component{
         this.velocity = new double[]{0, 0, 0};
     }
 
-    public void move() {
+    public void move(double chargeValue, double chargeMass, Component component) {
+        if (checkCollision(component)==Obstacle.type){
 
+        }
+   double[] newVelocity = MathFunctions.calcFinalVelocity(chargeValue, chargeMass,magneticField,velocity);
 
     }
 
-    public void checkObstacleCollision() {
+    public String checkCollision(Component component) {
+     if(this.intersects(component.getBody().getBoundsInParent())){
+
+         return component.getType();
+     }
+     return"nothing";
 
     }
 

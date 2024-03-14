@@ -7,8 +7,8 @@ import javafx.scene.shape.Shape;
 public class FinishLine extends Rectangle implements Component {
 
 
+    static String type;
     int index;
-    String type;
     public FinishLine(int index) {
 
         super(SQUARE_SIZE,SQUARE_SIZE, Color.YELLOW); //creates a square of size 50 by 50
