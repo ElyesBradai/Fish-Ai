@@ -35,15 +35,15 @@ public class MainClass extends Application {
         SimulationDisplay s1 = new SimulationDisplay();
         vb1.getChildren().add(s1.getSimPane());
         Charge c1 = new Charge(1,ChargeType.POSITIVE);
-        s1.addToMap(c1,6);
+        s1.addToMap(c1,1);
 
         Simulation s2 = new Simulation();
         Simulation s3 = new Simulation();
-        Simulation s4 = new Simulation();
-        Simulation s5 = new Simulation();
-        Simulation s6 = new Simulation();
-        Simulation s7 = new Simulation();
-        Simulation s8 = new Simulation();
+//        Simulation s4 = new Simulation();
+//        Simulation s5 = new Simulation();
+//        Simulation s6 = new Simulation();
+//        Simulation s7 = new Simulation();
+//        Simulation s8 = new Simulation();
 //        Simulation s9 = new Simulation();
 //        Simulation s10 = new Simulation();
 //        Simulation s11 = new Simulation();

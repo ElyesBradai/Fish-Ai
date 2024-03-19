@@ -1,7 +1,5 @@
 package com.example.magnetai;
 
-import javafx.geometry.Point2D;
-import javafx.scene.effect.Light;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -25,11 +23,21 @@ public class Charge extends Circle implements Component{
         this.startingIndex = startingIndex;
         this.chargeType=type;
         this.setFill(CHARGE_COLOR);
-        this.velocity = new double[]{0, 0, 0};
+        this.velocity = new double[]{0.2, 0.2, 0};
     }
 
     public void move(Component component) {
-        switch (checkCollision(component)){
+        switch (checkCollisionType(component)){
+            case Obstacle.type:  {
+
+                System.out.println("OBSTACLE");
+                this.velocity = new double[]{0, 0, 0};
+                this.setTranslateX(this.getTranslateX() + this.velocity[0]);
+                this.setTranslateY(this.getTranslateY() + this.velocity[1]);
+                break;
+
+            }
+
             case "nothing": {
                 this.setTranslateX(this.getTranslateX() + this.velocity[0]);
                 this.setTranslateY(this.getTranslateY() + this.velocity[1]);
@@ -44,6 +52,7 @@ public class Charge extends Circle implements Component{
                     this.setTranslateY(this.getTranslateY()+this.velocity[1]);
 
                 }
+
                 else if (this.chargeType.equals(ChargeType.POSITIVE)) {
                     double[] newVelocity = MathFunctions.calcFinalVelocity(MathFunctions.PROTON_CONSTANT,MathFunctions.PROTON_MASS,((MagneticField) component).getStrength(),this.velocity);
                     this.velocity=newVelocity;
@@ -53,10 +62,11 @@ public class Charge extends Circle implements Component{
                 }
                 break;
             }
+
         }
     }
 
-    public String checkCollision(Component component) {
+    public String checkCollisionType(Component component) {
      if(component!=null && this.intersects(component.getBody().getBoundsInParent())){
          return component.getType();
         }

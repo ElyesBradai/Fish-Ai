@@ -36,7 +36,7 @@ public class SimulationDisplay extends Simulation{
 
             square.setOnMouseClicked(event -> {
 
-                int index = posToIndex(absolutePosToGridPos(square.getTranslateX(),square.getTranslateY()));
+                int index = posToIndex(absolutePosToGridPosDisplay(square.getTranslateX(),square.getTranslateY()));
 
                 switch (this.selectedComponentType) {
 
@@ -95,12 +95,9 @@ public class SimulationDisplay extends Simulation{
 
         }
         //scaling down to fit all simulations
-        int numSimulations = Simulation.getSimulationList().size();
-        int numRows = (int) Math.ceil(Math.sqrt(numSimulations));
-        int numCols = (int) Math.ceil((double) numSimulations / numRows);
 
-        double scaleX = (double) 1 / numCols;
-        double scaleY = (double) 1 / numRows;
+        double scaleX = calculateScale()[0];
+        double scaleY = calculateScale()[1];
 
         root.setHgap((GRID_SIZE_X*SQUARE_SIZE + SQUARE_SIZE)*scaleX);
         root.setVgap((GRID_SIZE_Y*SQUARE_SIZE + SQUARE_SIZE)*scaleY);

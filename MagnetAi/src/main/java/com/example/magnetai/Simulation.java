@@ -21,6 +21,7 @@ public class Simulation {
     private NeuralNetwork neuralNetwork;
     private myTimer timer = new myTimer();
 
+
     public Simulation(){
 
         this.neuralNetwork = new NeuralNetwork();
@@ -29,6 +30,7 @@ public class Simulation {
         this.squareList = new ArrayList<Rectangle>();
         simulationList.add(this);
         bckg();
+
     }
 
     void bckg() {
@@ -102,7 +104,38 @@ public class Simulation {
     }
 
     public int[] absolutePosToGridPos(double translateX, double translateY) {
-        return new int[]{(int)(translateX/SQUARE_SIZE), (int)(translateY/SQUARE_SIZE)};
+        //TODO MAKE IT WORK THIS METHOD BREAKS EVERYTHING
+        return new int[]{(int)((translateX * calculateScale()[0] + (GRID_SIZE_X*SQUARE_SIZE*simulationList.indexOf(this) + SQUARE_SIZE)*calculateScale()[0]) /(SQUARE_SIZE*calculateScale()[0]) - simulationList.indexOf(this) *GRID_SIZE_X),
+                (int)((translateY * calculateScale()[1] + (GRID_SIZE_Y*SQUARE_SIZE*simulationList.indexOf(this) + SQUARE_SIZE)*calculateScale()[1]) /(SQUARE_SIZE*calculateScale()[1])) - simulationList.indexOf(this)*GRID_SIZE_Y};
+    }
+
+    public int[] absolutePosToGridPosDisplay(double translateX, double translateY) {
+        return new int[]{(int)(translateX / SQUARE_SIZE), (int)(translateY / SQUARE_SIZE)};
+    }
+
+    public Component checkCollision() {
+
+        Charge charge = this.findCharge();
+        int[] componentPos = absolutePosToGridPos(charge.getTranslateX(),charge.getTranslateY());
+        System.out.println("Charge position X: "+componentPos[0]+ ", Y: " +componentPos[1]+ "in simulation " + simulationList.indexOf(this));
+//        System.out.println("Charge Translate X: "+ charge.getTranslateX() + ", Y: " + charge.getTranslateY());
+        if (this.map[componentPos[0]][componentPos[1]] != null) System.out.println(this.map[componentPos[0]][componentPos[1]].getType());
+        return this.map[componentPos[0]][componentPos[1]];
+    }
+
+    public Charge findCharge() {
+
+            for (Component[] row: this.map) {
+
+                for (Component charge:row) {
+
+                    if(charge != null && charge.getType().equals("charge")) {
+                        System.out.println("Charge found in simulation "+ simulationList.indexOf(this));
+                        return (Charge)charge;
+                    }
+                }
+            }
+        return null;
     }
 
     public Pane getSimPane() {
@@ -121,13 +154,24 @@ public class Simulation {
 
                 for (Component charge:row) {
 
-                    if(charge != null && charge.getType().equals("charge")) {
-                        //TODO have a check collision method that returns what the charge collides with (component)
-//                        ((Charge) charge).move();
+                    if(charge != null && charge.getType().equals(Charge.type)) {
+
+                        ((Charge) charge).move(sim.checkCollision());
                     }
                 }
             }
         }
+    }
+
+    public double[] calculateScale() {
+        int numSimulations = Simulation.getSimulationList().size();
+        int numRows = (int) Math.ceil(Math.sqrt(numSimulations));
+        int numCols = (int) Math.ceil((double) numSimulations / numRows);
+
+        double scaleX = (double) 1 / numCols;
+        double scaleY = (double) 1 / numRows;
+
+        return new double[]{scaleX, scaleY};
     }
 
     public myTimer getTimerInstance() {
@@ -139,7 +183,7 @@ public class Simulation {
     public class myTimer extends AnimationTimer {
         @Override
         public void handle(long now) {
-       // moveAllCharges();
+        moveAllCharges();
         }
     }
 
