@@ -6,7 +6,7 @@ import javafx.scene.shape.Shape;
 
 public class Superconductor extends Rectangle implements Component {
 
-    final static String type = "superConductor";
+    final static String type = "superconductor";
     int index;
 
     public Superconductor(int index){

@@ -131,7 +131,7 @@ public class SimulationDisplay extends Simulation{
                         switch (component.getType()) {
 
                             case "obstacle":
-                            case "superConductor":
+                            case "superconductor":
                             case "finishLine": {
 
                                 ((Rectangle) component.getBody()).setWidth(((Rectangle) component.getBody()).getWidth() * scaleX);
