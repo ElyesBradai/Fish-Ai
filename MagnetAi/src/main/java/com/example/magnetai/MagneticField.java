@@ -5,28 +5,24 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 public class MagneticField extends Rectangle implements Component {
-
    final static String type = "finishLine";
     int index;
     private double[] strength;
-
     public MagneticField(int index, double[] strength){
-
         super(SQUARE_SIZE,SQUARE_SIZE, Color.GREEN); //creates a square of size 50 by 50
         this.index = index;
         this.strength = strength;
         this.setStroke(Color.BLACK);
         this.setStrokeWidth(3);
         this.setMouseTransparent(true);
-
     }
-
     @Override
     public int getIndex() {
         return this.index;
     }
     @Override
     public int[] getPosition() {
+        //TODO FINISH LATER
         return new int[0];
     }
     @Override

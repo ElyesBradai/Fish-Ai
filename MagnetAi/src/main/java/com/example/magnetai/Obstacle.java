@@ -5,21 +5,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 public class Obstacle extends Rectangle implements Component {
-
-
    final static String type = "obstacle";
     int index;
-
-
-
     public Obstacle(int index){
-
         super(SQUARE_SIZE,SQUARE_SIZE, Color.BLUE); //creates a square of size 50 by 50
         this.index = index;
         this.setStroke(Color.BLACK);
         this.setStrokeWidth(3);
         this.setMouseTransparent(true);
-
     }
     @Override
     public int getIndex() {
