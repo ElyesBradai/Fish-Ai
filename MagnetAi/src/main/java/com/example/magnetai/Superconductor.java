@@ -9,6 +9,10 @@ public class Superconductor extends Rectangle implements Component {
     final static String type = "superconductor";
     int index;
 
+    /**
+     *
+     * @param index
+     */
     public Superconductor(int index){
 
         super(SQUARE_SIZE,SQUARE_SIZE, Color.CYAN); //creates a square of size 50 by 50

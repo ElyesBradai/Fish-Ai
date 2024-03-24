@@ -11,7 +11,10 @@ public class Obstacle extends Rectangle implements Component {
     int index;
 
 
-
+    /**
+     *
+     * @param index
+     */
     public Obstacle(int index){
 
         super(SQUARE_SIZE,SQUARE_SIZE, Color.BLUE); //creates a square of size 50 by 50

@@ -1,11 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="097ca2aa-89e8-45bf-a3da-19bb883ef949" name="Changes" comment="" />
+    <list default="true" id="097ca2aa-89e8-45bf-a3da-19bb883ef949" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/TestMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/FinishLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/FinishLine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MagneticField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MagneticField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MathFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MathFunctions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Obstacle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Obstacle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Superconductor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Superconductor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Charge.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Charge.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/ChargeType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/ChargeType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Component.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Component.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/FinishLine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/FinishLine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/FxController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/FxController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/MagneticField.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/MagneticField.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/MainClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/MainClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/MathFunctions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/MathFunctions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/NeuralNetwork.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/NeuralNetwork.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Obstacle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Obstacle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation$myTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation$myTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/SimulationDisplay.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/SimulationDisplay.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Superconductor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Superconductor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="ProjectId" id="2duKM8FBUoZGcsSu2IoRCB6gWpK" />
   <component name="ProjectViewState">
@@ -14,9 +50,66 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "Application.MainClass.executor": "Run",
+    "JUnit.TestMain.executor": "Run",
+    "JUnit.TestMain.testCrossProduct.executor": "Run",
+    "JUnit.TestMain.testCrossProduct2.executor": "Run",
+    "JUnit.TestMain.testCrossProduct3.executor": "Run",
+    "Maven.MagnetAi [clean,and,install].executor": "Run",
+    "Maven.MagnetAi [install].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "Ziad's-cooking-spot",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
 }]]></component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean and install" />
+      <command value="mvn install" />
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.TestMain.testCrossProduct2">
+    <configuration name="TestMain.testCrossProduct" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MagnetAi" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestMain" />
+      <option name="METHOD_NAME" value="testCrossProduct" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestMain.testCrossProduct2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MagnetAi" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestMain" />
+      <option name="METHOD_NAME" value="testCrossProduct2" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestMain.testCrossProduct3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MagnetAi" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestMain" />
+      <option name="METHOD_NAME" value="testCrossProduct3" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TestMain.testCrossProduct2" />
+        <item itemvalue="JUnit.TestMain.testCrossProduct3" />
+        <item itemvalue="JUnit.TestMain.testCrossProduct" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

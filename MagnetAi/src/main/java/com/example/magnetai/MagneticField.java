@@ -4,12 +4,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
+import java.util.Arrays;
+
 public class MagneticField extends Rectangle implements Component {
 
    final static String type = "finishLine";
     int index;
     private double[] strength;
 
+    /**
+     *
+     * @param index
+     * @param strength
+     */
     public MagneticField(int index, double[] strength){
 
         super(SQUARE_SIZE,SQUARE_SIZE, Color.GREEN); //creates a square of size 50 by 50
@@ -18,6 +25,7 @@ public class MagneticField extends Rectangle implements Component {
         this.setStroke(Color.BLACK);
         this.setStrokeWidth(3);
         this.setMouseTransparent(true);
+
 
     }
 
