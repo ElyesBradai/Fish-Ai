@@ -28,14 +28,10 @@ public class MathFunctions {
      * @return the final velocity of the charge.
      */
     public static double[] calcFinalVelocity(double charge,double mass, double[] magneticFieldStrength, double [] velocity){
-        // vf=vi+a
        double[] acceleration = calcAcceleration(charge,mass,velocity,magneticFieldStrength);
-
-
-        return createVec(velocity[0]+acceleration[0],
-                         velocity[1]+acceleration[1],
-                         velocity[2]+acceleration[2]);
-
+       return createVec(velocity[0] + acceleration[0],
+                        velocity[1] + acceleration[1],
+                        velocity[2] + acceleration[2]);
     }
 
     /**
@@ -47,12 +43,10 @@ public class MathFunctions {
      * @return the current acceleration of the charge.
      */
     private static double[] calcAcceleration(double charge,double mass, double[] velocity, double[] magneticFieldStrength){
-        double[] force = createVec(charge * crossProduct(velocity,magneticFieldStrength)[0],
-                                   charge * crossProduct(velocity,magneticFieldStrength)[1],
-                                   charge * crossProduct(velocity,magneticFieldStrength)[2]);
-
-       return createVec(force[0]/mass,force[1]/mass,force[2]/mass);
-
+        double[] force = createVec(charge * crossProduct(velocity, magneticFieldStrength)[0],
+                                   charge * crossProduct(velocity, magneticFieldStrength)[1],
+                                   charge * crossProduct(velocity, magneticFieldStrength)[2]);
+       return createVec(force[0] / mass,force[1] / mass,force[2] / mass);
     }
 
     /**
@@ -73,7 +67,7 @@ public class MathFunctions {
      * @return the cross-product of vec1 and vec2 respectively.
      */
     public static double[] crossProduct(double[] vec1, double[] vec2){
-        if(vec1 == null || vec2==null){
+        if(vec1 == null || vec2 == null){
             throw new IllegalArgumentException();
         }
        return createVec(      vec1[1] * vec2[2] - vec2[1] * vec1[2],
