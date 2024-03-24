@@ -5,31 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="097ca2aa-89e8-45bf-a3da-19bb883ef949" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Charge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Charge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/ChargeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/ChargeType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Component.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/magnetai/intro page for project magneeet.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/TestMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/MagnetAi-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/intro page for project magneeet.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/TestMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/FinishLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/FinishLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/FxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/FxController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MagneticField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MagneticField.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MathFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MathFunctions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Obstacle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Obstacle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/SimulationDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/SimulationDisplay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Superconductor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Superconductor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Charge.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Charge.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/MainClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/MainClass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation$myTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation$myTimer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/SimulationDisplay.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/SimulationDisplay.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/MathFunctions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/MathFunctions.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/Ziad's-cooking-spot" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="7e433ac1-5579-47b2-8057-298f77e76540" />
+        <option name="url" value="https://github.com/ElyesBradai/Fish-Ai.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -48,6 +61,33 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RunManager" selected="JUnit.TestMain">
+    <configuration name="TestMain" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MagnetAi" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestMain" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestMain.testCrossProduct3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MagnetAi" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestMain" />
+      <option name="METHOD_NAME" value="testCrossProduct3" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TestMain" />
+        <item itemvalue="JUnit.TestMain.testCrossProduct3" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -69,5 +109,20 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/TestMain.java</url>
+          <line>19</line>
+          <properties class="TestMain" method="testCrossProduct3">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
