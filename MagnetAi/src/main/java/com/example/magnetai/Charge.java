@@ -12,15 +12,24 @@ public class Charge extends Circle implements Component{
     int startingIndex;
     double[] velocity;
 
-    public Charge(int startingIndex,ChargeType type) {
+    /**
+     *
+     * @param startingIndex
+     * @param type
+     */
+    public Charge(int startingIndex, ChargeType type) {
 
-        super(CHARGE_RADIUS,Color.RED);
+        super(CHARGE_RADIUS, Color.RED);
         this.startingIndex = startingIndex;
-        this.chargeType=type;
+        this.chargeType = type;
         this.setFill(CHARGE_COLOR);
         this.velocity = new double[]{0.2, 0.2, 0};
     }
 
+    /**
+     * makes the charge move based on the component colliding with it
+     * @param component
+     */
     public void move(Component component) {
         switch (checkCollisionType(component)){
             case Obstacle.type:  {
@@ -39,19 +48,25 @@ public class Charge extends Circle implements Component{
                 if(this.chargeType.equals( ChargeType.NEGATIVE)) {
                     double[] newVelocity = MathFunctions.calcFinalVelocity(MathFunctions.ELECTRON_CONSTANT,MathFunctions.ELECTRON_MASS,((MagneticField) component).getStrength(),this.velocity);
                     this.velocity=newVelocity;
-                    this.setTranslateX(this.getTranslateX()+this.velocity[0]);
-                    this.setTranslateY(this.getTranslateY()+this.velocity[1]);
+                    this.setTranslateX(this.getTranslateX() + this.velocity[0]);
+                    this.setTranslateY(this.getTranslateY() + this.velocity[1]);
                 }
                 else if (this.chargeType.equals(ChargeType.POSITIVE)) {
                     double[] newVelocity = MathFunctions.calcFinalVelocity(MathFunctions.PROTON_CONSTANT,MathFunctions.PROTON_MASS,((MagneticField) component).getStrength(),this.velocity);
-                    this.velocity=newVelocity;
-                    this.setTranslateX(this.getTranslateX()+this.velocity[0]);
-                    this.setTranslateY(this.getTranslateY()+this.velocity[1]);
+                    this.velocity = newVelocity;
+                    this.setTranslateX(this.getTranslateX() + this.velocity[0]);
+                    this.setTranslateY(this.getTranslateY() + this.velocity[1]);
                 }
                 break;
             }
         }
     }
+
+    /**
+     * returns the component intersecting with this charge
+     * @param component
+     * @return a string type of component
+     */
     public String checkCollisionType(Component component) {
      if(component != null && this.intersects(component.getBody().getBoundsInParent())){
          return component.getType();

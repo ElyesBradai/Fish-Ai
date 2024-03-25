@@ -7,7 +7,6 @@ import javafx.scene.shape.Shape;
 public class FinishLine extends Rectangle implements Component {
     final static String type = "finishLine";
     int index;
-
     /**
      *
      * @param index
@@ -40,5 +39,4 @@ public class FinishLine extends Rectangle implements Component {
     public Component clone() {
         return new FinishLine(this.getIndex());
     }
-
 }

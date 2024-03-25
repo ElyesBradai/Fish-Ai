@@ -7,6 +7,11 @@ import javafx.scene.shape.Shape;
 public class Obstacle extends Rectangle implements Component {
    final static String type = "obstacle";
     int index;
+
+    /**
+     *
+     * @param index
+     */
     public Obstacle(int index){
         super(SQUARE_SIZE,SQUARE_SIZE, Color.BLUE); //creates a square of size 50 by 50
         this.index = index;

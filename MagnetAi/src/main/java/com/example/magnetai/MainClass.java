@@ -34,37 +34,11 @@ public class MainClass extends Application {
 
         SimulationDisplay s1 = new SimulationDisplay();
         vb1.getChildren().add(s1.getSimPane());
-        Charge c1 = new Charge(1,ChargeType.POSITIVE);
+        Charge c1 = new Charge(1, ChargeType.POSITIVE);
         s1.addToMap(c1,1);
 
         Simulation s2 = new Simulation();
         Simulation s3 = new Simulation();
-//        Simulation s4 = new Simulation();
-//        Simulation s5 = new Simulation();
-//        Simulation s6 = new Simulation();
-//        Simulation s7 = new Simulation();
-//        Simulation s8 = new Simulation();
-//        Simulation s9 = new Simulation();
-//        Simulation s10 = new Simulation();
-//        Simulation s11 = new Simulation();
-//        Simulation s12 = new Simulation();
-//        Simulation s13 = new Simulation();
-//        Simulation s14 = new Simulation();
-//        Simulation s15 = new Simulation();
-//        Simulation s16 = new Simulation();
-//        Simulation s17 = new Simulation();
-//        Simulation s18 = new Simulation();
-//        Simulation s19 = new Simulation();
-//        Simulation s20 = new Simulation();
-//        Simulation s21 = new Simulation();
-//        Simulation s22 = new Simulation();
-//        Simulation s23 = new Simulation();
-//        Simulation s24 = new Simulation();
-//        Simulation s25 = new Simulation();
-//        Simulation s26 = new Simulation();
-//        Simulation s27 = new Simulation();
-
-
 
         // Create an object property to hold the selected rectangle
         ObjectProperty<Shape> selectedShape = new SimpleObjectProperty<>();

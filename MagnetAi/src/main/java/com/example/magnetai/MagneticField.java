@@ -8,6 +8,11 @@ public class MagneticField extends Rectangle implements Component {
    final static String type = "finishLine";
     int index;
     private double[] strength;
+    /**
+     *
+     * @param index
+     * @param strength
+     */
     public MagneticField(int index, double[] strength){
         super(SQUARE_SIZE,SQUARE_SIZE, Color.GREEN); //creates a square of size 50 by 50
         this.index = index;
@@ -41,7 +46,6 @@ public class MagneticField extends Rectangle implements Component {
     }
     @Override
     public Component clone() {
-        return new MagneticField(this.getIndex(),this.getStrength());
+        return new MagneticField(this.getIndex(), this.getStrength());
     }
-
 }
