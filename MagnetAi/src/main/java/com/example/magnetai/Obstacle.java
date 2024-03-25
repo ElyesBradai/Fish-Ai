@@ -7,7 +7,6 @@ import javafx.scene.shape.Shape;
 public class Obstacle extends Rectangle implements Component {
    final static String type = "obstacle";
     int index;
-
     /**
      *
      * @param index

@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class SimulationDisplay extends Simulation{
-
     private String selectedComponentType;
 //    TODO MAKE FINISHLINE AND CHARGE A SINGLETON WHITNG THE SIMULATION
 //    private boolean hasFinishLine;
@@ -88,7 +87,6 @@ public class SimulationDisplay extends Simulation{
         for (Simulation sim : Simulation.getSimulationList()) {
             root.getChildren().add(sim.getSimPane());
         }
-
         //scaling down to fit all simulations
         double scaleX = calculateScale()[0];
         double scaleY = calculateScale()[1];
@@ -107,8 +105,8 @@ public class SimulationDisplay extends Simulation{
                 square.setTranslateX(square.getTranslateX()*scaleX);
                 square.setTranslateY(square.getTranslateY()*scaleY);
             }
-            for (Component[] row:sim.map) {
-                for (Component component:row) {
+            for (Component[] row : sim.map) {
+                for (Component component : row) {
                     if (component != null) {
                         switch (component.getType()) {
                             case "obstacle":
