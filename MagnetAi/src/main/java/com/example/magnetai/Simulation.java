@@ -12,7 +12,7 @@ public class Simulation {
     public static final int GRID_SIZE_X = 6;
     public static final int GRID_SIZE_Y = 8;
     public static final int SQUARE_SIZE = 100;
-    private static ArrayList<Simulation> simulationList = new ArrayList<Simulation>();
+    public static ArrayList<Simulation> simulationList = new ArrayList<Simulation>();
     Component[][] map;
     Pane simPane;//not sure if i should use pane or other :/
     Rectangle player = new Rectangle(50,50);
@@ -84,7 +84,8 @@ public class Simulation {
 
         boolean isObstacle = component.getType().equals("obstacle")
                 || component.getType().equals("superconductor")
-                || component.getType().equals("finishLine");
+                || component.getType().equals("finishLine")
+                || component.getType().equals(MagneticField.type);
         component.getBody().setTranslateX(isObstacle ? pos[0] * SQUARE_SIZE : pos[0] * SQUARE_SIZE+SQUARE_SIZE/2);
         component.getBody().setTranslateY(isObstacle ? pos[1] * SQUARE_SIZE : pos[1] * SQUARE_SIZE+SQUARE_SIZE/2);
     }
@@ -96,8 +97,7 @@ public class Simulation {
      */
     public int[] absolutePosToGridPos(double translateX, double translateY) {
         //TODO MAKE IT WORK THIS METHOD BREAKS EVERYTHING
-        return new int[]{(int)((translateX * calculateScale()[0] + (GRID_SIZE_X*SQUARE_SIZE*simulationList.indexOf(this) + SQUARE_SIZE)*calculateScale()[0]) /(SQUARE_SIZE*calculateScale()[0]) - simulationList.indexOf(this) *GRID_SIZE_X),
-                (int)((translateY * calculateScale()[1] + (GRID_SIZE_Y*SQUARE_SIZE*simulationList.indexOf(this) + SQUARE_SIZE)*calculateScale()[1]) /(SQUARE_SIZE*calculateScale()[1])) - simulationList.indexOf(this)*GRID_SIZE_Y};
+        return new int[]{(int) (translateX / (SQUARE_SIZE * calculateScale()[0])), (int) (translateY / (SQUARE_SIZE * calculateScale()[1]))};
     }
     /**
      * Returns a grid position arr(x,y) using absolute positions on the screen, only used for sim display
@@ -131,10 +131,12 @@ public class Simulation {
         int numRows = (int) Math.ceil(Math.sqrt(numSimulations));
         int numCols = (int) Math.ceil((double) numSimulations / numRows);
 
-        double scaleX = (double) 1 / numCols;
-        double scaleY = (double) 1 / numRows;
+        // Determine the maximum number of rows or columns based on the x/y ratio
+        int maxDimension = Math.max(numRows, numCols);
 
-        return new double[]{scaleX, scaleY};
+        double scale = 1.0 / maxDimension;
+
+        return new double[]{scale, scale};
     }
     /**
      * returns the component colliding with the charge
@@ -145,7 +147,9 @@ public class Simulation {
         int[] componentPos = absolutePosToGridPos(charge.getTranslateX(), charge.getTranslateY());
 //        System.out.println("Charge position X: "+componentPos[0]+ ", Y: " +componentPos[1]+ "in simulation " + simulationList.indexOf(this));
 //        System.out.println("Charge Translate X: "+ charge.getTranslateX() + ", Y: " + charge.getTranslateY());
-//        if (this.map[componentPos[0]][componentPos[1]] != null) System.out.println(this.map[componentPos[0]][componentPos[1]].getType());
+        if (this.map[componentPos[0]][componentPos[1]] != null) {
+            System.out.println("Simulation " +simulationList.indexOf(this) +" collides with "+this.map[componentPos[0]][componentPos[1]].getType() + "at index "+componentPos[0]+","+componentPos[1]);
+        }
         return this.map[componentPos[0]][componentPos[1]];
     }
     /**
@@ -187,10 +191,9 @@ public class Simulation {
     public static ArrayList<Simulation> getSimulationList() {
         return simulationList;
     }
+
     public myTimer getTimerInstance() {
-        if (timer == null) {
-            return new myTimer();}
-        else return timer;
+        return (timer == null) ? new myTimer() : timer;
     }
     public class myTimer extends AnimationTimer {
         @Override

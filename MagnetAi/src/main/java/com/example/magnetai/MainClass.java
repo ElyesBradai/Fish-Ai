@@ -34,11 +34,12 @@ public class MainClass extends Application {
 
         SimulationDisplay s1 = new SimulationDisplay();
         vb1.getChildren().add(s1.getSimPane());
-        Charge c1 = new Charge(1, ChargeType.POSITIVE);
+        Charge c1 = new Charge(1, ChargeType.NEGATIVE);
         s1.addToMap(c1,1);
 
-        Simulation s2 = new Simulation();
-        Simulation s3 = new Simulation();
+        for (int i = 0; i < 15; i++) {
+            new Simulation();
+        }
 
         // Create an object property to hold the selected rectangle
         ObjectProperty<Shape> selectedShape = new SimpleObjectProperty<>();
@@ -54,6 +55,8 @@ public class MainClass extends Application {
         finishSelector.setOnMouseClicked(event -> {s1.setSelectedComponentType("finishLine");selectedShape.set(finishSelector);});
         Rectangle superConductor = new Rectangle(100,100, Color.CYAN);
         superConductor.setOnMouseClicked(event -> {s1.setSelectedComponentType("superConductor");selectedShape.set(superConductor);});
+        Rectangle mgfield = new Rectangle(100,100, Color.GREEN);
+        mgfield.setOnMouseClicked(event -> {s1.setSelectedComponentType("magneticfield");selectedShape.set(mgfield);});
 
         Button b1 = new Button("Save");
         b1.setOnAction(event -> {
@@ -61,9 +64,11 @@ public class MainClass extends Application {
             s1.saveDesign();
             s1.showAllSimulations();
 
+
         });
 
-        VBox selectorBox = new VBox(obSelector,finishSelector,superConductor,selected,b1);
+
+        VBox selectorBox = new VBox(obSelector,finishSelector,superConductor,mgfield,selected,b1);
         root.getChildren().add(selectorBox);
 
         Scene scene = new Scene(root, 1200, 800);

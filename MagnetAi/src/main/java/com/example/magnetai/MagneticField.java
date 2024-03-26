@@ -5,7 +5,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 public class MagneticField extends Rectangle implements Component {
-   final static String type = "finishLine";
+   final static String type = "magneticfield";
     int index;
     private double[] strength;
     /**
@@ -20,6 +20,7 @@ public class MagneticField extends Rectangle implements Component {
         this.setStroke(Color.BLACK);
         this.setStrokeWidth(3);
         this.setMouseTransparent(true);
+
     }
     @Override
     public int getIndex() {

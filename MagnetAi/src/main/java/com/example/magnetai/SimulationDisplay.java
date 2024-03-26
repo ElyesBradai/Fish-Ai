@@ -51,6 +51,11 @@ public class SimulationDisplay extends Simulation{
                         this.addToMap(s1, s1.getIndex());
                         break;
                     }
+                    case MagneticField.type: {
+                        MagneticField m1 =  new MagneticField(index,new double[]{0,0,500});
+                        this.addToMap(m1,m1.getIndex());
+                        break;
+                    }
                     //case "Charge": {break;}
                     default: System.out.println("please select a valid type");
                 }
@@ -109,6 +114,7 @@ public class SimulationDisplay extends Simulation{
                 for (Component component : row) {
                     if (component != null) {
                         switch (component.getType()) {
+                            case MagneticField.type:
                             case "obstacle":
                             case "superconductor":
                             case "finishLine": {
@@ -129,6 +135,21 @@ public class SimulationDisplay extends Simulation{
                 }
             }
         }
+
+        for (Simulation sim : Simulation.simulationList) {
+
+            for (Component[] row: sim.map) {
+
+                for(Component charge : row) {
+
+                    if (charge != null && charge.getType().equals(Charge.type)) {charge.getBody().toFront();}
+
+                }
+
+            }
+
+        }
+
         this.getTimerInstance().start();
         Scene scene = new Scene(root, width, height);
         Stage stage = new Stage();

@@ -11,6 +11,7 @@ public class Charge extends Circle implements Component{
     ChargeType chargeType;
     int startingIndex;
     double[] velocity;
+    static final String NOTHING = "nothing";
 
     /**
      *
@@ -18,7 +19,6 @@ public class Charge extends Circle implements Component{
      * @param type
      */
     public Charge(int startingIndex, ChargeType type) {
-
         super(CHARGE_RADIUS, Color.RED);
         this.startingIndex = startingIndex;
         this.chargeType = type;
@@ -32,19 +32,17 @@ public class Charge extends Circle implements Component{
      */
     public void move(Component component) {
         switch (checkCollisionType(component)){
-            case Obstacle.type:  {
+            case Obstacle.type -> {
                 System.out.println("OBSTACLE");
                 this.velocity = new double[]{0, 0, 0};
                 this.setTranslateX(this.getTranslateX() + this.velocity[0]);
                 this.setTranslateY(this.getTranslateY() + this.velocity[1]);
-                break;
             }
-            case "nothing": {
+            case "nothing" -> {
                 this.setTranslateX(this.getTranslateX() + this.velocity[0]);
                 this.setTranslateY(this.getTranslateY() + this.velocity[1]);
-                break;
             }
-            case MagneticField.type:{
+            case MagneticField.type -> {
                 if(this.chargeType.equals( ChargeType.NEGATIVE)) {
                     double[] newVelocity = MathFunctions.calcFinalVelocity(MathFunctions.ELECTRON_CONSTANT,MathFunctions.ELECTRON_MASS,((MagneticField) component).getStrength(),this.velocity);
                     this.velocity=newVelocity;
@@ -57,7 +55,6 @@ public class Charge extends Circle implements Component{
                     this.setTranslateX(this.getTranslateX() + this.velocity[0]);
                     this.setTranslateY(this.getTranslateY() + this.velocity[1]);
                 }
-                break;
             }
         }
     }
