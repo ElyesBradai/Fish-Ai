@@ -3,6 +3,7 @@ package com.example.magnetai;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -25,18 +26,18 @@ import javafx.stage.Stage;
 
 
 public class FxController {
-    public Button startmenu;
-    public Button helpmenu;
-    public Button exitmenu;
+
+
+
+    public Button saveButton;
+    public Button startButton;
+    public Button resetButton;
+    public Button pauseButton;
 
     @FXML
     public void initialize() {
 
-        helpmenu.setOnAction(actionEvent -> showhelppage());
-
-        startmenu.setOnAction(actionEvent -> showstartmenu());
-
-        exitmenu.setOnAction(actionEvent -> {});
+        startButton.setOnAction(actionEvent -> startbutton());
 
     }
     @FXML
@@ -48,18 +49,7 @@ public class FxController {
     }
 
 
-    public void showhelppage(){
-        Stage helppagestage = new Stage();
-        Text text = new Text(30, 100, "Information");
-        VBox vbox = new VBox(text);
-        Scene scene = new Scene(vbox, 800, 300);
-        helppagestage.setTitle("Information Page");
-        helppagestage.setScene(scene);
-        helppagestage.show();
-    }
-
-    public void showstartmenu(){
-
+    public void startbutton(){
         HBox root = new HBox();
         root.setSpacing(Simulation.GRID_SIZE_X * Simulation.SQUARE_SIZE);
         VBox vb1 = new VBox();
@@ -105,5 +95,5 @@ public class FxController {
         stage.show();
     }
 
-}
+    }
 
