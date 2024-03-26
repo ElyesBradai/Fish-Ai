@@ -3,17 +3,40 @@ package com.example.magnetai;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.scene.*;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.Point2D;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
+
 
 public class FxController {
-    public Button saveButton;
+    public Button startmenu;
+    public Button helpmenu;
+    public Button exitmenu;
 
-    void initalize() {
+    @FXML
+    public void initialize() {
 
-        saveButton.setOnAction(event -> {
+        helpmenu.setOnAction(actionEvent -> showhelppage());
 
-            System.out.println("hello");
+        startmenu.setOnAction(actionEvent -> showstartmenu());
 
-        });
+        exitmenu.setOnAction(actionEvent -> {});
 
     }
     @FXML
@@ -23,4 +46,64 @@ public class FxController {
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
+
+
+    public void showhelppage(){
+        Stage helppagestage = new Stage();
+        Text text = new Text(30, 100, "Information");
+        VBox vbox = new VBox(text);
+        Scene scene = new Scene(vbox, 800, 300);
+        helppagestage.setTitle("Information Page");
+        helppagestage.setScene(scene);
+        helppagestage.show();
+    }
+
+    public void showstartmenu(){
+
+        HBox root = new HBox();
+        root.setSpacing(Simulation.GRID_SIZE_X * Simulation.SQUARE_SIZE);
+        VBox vb1 = new VBox();
+        root.getChildren().addAll(vb1);
+        SimulationDisplay s1 = new SimulationDisplay();
+        vb1.getChildren().add(s1.getSimPane());
+        Charge c1 = new Charge(1,ChargeType.POSITIVE);
+        s1.addToMap(c1,6);
+        Simulation s2 = new Simulation();
+        Simulation s3 = new Simulation();
+        Simulation s4 = new Simulation();
+        Simulation s5 = new Simulation();
+        Simulation s6 = new Simulation();
+        Simulation s7 = new Simulation();
+        Simulation s8 = new Simulation();
+        // Create an object property to hold the selected rectangle
+        ObjectProperty<Shape> selectedShape = new SimpleObjectProperty<>();
+        Circle selected = new Circle(50);
+        selected.setStrokeWidth(3);
+        // Bind the fill property of the circle to the fill property of the selected rectangle
+        selected.fillProperty().bind(Bindings.createObjectBinding(() ->
+                selectedShape.get() != null ? selectedShape.get().getFill() : Color.BLACK, selectedShape));
+
+        Rectangle obSelector = new Rectangle(100,100, Color.BLUE);
+        obSelector.setOnMouseClicked(event -> {s1.setSelectedComponentType("obstacle");selectedShape.set(obSelector);});
+        Rectangle finishSelector = new Rectangle(100,100, Color.YELLOW);
+        finishSelector.setOnMouseClicked(event -> {s1.setSelectedComponentType("finishLine");selectedShape.set(finishSelector);});
+        Rectangle superConductor = new Rectangle(100,100, Color.CYAN);
+        superConductor.setOnMouseClicked(event -> {s1.setSelectedComponentType("superConductor");selectedShape.set(superConductor);});
+
+        Button b1 = new Button("Save");
+        b1.setOnAction(event -> {
+
+            s1.saveDesign();
+            s1.showAllSimulations();
+        });
+        VBox selectorBox = new VBox(obSelector,finishSelector,superConductor,selected,b1);
+        root.getChildren().add(selectorBox);
+        Scene scene = new Scene(root, 1200, 800);
+        Stage stage = new Stage();
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }
+
