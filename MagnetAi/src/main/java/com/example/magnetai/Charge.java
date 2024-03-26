@@ -23,7 +23,7 @@ public class Charge extends Circle implements Component{
         this.startingIndex = startingIndex;
         this.chargeType = type;
         this.setFill(CHARGE_COLOR);
-        this.velocity = new double[]{0.2, 0.2, 0};
+        this.velocity = new double[]{2, 2, 0};
     }
 
     /**

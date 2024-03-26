@@ -37,7 +37,7 @@ public class MainClass extends Application {
         Charge c1 = new Charge(1, ChargeType.NEGATIVE);
         s1.addToMap(c1,1);
 
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 1; i++) {
             new Simulation();
         }
 
