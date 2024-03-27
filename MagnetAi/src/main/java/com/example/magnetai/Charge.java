@@ -23,7 +23,7 @@ public class Charge extends Circle implements Component{
         this.startingIndex = startingIndex;
         this.chargeType = type;
         this.setFill(CHARGE_COLOR);
-        this.velocity = new double[]{2, 2, 0};
+        this.velocity = new double[]{3, 3, 0};
     }
 
     /**
@@ -31,6 +31,7 @@ public class Charge extends Circle implements Component{
      * @param component
      */
     public void move(Component component) {
+        System.out.println(checkCollisionType(component));
         switch (checkCollisionType(component)){
             case Obstacle.type -> {
                 System.out.println("OBSTACLE");
@@ -42,9 +43,16 @@ public class Charge extends Circle implements Component{
                 this.setTranslateX(this.getTranslateX() + this.velocity[0]);
                 this.setTranslateY(this.getTranslateY() + this.velocity[1]);
             }
+            case Charge.type -> {
+                this.setTranslateX(this.getTranslateX() + this.velocity[0]);
+                this.setTranslateY(this.getTranslateY() + this.velocity[1]);
+            }
+
+
             case MagneticField.type -> {
-                if(this.chargeType.equals( ChargeType.NEGATIVE)) {
+                if(this.chargeType.equals(ChargeType.NEGATIVE)) {
                     double[] newVelocity = MathFunctions.calcFinalVelocity(MathFunctions.ELECTRON_CONSTANT,MathFunctions.ELECTRON_MASS,((MagneticField) component).getStrength(),this.velocity);
+                    System.out.println("Current velocity is X: " + this.velocity[0] + "and Y: "+ this.velocity[1]+ "and Z: "+ this.velocity[2]);
                     this.velocity=newVelocity;
                     this.setTranslateX(this.getTranslateX() + this.velocity[0]);
                     this.setTranslateY(this.getTranslateY() + this.velocity[1]);
@@ -65,7 +73,7 @@ public class Charge extends Circle implements Component{
      * @return a string type of component
      */
     public String checkCollisionType(Component component) {
-     if(component != null && this.intersects(component.getBody().getBoundsInParent())){
+     if(component != null && this.intersects(component.getBody().getLayoutBounds())){
          return component.getType();
         }
      return "nothing";

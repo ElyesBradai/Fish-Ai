@@ -72,6 +72,7 @@ public class Simulation {
         return new int[]{index / map[0].length, index % map[0].length};
 
     }
+
     /**
      * add the specified component at the specified index
      * @param component
@@ -89,6 +90,7 @@ public class Simulation {
         component.getBody().setTranslateX(isObstacle ? pos[0] * SQUARE_SIZE : pos[0] * SQUARE_SIZE+SQUARE_SIZE/2);
         component.getBody().setTranslateY(isObstacle ? pos[1] * SQUARE_SIZE : pos[1] * SQUARE_SIZE+SQUARE_SIZE/2);
     }
+
     /**
      * Returns a grid position arr(x,y) using absolute positions on the screen
      * @param translateX
@@ -99,6 +101,7 @@ public class Simulation {
         //TODO MAKE IT WORK THIS METHOD BREAKS EVERYTHING
         return new int[]{(int) (translateX / (SQUARE_SIZE * calculateScale()[0])), (int) (translateY / (SQUARE_SIZE * calculateScale()[1]))};
     }
+
     /**
      * Returns a grid position arr(x,y) using absolute positions on the screen, only used for sim display
      * @param translateX
@@ -108,6 +111,7 @@ public class Simulation {
     public int[] absolutePosToGridPosDisplay(double translateX, double translateY) {
         return new int[]{(int)(translateX / SQUARE_SIZE), (int)(translateY / SQUARE_SIZE)};
     }
+
     /**
      * Calls the move method for the charge in all simulations
      */
@@ -148,7 +152,7 @@ public class Simulation {
 //        System.out.println("Charge position X: "+componentPos[0]+ ", Y: " +componentPos[1]+ "in simulation " + simulationList.indexOf(this));
 //        System.out.println("Charge Translate X: "+ charge.getTranslateX() + ", Y: " + charge.getTranslateY());
         if (this.map[componentPos[0]][componentPos[1]] != null) {
-            System.out.println("Simulation " +simulationList.indexOf(this) +" collides with "+this.map[componentPos[0]][componentPos[1]].getType() + "at index "+componentPos[0]+","+componentPos[1]);
+        //    System.out.println("Simulation " +simulationList.indexOf(this) +" collides with "+this.map[componentPos[0]][componentPos[1]].getType() + "at index "+componentPos[0]+","+componentPos[1]);
         }
         return this.map[componentPos[0]][componentPos[1]];
     }
