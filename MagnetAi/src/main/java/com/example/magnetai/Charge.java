@@ -12,6 +12,7 @@ public class Charge extends Circle implements Component{
     int startingIndex;
     double[] velocity;
     static final String NOTHING = "nothing";
+    boolean isAlive;
 
     /**
      *
@@ -24,6 +25,8 @@ public class Charge extends Circle implements Component{
         this.chargeType = type;
         this.setFill(CHARGE_COLOR);
         this.velocity = new double[]{0.3, 0.3, 0};
+        this.isAlive = true;
+
     }
 
     /**
@@ -77,6 +80,7 @@ public class Charge extends Circle implements Component{
      if(component != null && this.intersects(component.getBody().getLayoutBounds())){
          return component.getType();
         }
+
      return "nothing";
     }
     @Override
@@ -99,5 +103,13 @@ public class Charge extends Circle implements Component{
     @Override
     public Component clone() {
         return new Charge(this.startingIndex,this.chargeType);
+    }
+
+    public boolean isAlive() {
+        return this.isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.isAlive = alive;
     }
 }

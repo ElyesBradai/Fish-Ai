@@ -119,8 +119,15 @@ public class Simulation {
         for (Simulation sim:simulationList) {
             for (Component[] row: sim.map) {
                 for (Component charge:row) {
-                    if(charge != null && charge.getType().equals(Charge.type)) {
+                    if(charge != null && charge.getType().equals(Charge.type) && ((Charge)charge).isAlive()) {
                         ((Charge) charge).move(sim.checkCollision());
+
+                        if (((Charge) charge).getTranslateX() <0 || ((Charge) charge).getTranslateX()> SQUARE_SIZE*GRID_SIZE_X) {
+                            ((Charge) charge).setAlive(false);
+                        }
+                        if (((Charge) charge).getTranslateY() <0 || ((Charge) charge).getTranslateY()> SQUARE_SIZE*GRID_SIZE_Y) {
+                            ((Charge) charge).setAlive(false);
+                        }
                     }
                 }
             }

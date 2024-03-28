@@ -7,15 +7,10 @@
     <list default="true" id="097ca2aa-89e8-45bf-a3da-19bb883ef949" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Charge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Charge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MainClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MathFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MathFunctions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/SimulationDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/SimulationDisplay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Charge.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Charge.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/MainClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/MainClass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/MathFunctions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/MathFunctions.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/SimulationDisplay.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/SimulationDisplay.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/TestMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/TestMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation$myTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation$myTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,13 +36,6 @@
       </UrlAndAccount>
     </option>
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="ProjectErrors" />
   </component>
@@ -56,17 +44,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.MainClass.executor": "Run",
-    "JUnit.TestMain.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Elyes's-GRIND",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MainClass.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestMain.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Elyes's-GRIND&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="TestMain" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MagnetAi" />
