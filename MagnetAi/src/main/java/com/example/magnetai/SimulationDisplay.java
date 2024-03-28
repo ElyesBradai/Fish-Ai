@@ -52,7 +52,7 @@ public class SimulationDisplay extends Simulation{
                         break;
                     }
                     case MagneticField.type: {
-                        MagneticField m1 =  new MagneticField(index,new double[]{0,0,1});
+                        MagneticField m1 =  new MagneticField(index,new double[]{0,0,0.02});
                         this.addToMap(m1,m1.getIndex());
                         break;
                     }
@@ -154,7 +154,7 @@ public class SimulationDisplay extends Simulation{
         Scene scene = new Scene(root, width, height);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.setFullScreen(true);
+        //stage.setFullScreen(true);
         stage.show();
     }
     public String getSelectedComponentType() {

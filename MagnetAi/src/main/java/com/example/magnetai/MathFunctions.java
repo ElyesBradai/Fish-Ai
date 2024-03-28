@@ -17,10 +17,10 @@ public class MathFunctions {
      * An electron's charge in coulombs.
      */
     // public static final double ELECTRON_CONSTANT= -1.602176634 * Math.pow(10, -19);
-    public static final double ELECTRON_CONSTANT= -0.000001;
+    public static final double ELECTRON_CONSTANT= 1;
     // An electron's mass in kilograms.
    // public static final double ELECTRON_MASS = 9.1093837015 * Math.pow(10, -31);
-    public static final double ELECTRON_MASS = 0.000001;
+    public static final double ELECTRON_MASS = 1;
     /**
      *
      * @param charge
@@ -31,9 +31,10 @@ public class MathFunctions {
      */
     public static double[] calcFinalVelocity(double charge,double mass, double [] velocity, double[] magneticFieldStrength){
        double[] acceleration = calcAcceleration(charge,mass,velocity,magneticFieldStrength);
-       return createVec(velocity[0] + acceleration[0],
-                        velocity[1] + acceleration[1],
-                        velocity[2] + acceleration[2]);
+       System.out.println("The accleration: X = " + acceleration[0] + ", Y = " + acceleration[1]+ ", Z = " + acceleration[2]);
+       return createVec((velocity[0] + acceleration[0]),
+                       (velocity[1] + acceleration[1]),
+                       (velocity[2] + acceleration[2]));
     }
     /**
      *
@@ -44,10 +45,19 @@ public class MathFunctions {
      * @return the current acceleration of the charge.
      */
     private static double[] calcAcceleration(double charge,double mass, double[] velocity, double[] magneticFieldStrength){
-        double[] force = createVec(charge * crossProduct(velocity, magneticFieldStrength)[0],
-                                   charge * crossProduct(velocity, magneticFieldStrength)[1],
-                                   charge * crossProduct(velocity, magneticFieldStrength)[2]);
-       return createVec(force[0] / mass,force[1] / mass,force[2] / mass);
+
+        double[] cross = crossProduct(velocity,magneticFieldStrength); // force per coulomb
+        System.out.println(cross[0]+","+cross[1]+","+cross[2]);
+        double ratio = charge/mass; // coulomb per kg
+
+        return createVec((cross[0]/ratio),(cross[1]/ratio),(cross[2]/ratio));
+
+
+
+//        double[] force = createVec(charge * crossProduct(velocity, magneticFieldStrength)[0],
+//                                   charge * crossProduct(velocity, magneticFieldStrength)[1],
+//                                   charge * crossProduct(velocity, magneticFieldStrength)[2]);
+       //return createVec(force[0] / mass,force[1] / mass,force[2] / mass);
     }
     /**
      *

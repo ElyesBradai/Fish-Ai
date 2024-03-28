@@ -37,7 +37,17 @@ public class MainClass extends Application {
         Charge c1 = new Charge(1, ChargeType.NEGATIVE);
         s1.addToMap(c1,1);
 
-        for (int i = 0; i < 1; i++) {
+        MagneticField opp1 = new MagneticField(11-1,new double[]{0,0,-0.2});
+        MagneticField opp2 = new MagneticField(12-1,new double[]{0,0,-0.2});
+        MagneticField opp3 = new MagneticField(19-1,new double[]{0,0,-0.2});
+        MagneticField opp4 = new MagneticField(20-1,new double[]{0,0,-0.2});
+
+        s1.addToMap(opp1,opp1.index);
+        s1.addToMap(opp2,opp2.index);
+        s1.addToMap(opp3,opp3.index);
+        s1.addToMap(opp4,opp4.index);
+
+        for (int i = 0; i < 3; i++) {
             new Simulation();
         }
 
@@ -57,6 +67,7 @@ public class MainClass extends Application {
         superConductor.setOnMouseClicked(event -> {s1.setSelectedComponentType("superConductor");selectedShape.set(superConductor);});
         Rectangle mgfield = new Rectangle(100,100, Color.GREEN);
         mgfield.setOnMouseClicked(event -> {s1.setSelectedComponentType("magneticfield");selectedShape.set(mgfield);});
+
 
         Button b1 = new Button("Save");
         b1.setOnAction(event -> {

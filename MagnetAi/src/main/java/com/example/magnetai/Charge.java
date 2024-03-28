@@ -23,7 +23,7 @@ public class Charge extends Circle implements Component{
         this.startingIndex = startingIndex;
         this.chargeType = type;
         this.setFill(CHARGE_COLOR);
-        this.velocity = new double[]{3, 3, 0};
+        this.velocity = new double[]{0.3, 0.3, 0};
     }
 
     /**
@@ -31,34 +31,35 @@ public class Charge extends Circle implements Component{
      * @param component
      */
     public void move(Component component) {
-        System.out.println(checkCollisionType(component));
         switch (checkCollisionType(component)){
             case Obstacle.type -> {
                 System.out.println("OBSTACLE");
                 this.velocity = new double[]{0, 0, 0};
                 this.setTranslateX(this.getTranslateX() + this.velocity[0]);
                 this.setTranslateY(this.getTranslateY() + this.velocity[1]);
+                System.out.println(checkCollisionType(component));
             }
             case "nothing" -> {
                 this.setTranslateX(this.getTranslateX() + this.velocity[0]);
                 this.setTranslateY(this.getTranslateY() + this.velocity[1]);
             }
-            case Charge.type -> {
+            default -> {
                 this.setTranslateX(this.getTranslateX() + this.velocity[0]);
                 this.setTranslateY(this.getTranslateY() + this.velocity[1]);
             }
 
 
+
             case MagneticField.type -> {
                 if(this.chargeType.equals(ChargeType.NEGATIVE)) {
-                    double[] newVelocity = MathFunctions.calcFinalVelocity(MathFunctions.ELECTRON_CONSTANT,MathFunctions.ELECTRON_MASS,((MagneticField) component).getStrength(),this.velocity);
+                    double[] newVelocity = MathFunctions.calcFinalVelocity(MathFunctions.ELECTRON_CONSTANT,MathFunctions.ELECTRON_MASS,this.velocity,((MagneticField) component).getStrength());
                     System.out.println("Current velocity is X: " + this.velocity[0] + "and Y: "+ this.velocity[1]+ "and Z: "+ this.velocity[2]);
                     this.velocity=newVelocity;
                     this.setTranslateX(this.getTranslateX() + this.velocity[0]);
                     this.setTranslateY(this.getTranslateY() + this.velocity[1]);
                 }
                 else if (this.chargeType.equals(ChargeType.POSITIVE)) {
-                    double[] newVelocity = MathFunctions.calcFinalVelocity(MathFunctions.PROTON_CONSTANT,MathFunctions.PROTON_MASS,((MagneticField) component).getStrength(),this.velocity);
+                    double[] newVelocity = MathFunctions.calcFinalVelocity(MathFunctions.PROTON_CONSTANT,MathFunctions.PROTON_MASS,this.velocity,((MagneticField) component).getStrength());
                     this.velocity = newVelocity;
                     this.setTranslateX(this.getTranslateX() + this.velocity[0]);
                     this.setTranslateY(this.getTranslateY() + this.velocity[1]);
