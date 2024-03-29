@@ -12,7 +12,7 @@ public class FinishLine extends Rectangle implements Component{
 	 * @param index
 	 */
 	public FinishLine(int index){
-		super(SQUARE_SIZE, SQUARE_SIZE, Color.YELLOW); //creates a square of size 50 by 50
+		super(square_size, square_size, Color.YELLOW); //creates a square of size 50 by 50
 		this.index = index;
 		this.setStroke(Color.BLACK);
 		this.setStrokeWidth(3);

@@ -12,7 +12,7 @@ public class Obstacle extends Rectangle implements Component{
 	 * @param index
 	 */
 	public Obstacle(int index){
-		super(SQUARE_SIZE, SQUARE_SIZE, Color.BLUE); //creates a square of size 50 by 50
+		super(square_size, square_size, Color.BLUE); //creates a square of size 50 by 50
 		this.index = index;
 		this.setStroke(Color.BLACK);
 		this.setStrokeWidth(3);

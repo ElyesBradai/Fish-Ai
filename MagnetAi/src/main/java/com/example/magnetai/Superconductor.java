@@ -9,7 +9,7 @@ public class Superconductor extends Rectangle implements Component{
 	int index;
 	
 	public Superconductor(int index){
-		super(SQUARE_SIZE, SQUARE_SIZE, Color.CYAN); //creates a square of size 50 by 50
+		super(square_size, square_size, Color.CYAN); //creates a square of size 50 by 50
 		this.index = index;
 		this.setStroke(Color.BLACK);
 		this.setStrokeWidth(3);
