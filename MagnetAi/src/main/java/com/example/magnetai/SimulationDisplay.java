@@ -29,19 +29,19 @@ public class SimulationDisplay extends Simulation{
 			square.setOnMouseClicked(event -> {
 				int index = posToIndex(absolutePosToGridPosDisplay(square.getTranslateX(), square.getTranslateY()));
 				switch (this.selectedComponentType){
-					case "obstacle":{
+					case Obstacle.TYPE:{
 						Obstacle o1 = new Obstacle(index);
 						this.addToMap(o1, o1.getIndex());
 						break;
 					}
-					case "finishLine":{
+					case FinishLine.TYPE:{
 						//TODO ALLOW ONLY ONE
 //                        if (this.hasFinishLine) {}
 						FinishLine f1 = new FinishLine(index);
 						this.addToMap(f1, f1.getIndex());
 						break;
 					}
-					case "superConductor":{
+					case Superconductor.TYPE:{
 						Superconductor s1 = new Superconductor(index);
 						this.addToMap(s1, s1.getIndex());
 						break;
@@ -140,7 +140,7 @@ public class SimulationDisplay extends Simulation{
 				
 				for (Component charge : row){
 					
-					if(charge != null && charge.getType().equals(Charge.type)){
+					if(charge != null && charge.getType().equals(Charge.TYPE)){
 						charge.getBody().toFront();
 					}
 					

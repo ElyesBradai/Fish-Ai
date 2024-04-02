@@ -6,7 +6,7 @@ import javafx.scene.shape.Shape;
 
 public class Charge extends Circle implements Component{
 	static final double CHARGE_RADIUS = 15;
-	final static String type = "charge";
+	static final String TYPE = "charge";
 	static final String NOTHING = "nothing";
 	private static final Color CHARGE_COLOR = Color.RED;
 	ChargeType chargeType;
@@ -98,7 +98,7 @@ public class Charge extends Circle implements Component{
 	
 	@Override
 	public String getType(){
-		return Charge.type;
+		return Charge.TYPE;
 	}
 	
 	@Override
