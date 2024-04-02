@@ -15,7 +15,7 @@ public class Simulation {
     public static final int SQUARE_SIZE = 100;
     private static ArrayList<Simulation> simulationList = new ArrayList<Simulation>();
     Component[][] map;
-    Pane simPane;//not sure if i should use pane or other :/
+    private Pane simPane;//not sure if i should use pane or other :/
     Rectangle player = new Rectangle(50,50);
     ArrayList<Rectangle> squareList;
     private NeuralNetwork neuralNetwork;

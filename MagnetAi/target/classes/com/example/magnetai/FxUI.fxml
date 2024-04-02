@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
@@ -16,7 +17,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1201.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1201.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.magnetai.FxController">
    <children>
       <VBox prefHeight="300.0" prefWidth="400.0">
          <children>
@@ -135,8 +137,8 @@
       </VBox>
       <VBox prefHeight="200.0" prefWidth="800.0">
          <children>
-            <HBox prefHeight="583.0" prefWidth="800.0" />
-            <HBox prefHeight="150.0" prefWidth="200.0">
+            <Pane fx:id="SimDisplayPane" prefHeight="812.0" prefWidth="800.0" />
+            <HBox prefHeight="154.0" prefWidth="800.0">
                <children>
                   <GridPane alignment="CENTER" prefWidth="800.0">
                      <columnConstraints>
@@ -148,18 +150,18 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox prefHeight="86.0" prefWidth="400.0">
                            <children>
                               <HBox prefHeight="75.0" prefWidth="100.0">
                                  <children>
-                                    <Circle fill="#ff0011" radius="30.0" stroke="BLACK" strokeType="INSIDE">
+                                    <Circle fx:id="ChargeSelector" fill="#ff0011" radius="30.0" stroke="BLACK" strokeType="INSIDE">
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin>
                                     </Circle>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
+                              <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="62.0" prefWidth="200.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Charge" textAlignment="CENTER">
                                        <font>
@@ -177,31 +179,34 @@
                            <children>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
+                                    <Rectangle fx:id="ObstacleSelector" arcHeight="5.0" arcWidth="5.0" height="40.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
                                  </children>
                                  <HBox.margin>
                                     <Insets left="90.0" top="10.0" />
                                  </HBox.margin>
                               </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Obstacle" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="Calibri" size="50.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="1.0" />
-                                 </HBox.margin>
-                              </Text>
+                              <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="200.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Obstacle" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Calibri" size="50.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets right="1.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                 </children>
+                              </HBox>
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
+                                    <Rectangle fx:id="SCSelector" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
                                  </children>
                               </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
+                              <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="313.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SuperConductor">
                                        <font>
@@ -216,7 +221,7 @@
                            <children>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eeff00" height="40.0" stroke="BLACK" strokeType="INSIDE" width="80.0">
+                                    <Rectangle fx:id="FLSelector" arcHeight="5.0" arcWidth="5.0" fill="#eeff00" height="40.0" stroke="BLACK" strokeType="INSIDE" width="80.0">
                                        <HBox.margin>
                                           <Insets left="90.0" />
                                        </HBox.margin>

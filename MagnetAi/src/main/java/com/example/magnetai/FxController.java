@@ -37,11 +37,26 @@ public class FxController {
     @FXML
     public void initialize() {
 
-        startButton.setOnAction(actionEvent -> startbutton());
+       startbutton();
 
     }
+    
     @FXML
     private Label welcomeText;
+    @FXML
+    private Pane SimDisplayPane;
+    @FXML
+    private Circle ChargeSelector;
+    @FXML
+    private Rectangle ObstacleSelector;
+    @FXML
+    private Rectangle FLSelector;
+    @FXML
+    private Rectangle SCSelector;
+    
+    
+    
+    
 
     @FXML
     protected void onHelloButtonClick() {
@@ -52,6 +67,7 @@ public class FxController {
     public void startbutton(){
         HBox root = new HBox();
         root.setSpacing(Simulation.GRID_SIZE_X * Simulation.SQUARE_SIZE);
+        SimDisplayPane.getChildren().add(root);
         VBox vb1 = new VBox();
         root.getChildren().addAll(vb1);
         SimulationDisplay s1 = new SimulationDisplay();
@@ -72,13 +88,20 @@ public class FxController {
         // Bind the fill property of the circle to the fill property of the selected rectangle
         selected.fillProperty().bind(Bindings.createObjectBinding(() ->
                 selectedShape.get() != null ? selectedShape.get().getFill() : Color.BLACK, selectedShape));
-
-        Rectangle obSelector = new Rectangle(100,100, Color.BLUE);
-        obSelector.setOnMouseClicked(event -> {s1.setSelectedComponentType("obstacle");selectedShape.set(obSelector);});
-        Rectangle finishSelector = new Rectangle(100,100, Color.YELLOW);
-        finishSelector.setOnMouseClicked(event -> {s1.setSelectedComponentType("finishLine");selectedShape.set(finishSelector);});
-        Rectangle superConductor = new Rectangle(100,100, Color.CYAN);
-        superConductor.setOnMouseClicked(event -> {s1.setSelectedComponentType("superConductor");selectedShape.set(superConductor);});
+        
+        
+        ChargeSelector.setOnMouseClicked(event ->{s1.setSelectedComponentType(Charge.type); System.out.println(Charge.type);
+        selectedShape.set(ChargeSelector);
+        });
+        ObstacleSelector.setOnMouseClicked(event -> {s1.setSelectedComponentType(Obstacle.type); System.out.println(Obstacle.type);
+        selectedShape.set(ObstacleSelector);
+        });
+        FLSelector.setOnMouseClicked(event -> {s1.setSelectedComponentType(FinishLine.type);System.out.println(FinishLine.type);
+        selectedShape.set(FLSelector);
+        });
+        SCSelector.setOnMouseClicked(event -> {s1.setSelectedComponentType(Superconductor.type);System.out.println(Superconductor.type);
+        selectedShape.set(SCSelector);
+        });
 
         Button b1 = new Button("Save");
         b1.setOnAction(event -> {
@@ -86,13 +109,13 @@ public class FxController {
             s1.saveDesign();
             s1.showAllSimulations();
         });
-        VBox selectorBox = new VBox(obSelector,finishSelector,superConductor,selected,b1);
-        root.getChildren().add(selectorBox);
-        Scene scene = new Scene(root, 1200, 800);
-        Stage stage = new Stage();
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+//        VBox selectorBox = new VBox(ObstacleSelector,FLSelector,SCSelector,selected,b1);
+//        root.getChildren().add(selectorBox);
+//        Scene scene = new Scene(root, 1200, 800);
+//        Stage stage = new Stage();
+//        stage.setTitle("Hello!");
+//        stage.setScene(scene);
+//        stage.show();
     }
 
     }

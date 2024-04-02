@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7a0e346c-ac4d-436c-9d46-9f7e0f5f6ea4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MenuPageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/FxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/FxController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/magnetai/FxUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/magnetai/FxUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/magnetai/Menupage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/magnetai/Menupage.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/FxController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/FxController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

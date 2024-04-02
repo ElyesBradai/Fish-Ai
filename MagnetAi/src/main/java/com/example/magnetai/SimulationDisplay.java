@@ -52,7 +52,7 @@ public class SimulationDisplay extends Simulation{
                         this.addToMap(f1, f1.getIndex());
                         break;
                     }
-                    case "superConductor": {
+                    case Superconductor.type: {
                         Superconductor s1 = new Superconductor(index);
                         this.addToMap(s1, s1.getIndex());
                         break;
