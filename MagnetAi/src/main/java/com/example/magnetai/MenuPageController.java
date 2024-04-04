@@ -1,19 +1,11 @@
 package com.example.magnetai;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -24,6 +16,8 @@ public class MenuPageController {
     public Button startmenu;
     public Button helpmenu;
     public Button exitmenu;
+    @FXML
+    private Label welcomeText;
 
     @FXML
     public void initialize() {
@@ -38,11 +32,10 @@ public class MenuPageController {
             }
         });
 
-        exitmenu.setOnAction(actionEvent -> {});
+        exitmenu.setOnAction(actionEvent -> {
+        });
 
     }
-    @FXML
-    private Label welcomeText;
 
     @FXML
     protected void onHelloButtonClick() {
@@ -50,7 +43,7 @@ public class MenuPageController {
     }
 
 
-    public void showhelppage(){
+    public void showhelppage() {
         Stage helppagestage = new Stage();
         Text text = new Text(30, 100, "Information");
         VBox vbox = new VBox(text);
@@ -67,7 +60,6 @@ public class MenuPageController {
         Scene scene = new Scene(fxmlloader.load(), 1300, 1300);
         stage.setTitle("Hello");
         stage.setScene(scene);
-        stage.setFullScreen(true);
         stage.show();
 
     }
