@@ -7,8 +7,10 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -19,9 +21,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.magnetai.FxController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.magnetai.FxController">
     <top>
-        <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
+        <MenuBar fx:id="menuBar" prefHeight="28.0" prefWidth="970.0" BorderPane.alignment="CENTER">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
@@ -46,21 +48,21 @@
             <children>
                 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="294.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="126.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="168.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="166.0" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="188.0" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="195.0" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
                         <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="150.0" text="Charge">
@@ -83,7 +85,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Magnetic Field &#10;Strength" GridPane.rowIndex="4">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="121.0" text="Magnetic Field &#10;Strength" GridPane.rowIndex="4">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -134,16 +136,7 @@
                         <TextField fx:id="inputLayersTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <TextField fx:id="simulationsTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <TextField fx:id="generationCounterTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <VBox prefHeight="200.0" prefWidth="147.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-                            <children>
-                                <TextField fx:id="VelocityTextField" />
-                                <Slider fx:id="velocitySlider" />
-                            </children>
-                            <padding>
-                                <Insets bottom="20.0" top="40.0" />
-                            </padding>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                             <children>
                                 <TextField fx:id="strengthTextField" />
                                 <Slider fx:id="strengthSlider" />
@@ -153,81 +146,108 @@
                             </padding>
                         </VBox>
                         <ChoiceBox fx:id="chargeChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" />
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <children>
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="87.0">
+                           <children>
+                              <Label text="X:" />
+                              <TextField fx:id="velocityTextFieldX" />
+                              <Slider fx:id="velocitySliderX" />
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" top="40.0" />
+                           </padding>
+                        </VBox>
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="87.0">
+                           <children>
+                              <Label text="Y:" />
+                              <TextField fx:id="velocityTextFieldY" prefWidth="65.0" />
+                              <Slider fx:id="velocitySliderY" />
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" top="40.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </HBox>
                     </children>
                <padding>
                   <Insets bottom="10.0" />
                </padding>
                 </GridPane>
             </children>
+         <BorderPane.margin>
+            <Insets bottom="15.0" left="15.0" />
+         </BorderPane.margin>
         </VBox>
     </left>
     <bottom>
-        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="133.0" prefWidth="663.0" BorderPane.alignment="CENTER_RIGHT">
+        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="133.0" prefWidth="663.0" BorderPane.alignment="CENTER_RIGHT">
             <children>
-                <VBox prefHeight="231.0" prefWidth="300.0">
+                <VBox alignment="CENTER" prefHeight="231.0" prefWidth="300.0">
                     <children>
-                        <Circle fx:id="chargeCircle" fill="#ff1f1f" radius="40.0" stroke="BLACK" strokeType="INSIDE">
+                        <Circle fx:id="chargeSelector" fill="#ff1f1f" radius="20.0" stroke="BLACK" strokeType="INSIDE">
                             <VBox.margin>
-                                <Insets left="70.0" />
+                                <Insets />
                             </VBox.margin>
                         </Circle>
                         <Label text="CHARGE">
                             <font>
-                                <Font size="36.0" />
+                                <Font size="24.0" />
                             </font>
                             <VBox.margin>
-                                <Insets left="70.0" />
+                                <Insets />
                             </VBox.margin>
                         </Label>
                     </children>
                 </VBox>
-                <VBox prefHeight="231.0" prefWidth="300.0">
+                <VBox alignment="CENTER" prefHeight="231.0" prefWidth="300.0">
                     <children>
-                        <Rectangle fx:id="obstacleRectangle" arcHeight="5.0" arcWidth="5.0" height="78.0" stroke="BLACK" strokeType="INSIDE" width="86.0">
+                        <Rectangle fx:id="obstacleSelector" arcHeight="5.0" arcWidth="5.0" height="40.0" stroke="BLACK" strokeType="INSIDE" width="40.0">
                             <VBox.margin>
-                                <Insets left="50.0" />
+                                <Insets />
                             </VBox.margin>
                         </Rectangle>
                         <Label text="Obstacle">
                             <font>
-                                <Font size="36.0" />
+                                <Font size="24.0" />
                             </font>
                             <VBox.margin>
-                                <Insets left="80.0" />
+                                <Insets />
                             </VBox.margin>
                         </Label>
                     </children>
                 </VBox>
-                <VBox prefHeight="200.0" prefWidth="300.0">
+                <VBox alignment="CENTER" prefHeight="133.0" prefWidth="310.0">
                     <children>
-                        <Rectangle fx:id="superConductorRectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="79.0" stroke="BLACK" strokeType="INSIDE" width="80.0">
+                        <Rectangle fx:id="sCSelector" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" width="40.0">
                             <VBox.margin>
-                                <Insets left="50.0" />
+                                <Insets />
                             </VBox.margin>
                         </Rectangle>
                         <Label text="SuperConductor">
                             <font>
-                                <Font size="36.0" />
+                                <Font size="24.0" />
                             </font>
                             <VBox.margin>
-                                <Insets left="25.0" />
+                                <Insets />
                             </VBox.margin>
                         </Label>
                     </children>
                 </VBox>
-                <VBox prefHeight="200.0" prefWidth="300.0">
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0">
                     <children>
-                        <Rectangle fx:id="finishLineRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ecff16" height="79.0" stroke="BLACK" strokeType="INSIDE" width="80.0">
+                        <Rectangle fx:id="fLSelector" arcHeight="5.0" arcWidth="5.0" fill="#ecff16" height="40.0" stroke="BLACK" strokeType="INSIDE" width="40.0">
                             <VBox.margin>
-                                <Insets left="50.0" />
+                                <Insets />
                             </VBox.margin>
                         </Rectangle>
                         <Label text="FinishLine">
                             <font>
-                                <Font size="36.0" />
+                                <Font size="24.0" />
                             </font>
                             <VBox.margin>
-                                <Insets left="75.0" />
+                                <Insets />
                             </VBox.margin>
                         </Label>
                     </children>
@@ -235,7 +255,11 @@
             </children>
         </HBox>
     </bottom>
-   <padding>
-      <Insets bottom="15.0" left="15.0" right="15.0" />
-   </padding>
+   <center>
+      <ScrollPane fx:id="simDisplayPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
+   </center>
 </BorderPane>

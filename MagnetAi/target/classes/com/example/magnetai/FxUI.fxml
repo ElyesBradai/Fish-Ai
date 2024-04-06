@@ -1,208 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.*?>
-<HBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="1000.0" prefWidth="1201.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-      fx:controller="com.example.magnetai.FxController">
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.magnetai.FxController">
     <children>
         <VBox prefHeight="300.0" prefWidth="400.0">
             <children>
                 <GridPane prefHeight="1076.0" prefWidth="400.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                               prefHeight="83.0" prefWidth="150.0" text="Charge">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="150.0" text="Charge">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                               prefHeight="92.0" prefWidth="150.0"
-                               text="Number of &#10;Magnetic Fields&#10;(inwards)&#10;&#10;" GridPane.rowIndex="1">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="150.0" text="Number of &#10;Magnetic Fields&#10;(inwards)&#10;&#10;" GridPane.rowIndex="1">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                               prefHeight="92.0" prefWidth="150.0"
-                               text="Number of &#10;Magnetic Fields&#10;(outwards)&#10;&#10;" GridPane.rowIndex="2">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="150.0" text="Number of &#10;Magnetic Fields&#10;(outwards)&#10;&#10;" GridPane.rowIndex="2">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                               prefWidth="150.0" text="Initial Velocity&#10; of Charge" GridPane.rowIndex="3">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Initial Velocity&#10; of Charge" GridPane.rowIndex="3">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                               prefWidth="150.0" text="Magnetic Field &#10;Strength" GridPane.rowIndex="4">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Magnetic Field &#10;Strength" GridPane.rowIndex="4">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                               prefWidth="150.0" text="Mutation Rate" GridPane.rowIndex="5">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Mutation Rate" GridPane.rowIndex="5">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                               prefWidth="150.0" text="Input Layers" GridPane.rowIndex="6">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Input Layers" GridPane.rowIndex="6">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                               prefWidth="150.0" text="Number of &#10;Simulations" GridPane.rowIndex="7">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Number of &#10;Simulations" GridPane.rowIndex="7">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                               prefWidth="150.0" text="Generation &#10;Counter&#10;" GridPane.rowIndex="8">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Generation &#10;Counter&#10;" GridPane.rowIndex="8">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
-                        <Button fx:id="saveButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0"
-                                text="Save" GridPane.halignment="CENTER" GridPane.rowIndex="9"
-                                GridPane.valignment="CENTER">
+                        <Button fx:id="saveButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Save" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="startButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0"
-                                text="Start" GridPane.halignment="CENTER" GridPane.rowIndex="10"
-                                GridPane.valignment="CENTER">
+                        <Button fx:id="startButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Start" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="resetButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0"
-                                text="Reset" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9"
-                                GridPane.valignment="CENTER">
+                        <Button fx:id="resetButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Reset" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="pauseButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0"
-                                text="Pause" GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                                GridPane.rowIndex="10" GridPane.valignment="CENTER">
+                        <Button fx:id="pauseButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Pause" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Button>
-                        <TextField fx:id="inwardTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                        <TextField fx:id="outwardTextField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                        <TextField fx:id="mutationRateTextField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                        <TextField fx:id="inputLayersTextField" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                        <TextField fx:id="simulationsTextField" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-                        <TextField fx:id="generationCounterTextField" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
-                        <HBox GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3"
-                              GridPane.valignment="CENTER">
+                        <TextField fx:id="inwardTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="outwardTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="mutationRateTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="inputLayersTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="simulationsTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="generationCounterTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <HBox GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                             <children>
-                                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                      minWidth="-Infinity" prefHeight="130.0" prefWidth="100.0">
+                                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="100.0">
                                     <children>
-                                        <Label text="X:"/>
-                                        <TextField fx:id="velocityTextFieldX"/>
-                                        <Slider fx:id="velocitySliderX"/>
+                                        <Label text="X:" />
+                                        <TextField fx:id="velocityTextFieldX" />
+                                        <Slider fx:id="velocitySliderX" />
                                     </children>
                                     <padding>
-                                        <Insets bottom="20.0" top="40.0"/>
+                                        <Insets bottom="20.0" top="40.0" />
                                     </padding>
                                 </VBox>
-                                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                      minWidth="-Infinity" prefHeight="130.0" prefWidth="100.0">
+                                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="100.0">
                                     <children>
-                                        <Label text="Y:"/>
-                                        <TextField fx:id="velocityTextFieldY"/>
-                                        <Slider fx:id="velocitySliderY"/>
+                                        <Label text="Y:" />
+                                        <TextField fx:id="velocityTextFieldY" />
+                                        <Slider fx:id="velocitySliderY" />
                                     </children>
                                     <padding>
-                                        <Insets bottom="20.0" top="40.0"/>
+                                        <Insets bottom="20.0" top="40.0" />
                                     </padding>
                                 </VBox>
                             </children>
                         </HBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                             <children>
-                                <TextField fx:id="strengthTextField"/>
-                                <Slider fx:id="strengthSlider"/>
+                                <TextField fx:id="strengthTextField" />
+                                <Slider fx:id="strengthSlider" />
                             </children>
                             <padding>
-                                <Insets bottom="20.0" top="40.0"/>
+                                <Insets bottom="20.0" top="40.0" />
                             </padding>
                         </VBox>
-                        <ChoiceBox fx:id="chargeChoiceBox" prefWidth="150.0" GridPane.columnIndex="1"/>
+                        <ChoiceBox fx:id="chargeChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" />
                     </children>
                 </GridPane>
             </children>
         </VBox>
         <VBox prefHeight="200.0" prefWidth="800.0">
             <children>
-                <FlowPane fx:id="simDisplayPane" prefHeight="859.0" prefWidth="800.0"/>
-                <HBox prefHeight="154.0" prefWidth="800.0">
+                <FlowPane fx:id="simDisplayPane" prefHeight="859.0" prefWidth="800.0" />
+                <HBox prefHeight="331.0" prefWidth="700.0">
                     <children>
-                        <GridPane alignment="CENTER" prefWidth="800.0">
+                        <GridPane alignment="CENTER" prefWidth="700.0">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <HBox prefHeight="86.0" prefWidth="400.0">
                                     <children>
                                         <HBox prefHeight="75.0" prefWidth="100.0">
                                             <children>
-                                                <Circle fx:id="chargeSelector" fill="#ff0011" radius="30.0"
-                                                        stroke="BLACK" strokeType="INSIDE">
+                                                <Circle fx:id="chargeSelector" fill="#ff0011" radius="30.0" stroke="BLACK" strokeType="INSIDE">
                                                     <HBox.margin>
-                                                        <Insets/>
+                                                        <Insets />
                                                     </HBox.margin>
                                                 </Circle>
                                             </children>
                                         </HBox>
-                                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                              minWidth="-Infinity" prefHeight="62.0" prefWidth="200.0">
+                                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="62.0" prefWidth="200.0">
                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Charge"
-                                                      textAlignment="CENTER">
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Charge" textAlignment="CENTER">
                                                     <font>
-                                                        <Font name="Calibri" size="50.0"/>
+                                                        <Font name="Calibri" size="50.0" />
                                                     </font>
                                                     <HBox.margin>
-                                                        <Insets/>
+                                                        <Insets />
                                                     </HBox.margin>
                                                 </Text>
                                             </children>
@@ -213,24 +193,20 @@
                                     <children>
                                         <HBox prefHeight="100.0" prefWidth="200.0">
                                             <children>
-                                                <Rectangle fx:id="obstacleSelector" arcHeight="5.0" arcWidth="5.0"
-                                                           height="40.0" stroke="BLACK" strokeType="INSIDE"
-                                                           width="80.0"/>
+                                                <Rectangle fx:id="obstacleSelector" arcHeight="5.0" arcWidth="5.0" height="40.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
                                             </children>
                                             <HBox.margin>
-                                                <Insets left="90.0" top="10.0"/>
+                                                <Insets left="90.0" top="10.0" />
                                             </HBox.margin>
                                         </HBox>
-                                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                              minWidth="-Infinity" prefHeight="64.0" prefWidth="200.0">
+                                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="174.0">
                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Obstacle"
-                                                      textAlignment="CENTER">
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Obstacle" textAlignment="CENTER">
                                                     <font>
-                                                        <Font name="Calibri" size="50.0"/>
+                                                        <Font name="Calibri" size="50.0" />
                                                     </font>
                                                     <HBox.margin>
-                                                        <Insets right="1.0"/>
+                                                        <Insets right="1.0" />
                                                     </HBox.margin>
                                                 </Text>
                                             </children>
@@ -241,42 +217,36 @@
                                     <children>
                                         <HBox prefHeight="100.0" prefWidth="200.0">
                                             <children>
-                                                <Rectangle fx:id="sCSelector" arcHeight="5.0" arcWidth="5.0"
-                                                           fill="DODGERBLUE" height="40.0" stroke="BLACK"
-                                                           strokeType="INSIDE" width="80.0"/>
+                                                <Rectangle fx:id="sCSelector" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
                                             </children>
                                         </HBox>
-                                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                              minWidth="-Infinity" prefHeight="54.0" prefWidth="313.0">
+                                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="313.0">
                                             <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SuperConductor">
                                                     <font>
-                                                        <Font name="Calibri" size="45.0"/>
+                                                        <Font name="Calibri" size="45.0" />
                                                     </font>
                                                 </Text>
                                             </children>
                                         </HBox>
                                     </children>
                                 </HBox>
-                                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
-                                      GridPane.rowIndex="1">
+                                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                     <children>
-                                        <HBox prefHeight="100.0" prefWidth="200.0">
+                                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0">
                                             <children>
-                                                <Rectangle fx:id="fLSelector" arcHeight="5.0" arcWidth="5.0"
-                                                           fill="#eeff00" height="40.0" stroke="BLACK"
-                                                           strokeType="INSIDE" width="80.0">
+                                                <Rectangle fx:id="fLSelector" arcHeight="5.0" arcWidth="5.0" fill="#eeff00" height="40.0" stroke="BLACK" strokeType="INSIDE" width="80.0">
                                                     <HBox.margin>
-                                                        <Insets left="90.0"/>
+                                                        <Insets left="90.0" />
                                                     </HBox.margin>
                                                 </Rectangle>
                                             </children>
                                         </HBox>
-                                        <HBox prefHeight="100.0" prefWidth="200.0">
+                                        <HBox prefHeight="100.0" prefWidth="142.0">
                                             <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FinishLine">
                                                     <font>
-                                                        <Font name="Calibri" size="50.0"/>
+                                                        <Font name="Calibri" size="50.0" />
                                                     </font>
                                                 </Text>
                                             </children>
@@ -290,4 +260,7 @@
             </children>
         </VBox>
     </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" />
+   </padding>
 </HBox>
