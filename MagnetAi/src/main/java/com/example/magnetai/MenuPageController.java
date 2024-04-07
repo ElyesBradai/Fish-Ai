@@ -12,56 +12,56 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-public class MenuPageController{
-	public Button startmenu;
-	public Button helpmenu;
-	public Button exitmenu;
-	@FXML
-	private Label welcomeText;
-	
-	@FXML
-	public void initialize(){
-		
-		helpmenu.setOnAction(actionEvent -> showhelppage());
-		
-		startmenu.setOnAction(actionEvent -> {
-			try{
-				showstartmenu();
-			} catch (IOException e){
-				throw new RuntimeException(e);
-			}
-		});
-		
-		exitmenu.setOnAction(actionEvent -> {
-		});
-		
-	}
-	
-	public void showhelppage(){
-		Stage helppagestage = new Stage();
-		Text text = new Text(30, 100, "Information");
-		VBox vbox = new VBox(text);
-		Scene scene = new Scene(vbox, 800, 300);
-		helppagestage.setTitle("Information Page");
-		helppagestage.setScene(scene);
-		helppagestage.show();
-	}
-	
-	public void showstartmenu() throws IOException{
-		Stage stage = new Stage();
-		
-		FXMLLoader fxmlloader = new FXMLLoader(MainClass.class.getResource("oldFX.fxml"));
-		Scene scene = new Scene(fxmlloader.load(), 1300, 1300);
-		stage.setTitle("Hello");
-		stage.setScene(scene);
-		stage.show();
-		
-	}
-	
-	@FXML
-	protected void onHelloButtonClick(){
-		welcomeText.setText("Welcome to JavaFX Application!");
-	}
-	
+public class MenuPageController {
+    public Button startmenu;
+    public Button helpmenu;
+    public Button exitmenu;
+    @FXML
+    private Label welcomeText;
+
+    @FXML
+    public void initialize() {
+
+        helpmenu.setOnAction(actionEvent -> showhelppage());
+
+        startmenu.setOnAction(actionEvent -> {
+            try {
+                showstartmenu();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        exitmenu.setOnAction(actionEvent -> {
+        });
+
+    }
+
+    public void showhelppage() {
+        Stage helppagestage = new Stage();
+        Text text = new Text(30, 100, "Information");
+        VBox vbox = new VBox(text);
+        Scene scene = new Scene(vbox, 800, 300);
+        helppagestage.setTitle("Information Page");
+        helppagestage.setScene(scene);
+        helppagestage.show();
+    }
+
+    public void showstartmenu() throws IOException {
+        Stage stage = new Stage();
+
+        FXMLLoader fxmlloader = new FXMLLoader(MainClass.class.getResource("oldFX.fxml"));
+        Scene scene = new Scene(fxmlloader.load(), 1300, 1000);
+        stage.setTitle("Hello");
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    @FXML
+    protected void onHelloButtonClick() {
+        welcomeText.setText("Welcome to JavaFX Application!");
+    }
+
 }
 
