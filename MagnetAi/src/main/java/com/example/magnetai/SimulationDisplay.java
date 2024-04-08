@@ -30,41 +30,42 @@ public class SimulationDisplay extends Simulation{
 			square.setOnMouseClicked(event -> {
 				int index = posToIndex(absolutePosToGridPosDisplay(square.getTranslateX(), square.getTranslateY()));
 				switch (this.selectedComponentType){
-					case Charge.TYPE:{
+					case Charge.TYPE -> {
 						if(FxController.polarity != null){
 							Charge c1 = (FxController.polarity.equals("Proton"))
 									? new Charge(index, ChargeType.POSITIVE) : new Charge(index, ChargeType.NEGATIVE);
 							this.addToMap(c1, c1.getIndex());
 						}
-						break;
-						
 						
 					}
-					case Obstacle.TYPE:{
+					case Obstacle.TYPE -> {
 						Obstacle o1 = new Obstacle(index);
 						this.addToMap(o1, o1.getIndex());
-						break;
+						
 					}
-					case FinishLine.TYPE:{
+					case FinishLine.TYPE -> {
 						//TODO ALLOW ONLY ONE
 //                        if (this.hasFinishLine) {}
 						FinishLine f1 = new FinishLine(index);
 						this.addToMap(f1, f1.getIndex());
-						break;
+						
 					}
-					case Superconductor.TYPE:{
+					case Superconductor.TYPE -> {
 						Superconductor s1 = new Superconductor(index);
 						this.addToMap(s1, s1.getIndex());
-						break;
+						
 					}
-					case MagneticField.TYPE:{
-						MagneticField m1 = new MagneticField(index, new double[]{0, 0, 0.5});
-						this.addToMap(m1, m1.getIndex());
-						break;
-					}
+//					case MagneticField.TYPE:{
+//						MagneticField m1 = new MagneticField(index, new double[]{0, 0, 0.06});
+//						this.addToMap(m1, m1.getIndex());
+//						break;
+//					}
 					//case "Charge": {break;}
-					default:
+					default -> {
+						
+						
 						System.out.println("please select a valid type");
+					}
 				}
 			});
 		}
@@ -123,21 +124,17 @@ public class SimulationDisplay extends Simulation{
 				for (Component component : row){
 					if(component != null){
 						switch (component.getType()){
-							case MagneticField.TYPE:
-							case "obstacle":
-							case "superconductor":
-							case "finishLine":{
+							case MagneticField.TYPE, "obstacle", "superconductor", "finishLine" -> {
 								((Rectangle) component.getBody()).setWidth(((Rectangle) component.getBody()).getWidth() * scaleX);
 								((Rectangle) component.getBody()).setHeight(((Rectangle) component.getBody()).getHeight() * scaleY);
 								component.getBody().setTranslateX(component.getBody().getTranslateX() * scaleX);
 								component.getBody().setTranslateY(component.getBody().getTranslateY() * scaleY);
-								break;
 							}
-							case "charge":{
+							case "charge" -> {
 								((Circle) component.getBody()).setRadius(((Circle) component.getBody()).getRadius() * scaleX);
 								component.getBody().setTranslateX(component.getBody().getTranslateX() * scaleX);
 								component.getBody().setTranslateY(component.getBody().getTranslateY() * scaleY);
-								break;
+								
 							}
 						}
 					}
@@ -159,7 +156,7 @@ public class SimulationDisplay extends Simulation{
 		Scene scene = new Scene(root, width, height);
 		Stage stage = new Stage();
 		stage.setScene(scene);
-		//stage.setFullScreen(true);
+		stage.setFullScreen(true);
 		stage.show();
 	}
 	
@@ -169,5 +166,19 @@ public class SimulationDisplay extends Simulation{
 	
 	public void setSelectedComponentType(String selectedComponentType){
 		this.selectedComponentType = selectedComponentType;
+	}
+	
+	public void emptyDisplay(){
+		for (Component[] row : this.map){
+			for (Component comp : row){
+				if(comp != null){
+					this.simPane.getChildren().remove(comp.getBody());
+					map[indexToPos(comp.getIndex())[0]][indexToPos(comp.getIndex())[1]] = null;
+				}
+				
+			}
+		}
+		
+		
 	}
 }

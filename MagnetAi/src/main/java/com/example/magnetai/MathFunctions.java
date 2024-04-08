@@ -6,11 +6,11 @@ public class MathFunctions{
 	 * A proton's mass in kilograms.
 	 */
 	// public static final double PROTON_MASS = 1.6726219236910 * Math.pow(10, -27);
-	public static final double PROTON_MASS = 0.000001;
+	public static final double PROTON_MASS = 1;
 	/**
 	 * A proton's charge in coulombs.
 	 */
-	public static final double PROTON_CONSTANT = 0.00001;
+	public static final double PROTON_CONSTANT = 1;
 	//public static final double PROTON_CONSTANT= 1.602176634 * Math.pow(10, -19);
 	
 	/**

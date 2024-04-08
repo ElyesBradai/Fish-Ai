@@ -57,6 +57,7 @@ public class FxController{
 	@FXML
 	public BorderPane borderPane;
 	Charge c1;
+	SimulationDisplay s1 = new SimulationDisplay();
 	@FXML
 	private Label welcomeText;
 	@FXML
@@ -80,6 +81,26 @@ public class FxController{
 	}
 	
 	public void handle(){
+		
+		startButton.setOnAction(event -> {
+			s1.saveDesign();
+			s1.showAllSimulations();
+		});
+		resetButton.setOnAction(actionEvent -> {
+			s1.emptyDisplay();
+			
+		});
+		pauseButton.setOnAction(actionEvent -> {
+			for (Simulation sim : Simulation.getSimulationList()){
+				sim.getTimerInstance().stop();
+			}
+			
+			
+		});
+		saveButton.setOnAction(actionEvent -> {
+		
+		
+		});
 		chargeChoiceBox.getItems().addAll("Proton", "Electron");
 		chargeChoiceBox.setOnAction(actionEvent -> {
 			polarity = (chargeChoiceBox.getValue() == null) ? null : chargeChoiceBox.getValue().toString();
@@ -92,6 +113,12 @@ public class FxController{
 			Charge.velocity[1] = newValue.doubleValue();
 			velocityTextFieldY.setText(newValue.toString());
 		});
+		strengthSlider.valueProperty().addListener((observableValue, newValue, OldValue) -> {
+			// = newValue.doubleValue();
+			strengthTextField.setText(newValue.toString());
+		});
+		
+		
 	}
 	
 	public void createDisplay(){
@@ -100,11 +127,10 @@ public class FxController{
 		simDisplayPane.setContent(root);
 		VBox vb1 = new VBox();
 		root.getChildren().addAll(vb1);
-		SimulationDisplay s1 = new SimulationDisplay();
 		vb1.getChildren().add(s1.getSimPane());
 		//	Charge c1 = new Charge(ChargeType.NEGATIVE);
 		//	s1.addToMap(c1, 5);
-		for (int i = 0; i < 5; i++){
+		for (int i = 0; i < 1; i++){
 			Simulation s2 = new Simulation();
 			
 		}
@@ -125,7 +151,7 @@ public class FxController{
 			selectedShape.set(chargeSelector);
 		});
 		obstacleSelector.setOnMouseClicked(event -> {
-			s1.setSelectedComponentType(MagneticField.TYPE);
+			s1.setSelectedComponentType(Obstacle.TYPE);
 			System.out.println(Obstacle.TYPE);
 			selectedShape.set(obstacleSelector);
 		});
@@ -139,11 +165,8 @@ public class FxController{
 			System.out.println(Superconductor.TYPE);
 			selectedShape.set(sCSelector);
 		});
-		
-		startButton.setOnAction(event -> {
-			s1.saveDesign();
-			s1.showAllSimulations();
-		});
+
+
 //        VBox selectorBox = new VBox(ObstacleSelector,FLSelector,SCSelector,selected,b1);
 //        root.getChildren().add(selectorBox);
 //        Scene scene = new Scene(root, 1200, 800);

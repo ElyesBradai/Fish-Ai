@@ -139,7 +139,7 @@
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                             <children>
                                 <TextField fx:id="strengthTextField" />
-                                <Slider fx:id="strengthSlider" />
+                                <Slider fx:id="strengthSlider" showTickLabels="true" showTickMarks="true" />
                             </children>
                             <padding>
                                 <Insets bottom="20.0" top="40.0" />
@@ -152,7 +152,7 @@
                            <children>
                               <Label text="X:" />
                               <TextField fx:id="velocityTextFieldX" />
-                              <Slider fx:id="velocitySliderX" />
+                              <Slider fx:id="velocitySliderX" showTickLabels="true" showTickMarks="true" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" top="40.0" />
@@ -162,7 +162,7 @@
                            <children>
                               <Label text="Y:" />
                               <TextField fx:id="velocityTextFieldY" prefWidth="65.0" />
-                              <Slider fx:id="velocitySliderY" />
+                              <Slider fx:id="velocitySliderY" showTickLabels="true" showTickMarks="true" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" top="40.0" />
@@ -256,7 +256,7 @@
         </HBox>
     </bottom>
    <center>
-      <ScrollPane fx:id="simDisplayPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="simDisplayPane" prefHeight="200.0" prefWidth="681.0" BorderPane.alignment="CENTER">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
         </content>
