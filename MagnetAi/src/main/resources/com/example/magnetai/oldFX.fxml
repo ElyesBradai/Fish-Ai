@@ -138,8 +138,8 @@
                         <TextField fx:id="generationCounterTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                             <children>
-                                <TextField fx:id="strengthTextField" />
-                                <Slider fx:id="strengthSlider" showTickLabels="true" showTickMarks="true" />
+                                <TextField fx:id="strengthTextField" disable="true" />
+                                <Slider fx:id="strengthSlider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" />
                             </children>
                             <padding>
                                 <Insets bottom="20.0" top="40.0" />
@@ -151,8 +151,8 @@
                         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="87.0">
                            <children>
                               <Label text="X:" />
-                              <TextField fx:id="velocityTextFieldX" />
-                              <Slider fx:id="velocitySliderX" showTickLabels="true" showTickMarks="true" />
+                              <TextField fx:id="velocityTextFieldX" disable="true" />
+                              <Slider fx:id="velocitySliderX" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" top="40.0" />
@@ -161,8 +161,8 @@
                         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="87.0">
                            <children>
                               <Label text="Y:" />
-                              <TextField fx:id="velocityTextFieldY" prefWidth="65.0" />
-                              <Slider fx:id="velocitySliderY" showTickLabels="true" showTickMarks="true" />
+                              <TextField fx:id="velocityTextFieldY" disable="true" prefWidth="65.0" />
+                              <Slider fx:id="velocitySliderY" majorTickUnit="1.0" max="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" top="40.0" />

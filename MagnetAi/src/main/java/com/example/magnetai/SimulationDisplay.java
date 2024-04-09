@@ -173,12 +173,11 @@ public class SimulationDisplay extends Simulation{
 			for (Component comp : row){
 				if(comp != null){
 					this.simPane.getChildren().remove(comp.getBody());
-					map[indexToPos(comp.getIndex())[0]][indexToPos(comp.getIndex())[1]] = null;
 				}
 				
 			}
 		}
-		
+		this.map = new Component[GRID_SIZE_X][GRID_SIZE_Y];
 		
 	}
 }

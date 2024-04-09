@@ -166,10 +166,10 @@ public class Simulation{
 	public Component checkCollision(){
 		Charge charge = this.findCharge();
 		int[] componentPos = absolutePosToGridPos(charge.getTranslateX(), charge.getTranslateY());
-		if(map[componentPos[0]][componentPos[1]] != null){
-			return this.map[componentPos[0]][componentPos[1]];
-		}
-		return null;
+		//if(map[componentPos[0]][componentPos[1]] != null){
+		return this.map[componentPos[0]][componentPos[1]];
+		//}
+		//return null;
 	}
 	
 	/**
