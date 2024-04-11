@@ -3,7 +3,9 @@ package com.example.magnetai;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -12,6 +14,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 
 public class FxController {
@@ -58,6 +62,7 @@ public class FxController {
     public BorderPane borderPane;
     public MenuItem closebutton;
     public MenuItem deletebutton;
+    public MenuItem aboutbutton;
     Charge c1;
     SimulationDisplay s1 = new SimulationDisplay();
     @FXML
@@ -78,9 +83,25 @@ public class FxController {
 
         handle();
         createDisplay();
-
+        menuBarSetup();
 
     }
+
+
+    public void menuBarSetup(){
+
+        aboutbutton.setOnAction(actionEvent -> showaboutpage());
+
+        closebutton.setOnAction((ActionEvent t) -> {
+            System.exit(0);
+        });
+
+        deletebutton.setOnAction(actionEvent -> {
+            s1.emptyDisplay();
+        });
+
+    }
+
 
     public void handle() {
 
@@ -178,6 +199,16 @@ public class FxController {
 //        stage.show();
     }
 
+
+    public void showaboutpage() {
+        Stage helppagestage = new Stage();
+        Text text = new Text(30, 100, "Information");
+        VBox vbox = new VBox(text);
+        Scene scene = new Scene(vbox, 800, 300);
+        helppagestage.setTitle("Information Page");
+        helppagestage.setScene(scene);
+        helppagestage.show();
+    }
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
