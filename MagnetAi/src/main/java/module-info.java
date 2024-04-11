@@ -3,7 +3,6 @@ module com.example.magnetai {
     requires javafx.fxml;
 
 
-
     opens com.example.magnetai to javafx.fxml;
     exports com.example.magnetai;
 }
