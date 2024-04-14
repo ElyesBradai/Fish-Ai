@@ -173,7 +173,6 @@ public class SimulationDisplay extends Simulation {
                 if (comp != null) {
                     this.simPane.getChildren().remove(comp.getBody());
                 }
-
             }
         }
         this.map = new Component[GRID_SIZE_X][GRID_SIZE_Y];

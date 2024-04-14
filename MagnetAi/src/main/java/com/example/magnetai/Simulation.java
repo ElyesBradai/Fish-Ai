@@ -3,10 +3,11 @@ package com.example.magnetai;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.PriorityQueue;
 
 public class Simulation {
     public static final int GRID_SIZE_X = 10;
@@ -15,6 +16,7 @@ public class Simulation {
     public static ArrayList<Simulation> simulationList = new ArrayList();
     private final NeuralNetwork neuralNetwork;
     private final myTimer timer = new myTimer(); // timer is a singleton within the class
+    private final int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     Component[][] map;
     Pane simPane;//not sure if i should use pane or other :/
     Rectangle player = new Rectangle(50, 50);
@@ -77,7 +79,13 @@ public class Simulation {
             int[] posOfCharge = indexToPos(charge.getIndex());
             simPane.getChildren().remove(charge.getBody());
             map[posOfCharge[0]][posOfCharge[1]] = null;
+        }
 
+        if (component.getType().equals(FinishLine.TYPE) && findFinish() != null) {
+            FinishLine fl = findFinish();
+            int[] posOfCharge = indexToPos(fl.getIndex());
+            simPane.getChildren().remove(fl.getBody());
+            map[posOfCharge[0]][posOfCharge[1]] = null;
 
         }
 
@@ -105,7 +113,7 @@ public class Simulation {
      * @param index
      * @return an int array of position (x,y)
      */
-    int[] indexToPos(int index) {
+    public int[] indexToPos(int index) {
         return new int[]{index / map[0].length, index % map[0].length};
     }
 
@@ -116,9 +124,20 @@ public class Simulation {
      */
     public Charge findCharge() {
         for (Component[] row : this.map) {
-            for (Component charge : row) {
-                if (charge != null && charge.getType().equals("charge")) {
-                    return (Charge) charge;
+            for (Component comp : row) {
+                if (comp != null && comp.getType().equals(Charge.TYPE)) {
+                    return (Charge) comp;
+                }
+            }
+        }
+        return null;
+    }
+
+    public FinishLine findFinish() {
+        for (Component[] row : this.map) {
+            for (Component comp : row) {
+                if (comp != null && comp.getType().equals(FinishLine.TYPE)) {
+                    return (FinishLine) comp;
                 }
             }
         }
@@ -168,6 +187,8 @@ public class Simulation {
         Charge charge = this.findCharge();
         int[] componentPos = absolutePosToGridPos(charge.getTranslateX(), charge.getTranslateY());
         //if(map[componentPos[0]][componentPos[1]] != null){
+        if (this.map[componentPos[0]][componentPos[1]] != null && this.map[componentPos[0]][componentPos[1]].getType().equals(Obstacle.TYPE))
+            System.out.println(calculateShortestPath(new int[]{componentPos[0], componentPos[1]}));
         return this.map[componentPos[0]][componentPos[1]];
         //}
         //return null;
@@ -176,33 +197,68 @@ public class Simulation {
     public int calcutateFitnessScore() {
         //TODO FINISH
         Charge charge = this.findCharge();
-        int[] nearestEmptyPos = findNearestEmptySquarePos(charge);
-
-        return 0;
+        int[] endPosition = findNearestEmpty(charge);
+        int fitness = calculateShortestPath(endPosition);
+        return fitness;
     }
 
-    public int[] findNearestEmptySquarePos(Charge charge) {
-        //TODO FINISH
-        int[] startingPos = absolutePosToGridPos(charge.getTranslateX(), charge.getTranslateY());
-        Line[] directionLineArray = new Line[8];
-        //check 8 directions
-        for (int i = 0; i < 8; i++) {
-            double angle = Math.toRadians(i * 45); //rad
-            double endX = charge.getCenterX() + Math.cos(angle) * 2;
-            double endY = charge.getCenterY() + Math.sin(angle) * 2;
-            Line line = new Line(charge.getCenterX(), charge.getCenterY(), endX, endY);
-            directionLineArray[i] = line;
-        }
-        for (Line line : directionLineArray) {
-            //for all lines check if they intersect with any rectangle of the grid
-            for (Rectangle rec : squareList) {
+    public int calculateShortestPath(int[] endPostion) {
+        int[][] distance = new int[GRID_SIZE_X][GRID_SIZE_Y];
+        for (int[] row : distance)
+            Arrays.fill(row, Integer.MAX_VALUE);
 
-                if (line.intersects(rec.getBoundsInParent())) {
-                    return absolutePosToGridPos(rec.getTranslateX(), rec.getTranslateY());
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[2] - b[2]); // {row, col, distance}
+
+
+        pq.offer(new int[]{endPostion[0], endPostion[1], 0});
+        distance[endPostion[0]][endPostion[1]] = 0;
+
+        while (!pq.isEmpty()) {
+            int[] current = pq.poll();
+            int row = current[0];
+            int col = current[1];
+            int dist = current[2];
+
+            if (map[row][col].getType().equals(FinishLine.TYPE)) // Reached finish line
+                return dist;
+
+            for (int[] dir : directions) {
+                int newRow = row + dir[0];
+                int newCol = col + dir[1];
+                if (isValid(newRow, newCol) && map[newRow][newCol] != null && !map[newRow][newCol].equals(Obstacle.TYPE)) {
+                    int newDist = dist + 1;
+                    if (newDist < distance[newRow][newCol]) {
+                        distance[newRow][newCol] = newDist;
+                        pq.offer(new int[]{newRow, newCol, newDist});
+                    }
                 }
             }
         }
-        return null;
+
+        // Highlight shortest path
+        int[] current = indexToPos(findFinish().getIndex());
+        int steps = distance[current[0]][current[1]];
+        while (steps > 0) {
+            for (int[] dir : directions) {
+                int newRow = current[0] + dir[0];
+                int newCol = current[1] + dir[1];
+                if (isValid(newRow, newCol) && distance[newRow][newCol] == steps - 1) {
+                    this.squareList.get(posToIndex(new int[]{newRow, newCol})).setFill(Color.YELLOW);
+                    current = new int[]{newRow, newCol};
+                    steps--;
+                    break;
+                }
+            }
+        }
+        return -1;
+    }
+
+    private boolean isValid(int row, int col) {
+        return row >= 0 && row < GRID_SIZE_X && col >= 0 && col < GRID_SIZE_Y;
+    }
+
+    public int[] findNearestEmpty(Charge charge) {
+        return absolutePosToGridPos(charge.getTranslateX() - charge.velocity[0], charge.getTranslateY() - charge.velocity[1]);
     }
 
     /**

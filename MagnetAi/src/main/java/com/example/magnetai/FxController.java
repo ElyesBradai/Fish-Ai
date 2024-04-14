@@ -106,11 +106,11 @@ public class FxController {
             polarity = (chargeChoiceBox.getValue() == null) ? null : chargeChoiceBox.getValue().toString();
         });
         velocitySliderX.valueProperty().addListener((observableValue, newValue, OldValue) -> {
-            Charge.velocity[0] = newValue.doubleValue();
+            s1.findCharge().velocity[0] = newValue.doubleValue();
             velocityTextFieldX.setText(newValue.toString());
         });
         velocitySliderY.valueProperty().addListener((observableValue, newValue, OldValue) -> {
-            Charge.velocity[1] = newValue.doubleValue();
+            s1.findCharge().velocity[1] = newValue.doubleValue();
             velocityTextFieldY.setText(newValue.toString());
         });
         strengthSlider.valueProperty().addListener((observableValue, newValue, OldValue) -> {
@@ -156,7 +156,7 @@ public class FxController {
             selectedShape.set(obstacleSelector);
         });
         fLSelector.setOnMouseClicked(event -> {
-            s1.setSelectedComponentType(MagneticField.TYPE);
+            s1.setSelectedComponentType(FinishLine.TYPE);
             System.out.println(FinishLine.TYPE);
             selectedShape.set(fLSelector);
         });

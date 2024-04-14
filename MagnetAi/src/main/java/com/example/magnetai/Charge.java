@@ -9,7 +9,7 @@ public class Charge extends Circle implements Component {
     static final String TYPE = "charge";
     static final String NOTHING = "nothing";
     private static final Color CHARGE_COLOR = Color.RED;
-    static double[] velocity = {150, 0, 0};
+    double[] velocity = {1, 0, 0};
     ChargeType chargeType;
     int startingIndex;
     boolean isAlive;
@@ -26,6 +26,15 @@ public class Charge extends Circle implements Component {
         this.isAlive = true;
     }
 
+    public Charge(int startingIndex, ChargeType type, double[] velocity) {
+        super(CHARGE_RADIUS, Color.RED);
+        this.startingIndex = startingIndex;
+        this.chargeType = type;
+        this.setFill(CHARGE_COLOR);
+        this.isAlive = true;
+        this.velocity = velocity;
+    }
+
     /**
      * makes the charge move based on the component colliding with it
      *
@@ -35,11 +44,6 @@ public class Charge extends Circle implements Component {
         if (this.isAlive) {
             switch (checkCollisionType(component)) {
                 case Obstacle.TYPE -> {
-                    System.out.println("OBSTACLE");
-                    velocity = new double[]{0, 0, 0};
-                    this.setTranslateX(this.getTranslateX() + (velocity[0]) * scale);
-                    this.setTranslateY(this.getTranslateY() + (velocity[1]) * scale);
-                    System.out.println(checkCollisionType(component));
                 }
                 case NOTHING -> {
                     this.setTranslateX(this.getTranslateX() + (velocity[0]) * scale);
@@ -98,7 +102,7 @@ public class Charge extends Circle implements Component {
 
     @Override
     public Component clone() {
-        return new Charge(this.startingIndex, this.chargeType);
+        return new Charge(this.startingIndex, this.chargeType, this.velocity);
     }
 
     public boolean isAlive() {
