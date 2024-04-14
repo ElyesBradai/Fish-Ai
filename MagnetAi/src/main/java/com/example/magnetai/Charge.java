@@ -113,8 +113,11 @@ public class Charge extends Circle implements Component {
         this.isAlive = alive;
     }
 
+    public int getStartingIndex() {
+        return this.startingIndex;
+    }
+
     public void setStartingIndex(int index) {
         this.startingIndex = index;
-
     }
 }

@@ -130,7 +130,7 @@ public class FxController {
         vb1.getChildren().add(s1.getSimPane());
         //	Charge c1 = new Charge(ChargeType.NEGATIVE);
         //	s1.addToMap(c1, 5);
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 3; i++) {
             Simulation s2 = new Simulation();
 
         }

@@ -177,15 +177,46 @@ public class Simulation {
         Charge charge = this.findCharge();
         int[] componentPos = absolutePosToGridPos(charge.getTranslateX(), charge.getTranslateY());
         //if(map[componentPos[0]][componentPos[1]] != null){
-        if (this.map[componentPos[0]][componentPos[1]] != null && this.map[componentPos[0]][componentPos[1]].getType().equals(Obstacle.TYPE))
-            System.out.println(calcutateFitnessScore());
+//        if (this.map[componentPos[0]][componentPos[1]] != null && this.map[componentPos[0]][componentPos[1]].getType().equals(Obstacle.TYPE))
+//            System.out.println("The fitness score is " + calcutateFitnessScore() + " in sim " + simulationList.indexOf(this));
         return this.map[componentPos[0]][componentPos[1]];
         //}
         //return null;
     }
 
+    public boolean checkAllAlive() {
+        boolean alive = false;
+        for (Simulation sim : simulationList) {
+            if (sim.findCharge().isAlive) {
+                alive = true;
+            }
+        }
+        return alive;
+    }
+
+    public void setupNextGeneration() {
+
+        if (!checkAllAlive()) {
+
+            resetAllSim();
+
+        }
+
+    }
+
+    public void resetAllSim() {
+
+        for (Simulation sim : simulationList) {
+
+            Charge charge = sim.findCharge();
+            int[] pos = indexToPos(charge.getStartingIndex());
+            charge.getBody().setTranslateX(pos[0] * SQUARE_SIZE + SQUARE_SIZE / 2);
+            charge.getBody().setTranslateY(pos[1] * SQUARE_SIZE + SQUARE_SIZE / 2);
+            //TODO REMOVE ALL MAGNETIC FIELDS
+        }
+    }
+
     public int calcutateFitnessScore() {
-        //TODO FINISH
         Charge charge = this.findCharge();
         int[] endPosition = findNearestEmpty(charge);
         int fitness = calculateShortestPath(endPosition);
@@ -342,6 +373,7 @@ public class Simulation {
         @Override
         public void handle(long now) {
             moveAllCharges();
+            setupNextGeneration();
         }
     }
 }
