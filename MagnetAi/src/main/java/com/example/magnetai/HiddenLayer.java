@@ -65,63 +65,53 @@ public class HiddenLayer {
     public Component[] activate(Component[] input) {
         Component[] output = new Component[weights.length];
         for (int i = 0; i < weights.length; i++) {
-            //TODO DETERMINE A WAY OF CHOOSING THE OUTPUT
-//            output[i] = ActivationFunctions.tanh(MathFunctions.multiplyVectors(input, weights[i]));
+            
+            double activationValue = calculateActivationValue(input, weights[i]);
+            double activatedValue = ActivationFunctions.sigmoid(activationValue); // Apply sigmoid activation
+            output[i] = applyMagneticFieldDecision(activatedValue);
         }
-
         return output;
     }
-
-    /*
-    public Component[] activate(Component[] input) {
-    Component[] output = new Component[weights.length];
-
-    // Step 1: Randomly place magnetic fields
-    for (int i = 0; i < weights.length; i++) {
-        if (random.nextDouble() < 0.5) { // Adjust the probability to control randomness
-            output[i] = Component.MAGNETIC_FIELD_OUTWARD;
+    
+    public double calculateActivationValue(Component[] components, double[] weights) {
+        double value = 0;
+        for (Component component : components) {
+            if (component != null){
+                switch (component.getType()) {
+                    case MagneticField.TYPE -> {}
+                    case FinishLine.TYPE -> {}
+                    case Charge.TYPE -> {}
+                    case Superconductor.TYPE -> {}
+                    case Obstacle.TYPE -> {}
+                }
+            }
+            else {
+                value++;
+            }
         }
+        value = ActivationFunctions.tanh(value);
+        return value;
     }
 
-    // Step 2: Adjust placements based on fitness score
-    double initialFitness = calculateFitness(input, output);
-    for (int attempt = 0; attempt < MAX_OPTIMIZATION_ATTEMPTS; attempt++) {
-        // Generate a mutated version of the current placement
-        Component[] mutatedOutput = mutatePlacement(output);
-
-        // Calculate fitness for the mutated placement
-        double mutatedFitness = calculateFitness(input, mutatedOutput);
-
-        // If the mutated placement improves fitness, accept it
-        if (mutatedFitness > initialFitness) {
-            output = mutatedOutput;
-            initialFitness = mutatedFitness;
+    public Component applyMagneticFieldDecision(double activationValue) {
+        
+        final double threshold = 0.5;
+        if (random.nextDouble() < threshold) {
+            // Add magnetic field to empty square based on activation value
+            if (activationValue > 0) {
+//                return Component.MAGNETIC_FIELD_OUTWARDS;
+            }
+            else {
+//                return Component.MAGNETIC_FIELD_INWARDS;
+            }
         }
+        else {
+//            return Component.EMPTY;
+        }
+        return null;
     }
-
-    return output;
-}
-
-// Method to calculate fitness score based on input and output placements
-private double calculateFitness(Component[] input, Component[] output) {
-    // Your fitness calculation logic here
-}
-
-// Method to mutate the current placement to explore new configurations
-private Component[] mutatePlacement(Component[] placement) {
-    Component[] mutatedPlacement = new Component[placement.length];
-    System.arraycopy(placement, 0, mutatedPlacement, 0, placement.length);
-
-    // Randomly select a magnetic field to toggle its presence
-    int randomIndex = random.nextInt(mutatedPlacement.length);
-    mutatedPlacement[randomIndex] = (mutatedPlacement[randomIndex] == Component.MAGNETIC_FIELD_OUTWARD) ?
-            Component.EMPTY : Component.MAGNETIC_FIELD_OUTWARD;
-
-    return mutatedPlacement;
-}
-
-    * */
-
+    
+   
     /**
      * @return
      */
