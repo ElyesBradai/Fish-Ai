@@ -8,7 +8,8 @@ import java.util.Arrays;
 public class NeuralNetwork {
 
     private final HiddenLayer[] hiddenLayers;
-    private final Component[][] activations;
+    private final Component[][] activations; // weights : lets say the layer 1 has X nb of nodes, and layer 2 Y nb of nodes, then the 2d arr is Component[x][y]
+    // for each "input" node, there is a Y amount of "output" nodes that has its own weight
     private final float learningRate; // Mutation Rate
     private final int[] layers;
 

@@ -65,7 +65,7 @@ public class HiddenLayer {
     public Component[] activate(Component[] input) {
         Component[] output = new Component[weights.length];
         for (int i = 0; i < weights.length; i++) {
-            //TODO DETERMINE A WAY OF CHOSING INDEX
+            //TODO DETERMINE A WAY OF CHOOSING THE OUTPUT
 //            output[i] = ActivationFunctions.tanh(MathFunctions.multiplyVectors(input, weights[i]));
         }
 

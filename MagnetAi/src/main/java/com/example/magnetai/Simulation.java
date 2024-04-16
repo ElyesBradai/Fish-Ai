@@ -21,6 +21,7 @@ public class Simulation {
     Rectangle player = new Rectangle(50, 50);
     ArrayList<Rectangle> squareList;
     private NeuralNetwork brain;
+    int fitnessScore;
 
     public Simulation() {
         brain = new NeuralNetwork(0.5f, new int[]{GRID_SIZE_Y * GRID_SIZE_X, 4, GRID_SIZE_Y * GRID_SIZE_Y});
@@ -28,6 +29,7 @@ public class Simulation {
         simPane = new Pane();
         squareList = new ArrayList<Rectangle>();
         simulationList.add(this);
+        fitnessScore = Integer.MAX_VALUE;
         bckg();
     }
 
@@ -195,44 +197,56 @@ public class Simulation {
     }
 
     public void setupNextGeneration() {
-
         if (!checkAllAlive()) {
-
+            for (Simulation sim : simulationList) {
+                sim.setFitnessScore(sim.calcutateFitnessScore());
+            }
             resetAllSim();
             mutateAllSim();
         }
-
     }
 
     public void mutateAllSim() {
-        int highestFitnessValue = Integer.MAX_VALUE;
-        Simulation highestFitness = null;
+        int bestFitnessValue = Integer.MAX_VALUE;
+        Simulation bestFitnessSim = null;
 
         for (Simulation sim : simulationList) {
-            int currentFitness = sim.calcutateFitnessScore();
-            if (currentFitness < highestFitnessValue) {
-                highestFitness = sim;
-                highestFitnessValue = currentFitness;
+            int currentFitness = sim.getFitnessScore();
+            if (currentFitness < bestFitnessValue) {
+                bestFitnessSim = sim;
+                bestFitnessValue = currentFitness;
             }
         }
 
         for (Simulation sim : simulationList) {
 
-            if (!sim.equals(highestFitness)) {
+            if (!sim.equals(bestFitnessSim)) {
                 sim.getBrain().mutate();
+                sim.setFitnessScore(Integer.MAX_VALUE);
             }
         }
     }
 
     public void resetAllSim() {
+        //resets all charges
         for (Simulation sim : simulationList) {
             Charge charge = sim.findCharge();
             int[] pos = indexToPos(charge.getIndex());
-            System.out.println(charge.getStartingIndex());
             charge.getBody().setTranslateX((pos[0] * SQUARE_SIZE + SQUARE_SIZE / 2) * calculateScale()[0]);
             charge.getBody().setTranslateY((pos[1] * SQUARE_SIZE + SQUARE_SIZE / 2) * calculateScale()[0]);
             charge.setAlive(true);
-            //TODO REMOVE ALL MAGNETIC FIELDS
+            //removes all magnetic fields
+            for (Component[] row : sim.map) {
+
+                for (Component component : row) {
+
+                    if (component != null && component.getType().equals(MagneticField.TYPE)) {
+                        int[] componentPos = indexToPos(component.getIndex());
+                        map[componentPos[0]][componentPos[1]] = null;
+                        sim.getSimPane().getChildren().remove(component.getBody());
+                    }
+                }
+            }
         }
     }
 
@@ -244,7 +258,7 @@ public class Simulation {
     }
 
     public int[] findNearestEmpty(Charge charge) {
-        return absolutePosToGridPos(charge.getTranslateX() - charge.velocity[0], charge.getTranslateY() - charge.velocity[1]);
+        return absolutePosToGridPos(charge.getTranslateX() - charge.velocity[0]*calculateScale()[0], charge.getTranslateY() - charge.velocity[1]*calculateScale()[0]);
     }
 
     public int calculateShortestPath(int[] endPostion) {
@@ -387,6 +401,14 @@ public class Simulation {
 
     public NeuralNetwork getBrain() {
         return this.brain;
+    }
+
+    public int getFitnessScore() {
+        return this.fitnessScore;
+    }
+
+    public void setFitnessScore(int fitnessScore) {
+        this.fitnessScore = fitnessScore;
     }
 
     public void setBrain(NeuralNetwork brain) {
