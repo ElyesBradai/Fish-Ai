@@ -72,6 +72,56 @@ public class HiddenLayer {
         return output;
     }
 
+    /*
+    public Component[] activate(Component[] input) {
+    Component[] output = new Component[weights.length];
+
+    // Step 1: Randomly place magnetic fields
+    for (int i = 0; i < weights.length; i++) {
+        if (random.nextDouble() < 0.5) { // Adjust the probability to control randomness
+            output[i] = Component.MAGNETIC_FIELD_OUTWARD;
+        }
+    }
+
+    // Step 2: Adjust placements based on fitness score
+    double initialFitness = calculateFitness(input, output);
+    for (int attempt = 0; attempt < MAX_OPTIMIZATION_ATTEMPTS; attempt++) {
+        // Generate a mutated version of the current placement
+        Component[] mutatedOutput = mutatePlacement(output);
+
+        // Calculate fitness for the mutated placement
+        double mutatedFitness = calculateFitness(input, mutatedOutput);
+
+        // If the mutated placement improves fitness, accept it
+        if (mutatedFitness > initialFitness) {
+            output = mutatedOutput;
+            initialFitness = mutatedFitness;
+        }
+    }
+
+    return output;
+}
+
+// Method to calculate fitness score based on input and output placements
+private double calculateFitness(Component[] input, Component[] output) {
+    // Your fitness calculation logic here
+}
+
+// Method to mutate the current placement to explore new configurations
+private Component[] mutatePlacement(Component[] placement) {
+    Component[] mutatedPlacement = new Component[placement.length];
+    System.arraycopy(placement, 0, mutatedPlacement, 0, placement.length);
+
+    // Randomly select a magnetic field to toggle its presence
+    int randomIndex = random.nextInt(mutatedPlacement.length);
+    mutatedPlacement[randomIndex] = (mutatedPlacement[randomIndex] == Component.MAGNETIC_FIELD_OUTWARD) ?
+            Component.EMPTY : Component.MAGNETIC_FIELD_OUTWARD;
+
+    return mutatedPlacement;
+}
+
+    * */
+
     /**
      * @return
      */
