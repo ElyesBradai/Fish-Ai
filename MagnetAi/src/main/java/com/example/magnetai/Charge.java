@@ -44,6 +44,7 @@ public class Charge extends Circle implements Component {
         if (this.isAlive) {
             switch (checkCollisionType(component)) {
                 case Obstacle.TYPE -> {
+                    this.isAlive = false;
                 }
                 case NOTHING -> {
                     this.setTranslateX(this.getTranslateX() + (velocity[0]) * scale);

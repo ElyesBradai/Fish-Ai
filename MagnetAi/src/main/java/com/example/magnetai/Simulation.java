@@ -14,16 +14,16 @@ public class Simulation {
     public static final int GRID_SIZE_Y = 10;
     public static final int SQUARE_SIZE = 100;
     public static ArrayList<Simulation> simulationList = new ArrayList();
-    private final NeuralNetwork neuralNetwork;
     private final myTimer timer = new myTimer(); // timer is a singleton within the class
     private final int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     Component[][] map;
     Pane simPane;//not sure if i should use pane or other :/
     Rectangle player = new Rectangle(50, 50);
     ArrayList<Rectangle> squareList;
+    private NeuralNetwork brain;
 
     public Simulation() {
-        neuralNetwork = new NeuralNetwork(0.5f, new int[]{GRID_SIZE_Y * GRID_SIZE_X, 4, GRID_SIZE_Y * GRID_SIZE_Y});
+        brain = new NeuralNetwork(0.5f, new int[]{GRID_SIZE_Y * GRID_SIZE_X, 4, GRID_SIZE_Y * GRID_SIZE_Y});
         map = new Component[GRID_SIZE_X][GRID_SIZE_Y];
         simPane = new Pane();
         squareList = new ArrayList<Rectangle>();
@@ -199,19 +199,39 @@ public class Simulation {
         if (!checkAllAlive()) {
 
             resetAllSim();
-
+            mutateAllSim();
         }
 
     }
 
-    public void resetAllSim() {
+    public void mutateAllSim() {
+        int highestFitnessValue = Integer.MAX_VALUE;
+        Simulation highestFitness = null;
+
+        for (Simulation sim : simulationList) {
+            int currentFitness = sim.calcutateFitnessScore();
+            if (currentFitness < highestFitnessValue) {
+                highestFitness = sim;
+                highestFitnessValue = currentFitness;
+            }
+        }
 
         for (Simulation sim : simulationList) {
 
+            if (!sim.equals(highestFitness)) {
+                sim.getBrain().mutate();
+            }
+        }
+    }
+
+    public void resetAllSim() {
+        for (Simulation sim : simulationList) {
             Charge charge = sim.findCharge();
-            int[] pos = indexToPos(charge.getStartingIndex());
-            charge.getBody().setTranslateX(pos[0] * SQUARE_SIZE + SQUARE_SIZE / 2);
-            charge.getBody().setTranslateY(pos[1] * SQUARE_SIZE + SQUARE_SIZE / 2);
+            int[] pos = indexToPos(charge.getIndex());
+            System.out.println(charge.getStartingIndex());
+            charge.getBody().setTranslateX((pos[0] * SQUARE_SIZE + SQUARE_SIZE / 2) * calculateScale()[0]);
+            charge.getBody().setTranslateY((pos[1] * SQUARE_SIZE + SQUARE_SIZE / 2) * calculateScale()[0]);
+            charge.setAlive(true);
             //TODO REMOVE ALL MAGNETIC FIELDS
         }
     }
@@ -358,11 +378,19 @@ public class Simulation {
 
     //getters and setters (will later be removed using lombok)
     public Pane getSimPane() {
-        return simPane;
+        return this.simPane;
     }
 
     public void setSimPane(Pane simPane) {
         this.simPane = simPane;
+    }
+
+    public NeuralNetwork getBrain() {
+        return this.brain;
+    }
+
+    public void setBrain(NeuralNetwork brain) {
+        this.brain = brain;
     }
 
     public myTimer getTimerInstance() {
