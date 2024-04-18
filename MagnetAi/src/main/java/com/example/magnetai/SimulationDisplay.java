@@ -104,7 +104,7 @@ public class SimulationDisplay extends Simulation {
                 if (component == null){
                     empty.add(0.0);
                 }
-                else if (component.getType().equals(Obstacle.TYPE)){
+                else {
                     empty.add(1.0);
                 }
             }
@@ -113,13 +113,12 @@ public class SimulationDisplay extends Simulation {
         for (Simulation sim : simulationList) {
             int counter = 0; //to use within the empty array
             sim.setBrain(new NeuralNetwork(0.5f, new int[]{GRID_SIZE_Y * GRID_SIZE_X, 4,empty.size()+1}));
-            double[] predictions = sim.getBrain().predict(empty.stream().mapToDouble(Double::doubleValue).toArray());
+//            double[] predictions = sim.getBrain().predict(empty.stream().mapToDouble(Double::doubleValue).toArray());
+//            double[] predictions = sim.getBrain().predict(sim.map)TODO FLATTEN AND INPUT MAP
             //TODO USE ANGLE
             double angle = predictions[0] * Math.PI; //index 0 is the angle for the charge and the rest is the strength
             for (int i = 0; i < sim.map.length; i++) {
-                
                 for (int j = 0; j < sim.map[0].length; j++) {
-                    
                     sim.map[i][j] = new MagneticField(i*GRID_SIZE_Y+j,new double[] {0,0,predictions[counter]*MagneticField.STRENGTH_COEFFICIENT});
                     counter++;
                 }
