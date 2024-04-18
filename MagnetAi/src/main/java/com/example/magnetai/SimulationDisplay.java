@@ -7,6 +7,10 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.List;
+
 public class SimulationDisplay extends Simulation {
     private String selectedComponentType;
     private boolean isScaled;
@@ -90,18 +94,36 @@ public class SimulationDisplay extends Simulation {
             sim.map = copiedMap;
         }
         createBrains();
-
     }
 
     private void createBrains() {
-        int nbEmpty = 0;
+        //this part creates decides the values (0 if empty or 1 if other)
+        Deque<Double> empty = new ArrayDeque<Double>();
         for (Component[] row : this.map) {
             for (Component component: row) {
-                if (component == null) nbEmpty++;
+                if (component == null){
+                    empty.add(0.0);
+                }
+                else if (component.getType().equals(Obstacle.TYPE)){
+                    empty.add(1.0);
+                }
             }
         }
+        //this part creates the brain (neural network) and call the predict method
         for (Simulation sim : simulationList) {
-            sim.setBrain(new NeuralNetwork(0.5f, new int[]{GRID_SIZE_Y * GRID_SIZE_X, 4,nbEmpty+1}));
+            int counter = 0; //to use within the empty array
+            sim.setBrain(new NeuralNetwork(0.5f, new int[]{GRID_SIZE_Y * GRID_SIZE_X, 4,empty.size()+1}));
+            double[] predictions = sim.getBrain().predict(empty.stream().mapToDouble(Double::doubleValue).toArray());
+            //TODO USE ANGLE
+            double angle = predictions[0] * Math.PI; //index 0 is the angle for the charge and the rest is the strength
+            for (int i = 0; i < sim.map.length; i++) {
+                
+                for (int j = 0; j < sim.map[0].length; j++) {
+                    
+                    sim.map[i][j] = new MagneticField(i*GRID_SIZE_Y+j,new double[] {0,0,predictions[counter]*MagneticField.STRENGTH_COEFFICIENT});
+                    counter++;
+                }
+            }
         }
     }
 

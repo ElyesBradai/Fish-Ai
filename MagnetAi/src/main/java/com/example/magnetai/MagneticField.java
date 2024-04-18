@@ -8,6 +8,7 @@ public class MagneticField extends Rectangle implements Component {
     static final String TYPE = "magneticfield";
     int index;
     private double[] strength;
+    public static final double STRENGTH_COEFFICIENT = 5.0;
 
     /**
      * @param index
