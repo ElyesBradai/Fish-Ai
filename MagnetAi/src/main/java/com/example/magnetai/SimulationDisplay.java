@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 public class SimulationDisplay extends Simulation {
     private String selectedComponentType;
+    private boolean isScaled;
 
 
     //    TODO MAKE FINISHLINE AND CHARGE A SINGLETON WHITNG THE SIMULATION
@@ -19,6 +20,7 @@ public class SimulationDisplay extends Simulation {
         selectedComponentType = "";
         bckg();
         addClickable();
+        isScaled = false;
     }
 
     /**
@@ -87,6 +89,16 @@ public class SimulationDisplay extends Simulation {
             }
             sim.map = copiedMap;
         }
+        createBrain();
+
+    }
+
+    private void createBrain() {
+
+        
+
+
+
     }
 
     /**
@@ -101,6 +113,7 @@ public class SimulationDisplay extends Simulation {
         for (Simulation sim : Simulation.getSimulationList()) {
             root.getChildren().add(sim.getSimPane());
         }
+
         //scaling down to fit all simulations
         double scaleX = calculateScale()[0];
         double scaleY = calculateScale()[1];
@@ -114,10 +127,12 @@ public class SimulationDisplay extends Simulation {
         //looping through each component to scale them down
         for (Simulation sim : Simulation.getSimulationList()) {
             for (Rectangle square : sim.squareList) {
-                square.setWidth(square.getWidth() * scaleX);
-                square.setHeight(square.getHeight() * scaleY);
-                square.setTranslateX(square.getTranslateX() * scaleX);
-                square.setTranslateY(square.getTranslateY() * scaleY);
+                if (!isScaled) {
+                    square.setWidth(square.getWidth() * scaleX);
+                    square.setHeight(square.getHeight() * scaleY);
+                    square.setTranslateX(square.getTranslateX() * scaleX);
+                    square.setTranslateY(square.getTranslateY() * scaleY);
+                }
             }
             for (Component[] row : sim.map) {
                 for (Component component : row) {
@@ -151,6 +166,7 @@ public class SimulationDisplay extends Simulation {
             }
         }
 
+        isScaled = true;
         this.getTimerInstance().start();
         Scene scene = new Scene(root, width, height);
         Stage stage = new Stage();

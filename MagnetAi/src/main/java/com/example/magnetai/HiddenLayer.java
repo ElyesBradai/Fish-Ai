@@ -62,38 +62,18 @@ public class HiddenLayer {
      * @param input
      * @return
      */
-    public Component[] activate(Component[] input) {
+    public double[] activate(double[] input) {
         Component[] output = new Component[weights.length];
         for (int i = 0; i < weights.length; i++) {
-            
-            double activationValue = calculateActivationValue(input, weights[i]);
-            double activatedValue = ActivationFunctions.sigmoid(activationValue); // Apply sigmoid activation
-            output[i] = applyMagneticFieldDecision(activatedValue);
+//
+//            double activationValue = calculateActivationValue(input, weights[i]);
+//            double activatedValue = ActivationFunctions.sigmoid(activationValue); // Apply sigmoid activation
+//            output[i] = applyMagneticFieldDecision(activatedValue);
         }
-        return output;
-    }
-    
-    public double calculateActivationValue(Component[] components, double[] weights) {
-        double value = 0;
-        for (Component component : components) {
-            if (component != null){
-                switch (component.getType()) {
-                    case MagneticField.TYPE -> {}
-                    case FinishLine.TYPE -> {}
-                    case Charge.TYPE -> {}
-                    case Superconductor.TYPE -> {}
-                    case Obstacle.TYPE -> {}
-                }
-            }
-            else {
-                value++;
-            }
-        }
-        value = ActivationFunctions.tanh(value);
-        return value;
+        return null;
     }
 
-    public Component applyMagneticFieldDecision(double activationValue) {
+    public MagneticField applyMagneticFieldDecision(double activationValue) {
         
         final double threshold = 0.5;
         if (random.nextDouble() < threshold) {

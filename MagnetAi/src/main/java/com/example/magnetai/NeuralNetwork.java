@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class NeuralNetwork {
 
     private final HiddenLayer[] hiddenLayers;
-    private final Component[][] activations; // weights : lets say the layer 1 has X nb of nodes, and layer 2 Y nb of nodes, then the 2d arr is Component[x][y]
+    private final double[][] activations; // weights : lets say the layer 1 has X nb of nodes, and layer 2 Y nb of nodes, then the 2d arr is Component[x][y]
     // for each "input" node, there is a Y amount of "output" nodes that has its own weight
     private final float learningRate; // Mutation Rate
     private final int[] layers;
@@ -22,13 +22,13 @@ public class NeuralNetwork {
         this.learningRate = learningRate;
         this.layers = layers;
 
-        activations = new Component[layers.length][];
+        activations = new double[layers.length][];
         hiddenLayers = new HiddenLayer[layers.length - 1];
-        activations[0] = new Component[layers[0]];
+        activations[0] = new double[layers[0]];
 
         // Hidden layers starts at the second neurons layer, with a previous layer as input layer?
         for (int i = 1; i < layers.length; i++) {
-            activations[i] = new Component[layers[i]];
+            activations[i] = new double[layers[i]];
             hiddenLayers[i - 1] = new HiddenLayer(layers[i], layers[i - 1]);
         }
 
@@ -53,7 +53,7 @@ public class NeuralNetwork {
      * @param input
      * @return
      */
-    public Component[] predict(Component[] input) {
+    public double[] predict(double[] input) {
 
         activations[0] = input;
         for (int i = 0; i < hiddenLayers.length; i++) {
@@ -74,7 +74,7 @@ public class NeuralNetwork {
     /**
      * @return
      */
-    public Component[][] getActivations() {
+    public double[][] getActivations() {
         return activations;
     }
 

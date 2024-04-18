@@ -24,7 +24,6 @@ public class Simulation {
     int fitnessScore;
 
     public Simulation() {
-        brain = new NeuralNetwork(0.5f, new int[]{GRID_SIZE_Y * GRID_SIZE_X, 4, GRID_SIZE_Y * GRID_SIZE_Y});
         map = new Component[GRID_SIZE_X][GRID_SIZE_Y];
         simPane = new Pane();
         squareList = new ArrayList<Rectangle>();
