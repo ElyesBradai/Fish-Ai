@@ -4,15 +4,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
+import java.util.Random;
+
 public class Charge extends Circle implements Component {
     static final double CHARGE_RADIUS = 15;
     static final String TYPE = "charge";
     static final String NOTHING = "nothing";
     private static final Color CHARGE_COLOR = Color.RED;
-    double[] velocity = {1, 0, 0};
+    double[] velocity;
     ChargeType chargeType;
     int startingIndex;
     boolean isAlive;
+    
+    Random random = new Random();
+    private double angle=random.nextDouble(-Math.PI,Math.PI);
 
     /**
      * @param startingIndex
@@ -33,6 +38,7 @@ public class Charge extends Circle implements Component {
         this.setFill(CHARGE_COLOR);
         this.isAlive = true;
         this.velocity = velocity;
+        
     }
 
     /**
@@ -120,5 +126,13 @@ public class Charge extends Circle implements Component {
 
     public void setStartingIndex(int index) {
         this.startingIndex = index;
+    }
+    
+    public double getAngle(){
+        return angle;
+    }
+    
+    public void setAngle(double angle){
+        this.angle = angle;
     }
 }
