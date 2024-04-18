@@ -89,16 +89,20 @@ public class SimulationDisplay extends Simulation {
             }
             sim.map = copiedMap;
         }
-        createBrain();
+        createBrains();
 
     }
 
-    private void createBrain() {
-
-        
-
-
-
+    private void createBrains() {
+        int nbEmpty = 0;
+        for (Component[] row : this.map) {
+            for (Component component: row) {
+                if (component == null) nbEmpty++;
+            }
+        }
+        for (Simulation sim : simulationList) {
+            sim.setBrain(new NeuralNetwork(0.5f, new int[]{GRID_SIZE_Y * GRID_SIZE_X, 4,nbEmpty+1}));
+        }
     }
 
     /**

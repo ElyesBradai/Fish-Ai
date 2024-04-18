@@ -63,14 +63,16 @@ public class HiddenLayer {
      * @return
      */
     public double[] activate(double[] input) {
-        Component[] output = new Component[weights.length];
+        double[] output = new double[weights.length];
         for (int i = 0; i < weights.length; i++) {
 //
 //            double activationValue = calculateActivationValue(input, weights[i]);
 //            double activatedValue = ActivationFunctions.sigmoid(activationValue); // Apply sigmoid activation
 //            output[i] = applyMagneticFieldDecision(activatedValue);
+            //TODO DETERMINE A WAY OF CHOOSING THE OUTPUT
+            output[i] = ActivationFunctions.tanh(MathFunctions.multiplyVectors(input, weights[i]));
         }
-        return null;
+        return output;
     }
 
     public MagneticField applyMagneticFieldDecision(double activationValue) {
