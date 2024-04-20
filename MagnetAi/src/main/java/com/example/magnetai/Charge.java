@@ -11,12 +11,12 @@ public class Charge extends Circle implements Component {
     static final String TYPE = "charge";
     static final String NOTHING = "nothing";
     private static final Color CHARGE_COLOR = Color.RED;
-    double[] velocity;
+    private double[] velocity;
     ChargeType chargeType;
     int startingIndex;
     boolean isAlive;
     
-    Random random = new Random();
+    private Random random = new Random();
     private double angle=random.nextDouble(-Math.PI,Math.PI);
 
     /**
@@ -29,6 +29,9 @@ public class Charge extends Circle implements Component {
         this.chargeType = type;
         this.setFill(CHARGE_COLOR);
         this.isAlive = true;
+        this.velocity = new double[]{0,0,0};
+        
+        
     }
 
     public Charge(int startingIndex, ChargeType type, double[] velocity) {
@@ -37,7 +40,9 @@ public class Charge extends Circle implements Component {
         this.chargeType = type;
         this.setFill(CHARGE_COLOR);
         this.isAlive = true;
-        this.velocity = velocity;
+        this.velocity = new double[]{velocity[0] * Math.cos(angle),velocity[1] * Math.sin(angle),0};
+        
+        
         
     }
 
@@ -134,5 +139,13 @@ public class Charge extends Circle implements Component {
     
     public void setAngle(double angle){
         this.angle = angle;
+    }
+    
+    public double[] getVelocity(){
+        return velocity;
+    }
+    
+    public void setVelocity(double[] velocity){
+        this.velocity = velocity;
     }
 }

@@ -117,7 +117,7 @@
                                     <children>
                                         <Label text="X:" />
                                         <TextField fx:id="velocityTextFieldX" />
-                                        <Slider fx:id="velocitySliderX" />
+                                        <Slider fx:id="velocitySlider" />
                                     </children>
                                     <padding>
                                         <Insets bottom="20.0" top="40.0" />
