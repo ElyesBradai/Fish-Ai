@@ -4,15 +4,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
+import java.util.Random;
+
 public class Charge extends Circle implements Component {
     static final double CHARGE_RADIUS = 15;
     static final String TYPE = "charge";
     static final String NOTHING = "nothing";
     private static final Color CHARGE_COLOR = Color.RED;
-    double[] velocity = {1, 0, 0};
+    private double[] velocity;
     ChargeType chargeType;
     int startingIndex;
     boolean isAlive;
+    
+    private Random random = new Random();
+    private double angle=random.nextDouble(-Math.PI,Math.PI);
 
     /**
      * @param startingIndex
@@ -24,6 +29,9 @@ public class Charge extends Circle implements Component {
         this.chargeType = type;
         this.setFill(CHARGE_COLOR);
         this.isAlive = true;
+        this.velocity = new double[]{0,0,0};
+        
+        
     }
 
     public Charge(int startingIndex, ChargeType type, double[] velocity) {
@@ -32,7 +40,10 @@ public class Charge extends Circle implements Component {
         this.chargeType = type;
         this.setFill(CHARGE_COLOR);
         this.isAlive = true;
-        this.velocity = velocity;
+        this.velocity = new double[]{velocity[0] * Math.cos(angle),velocity[1] * Math.sin(angle),0};
+        
+        
+        
     }
 
     /**
@@ -120,5 +131,21 @@ public class Charge extends Circle implements Component {
 
     public void setStartingIndex(int index) {
         this.startingIndex = index;
+    }
+    
+    public double getAngle(){
+        return angle;
+    }
+    
+    public void setAngle(double angle){
+        this.angle = angle;
+    }
+    
+    public double[] getVelocity(){
+        return velocity;
+    }
+    
+    public void setVelocity(double[] velocity){
+        this.velocity = velocity;
     }
 }

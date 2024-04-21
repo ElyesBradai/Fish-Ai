@@ -53,8 +53,6 @@
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="166.0" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="188.0" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="195.0" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
@@ -70,73 +68,61 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="150.0" text="Number of &#10;Magnetic Fields&#10;(inwards)&#10;&#10;" GridPane.rowIndex="1">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" text="Initial Velocity&#10; of Charge" GridPane.rowIndex="1">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="104.0" prefWidth="150.0" text="Number of &#10;Magnetic Fields&#10;(outwards)&#10;&#10;" GridPane.rowIndex="2">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="121.0" text="Magnetic Field &#10;Strength" GridPane.rowIndex="2">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" text="Initial Velocity&#10; of Charge" GridPane.rowIndex="3">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Mutation Rate" GridPane.rowIndex="3">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="121.0" text="Magnetic Field &#10;Strength" GridPane.rowIndex="4">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Input Layers" GridPane.rowIndex="4">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Mutation Rate" GridPane.rowIndex="5">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Number of &#10;Simulations" GridPane.rowIndex="5">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Input Layers" GridPane.rowIndex="6">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Generation &#10;Counter&#10;" GridPane.rowIndex="6">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Number of &#10;Simulations" GridPane.rowIndex="7">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Generation &#10;Counter&#10;" GridPane.rowIndex="8">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
-                        <Button fx:id="saveButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Save" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+                        <Button fx:id="saveButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Save" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="startButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Start" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
+                        <Button fx:id="startButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Start" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="resetButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Reset" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+                        <Button fx:id="resetButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Reset" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="pauseButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Pause" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
+                        <Button fx:id="pauseButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Pause" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <TextField fx:id="inwardTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="outwardTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="mutationRateTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="inputLayersTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField fx:id="simulationsTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField fx:id="generationCounterTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <TextField fx:id="mutationRateTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="inputLayersTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="simulationsTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="generationCounterTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <children>
                                 <TextField fx:id="strengthTextField" disable="true" />
                                 <Slider fx:id="strengthSlider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" />
@@ -146,23 +132,12 @@
                             </padding>
                         </VBox>
                         <ChoiceBox fx:id="chargeChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" />
-                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="171.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="87.0">
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="168.0" spacing="25.0">
                            <children>
-                              <Label text="X:" />
-                              <TextField fx:id="velocityTextFieldX" disable="true" />
-                              <Slider fx:id="velocitySliderX" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" />
-                           </children>
-                           <padding>
-                              <Insets bottom="20.0" top="40.0" />
-                           </padding>
-                        </VBox>
-                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="87.0">
-                           <children>
-                              <Label text="Y:" />
-                              <TextField fx:id="velocityTextFieldY" disable="true" prefWidth="65.0" />
-                              <Slider fx:id="velocitySliderY" majorTickUnit="1.0" max="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" />
+                              <TextField fx:id="velocityTextField" disable="true" />
+                              <Slider fx:id="velocitySlider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" top="40.0" />

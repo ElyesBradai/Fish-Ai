@@ -10,8 +10,8 @@ import java.util.Arrays;
 import java.util.PriorityQueue;
 
 public class Simulation {
-    public static final int GRID_SIZE_X = 10;
-    public static final int GRID_SIZE_Y = 10;
+    public static final int GRID_SIZE_X = 7;
+    public static final int GRID_SIZE_Y = 7;
     public static final int SQUARE_SIZE = 100;
     public static ArrayList<Simulation> simulationList = new ArrayList();
     private final myTimer timer = new myTimer(); // timer is a singleton within the class
@@ -257,7 +257,7 @@ public class Simulation {
     }
 
     public int[] findNearestEmpty(Charge charge) {
-        return absolutePosToGridPos(charge.getTranslateX() - charge.velocity[0]*calculateScale()[0], charge.getTranslateY() - charge.velocity[1]*calculateScale()[0]);
+        return absolutePosToGridPos(charge.getTranslateX() - charge.getVelocity()[0]*calculateScale()[0], charge.getTranslateY() - charge.getVelocity()[1]*calculateScale()[0]);
     }
 
     public int calculateShortestPath(int[] endPostion) {

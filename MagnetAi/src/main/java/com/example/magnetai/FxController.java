@@ -29,11 +29,11 @@ public class FxController {
     @FXML
     public Button pauseButton;
     @FXML
-    public TextField velocityTextFieldX;
+    public TextField velocityTextField;
     @FXML
     public TextField velocityTextFieldY;
     @FXML
-    public Slider velocitySliderX;
+    public Slider velocitySlider;
     @FXML
     public Slider velocitySliderY;
     @FXML
@@ -85,6 +85,7 @@ public class FxController {
         startButton.setOnAction(event -> {
             s1.saveDesign();
             s1.showAllSimulations();
+            velocitySlider.setDisable(true);
         });
         resetButton.setOnAction(actionEvent -> {
             s1.emptyDisplay();
@@ -105,13 +106,10 @@ public class FxController {
         chargeChoiceBox.setOnAction(actionEvent -> {
             polarity = (chargeChoiceBox.getValue() == null) ? null : chargeChoiceBox.getValue().toString();
         });
-        velocitySliderX.valueProperty().addListener((observableValue, newValue, OldValue) -> {
-            s1.findCharge().velocity[0] = newValue.doubleValue();
-            velocityTextFieldX.setText(newValue.toString());
-        });
-        velocitySliderY.valueProperty().addListener((observableValue, newValue, OldValue) -> {
-            s1.findCharge().velocity[1] = newValue.doubleValue();
-            velocityTextFieldY.setText(newValue.toString());
+        velocitySlider.valueProperty().addListener((observableValue, newValue, OldValue) -> {
+            s1.findCharge().getVelocity()[0] = newValue.doubleValue();
+            s1.findCharge().getVelocity()[1] = newValue.doubleValue();
+            velocityTextField.setText(newValue.toString());
         });
         strengthSlider.valueProperty().addListener((observableValue, newValue, OldValue) -> {
             // = newValue.doubleValue();
