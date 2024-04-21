@@ -25,6 +25,7 @@ public class SimulationDisplay extends Simulation {
         bckg();
         addClickable();
         isScaled = false;
+        
     }
 
     /**

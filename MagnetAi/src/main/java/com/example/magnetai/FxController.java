@@ -83,9 +83,14 @@ public class FxController {
     public void handle() {
 
         startButton.setOnAction(event -> {
-            s1.saveDesign();
-            s1.showAllSimulations();
-            velocitySlider.setDisable(true);
+            if(s1.findFinish() != null || s1.findCharge()!=null){
+                s1.saveDesign();
+                s1.showAllSimulations();
+                velocitySlider.setDisable(true);
+            }else{
+                Alert alert = new Alert(Alert.AlertType.ERROR,"Please choose place a Charge and a FinishLine on your map!", ButtonType.OK);
+                alert.show();
+            }
         });
         resetButton.setOnAction(actionEvent -> {
             s1.emptyDisplay();

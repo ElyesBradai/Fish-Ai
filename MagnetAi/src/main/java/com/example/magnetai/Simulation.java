@@ -257,7 +257,8 @@ public class Simulation {
     }
 
     public int[] findNearestEmpty(Charge charge) {
-        return absolutePosToGridPos(charge.getTranslateX() - charge.getVelocity()[0]*calculateScale()[0], charge.getTranslateY() - charge.getVelocity()[1]*calculateScale()[0]);
+        return absolutePosToGridPos(charge.getTranslateX() - charge.getVelocity()[0] * calculateScale()[0],
+                                    charge.getTranslateY() - charge.getVelocity()[1] * calculateScale()[0]);
     }
 
     public int calculateShortestPath(int[] endPostion) {
