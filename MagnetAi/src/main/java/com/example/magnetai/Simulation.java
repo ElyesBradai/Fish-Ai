@@ -1,9 +1,11 @@
 package com.example.magnetai;
 
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -155,12 +157,12 @@ public class Simulation {
                 for (Component charge : row) {
                     if (charge != null && charge.getType().equals(Charge.TYPE) && ((Charge) charge).isAlive()) {
                         Charge tempCharge = (Charge) charge;
-                        tempCharge.move(sim.checkCollision(), calculateScale()[0]);
+                        tempCharge.move(sim.checkCollision(), calculateScale());
 
-                        if (tempCharge.getTranslateX() < 0 || tempCharge.getTranslateX() > (SQUARE_SIZE * calculateScale()[0]) * GRID_SIZE_X) {
+                        if (tempCharge.getTranslateX() < 0 || tempCharge.getTranslateX() > (SQUARE_SIZE * calculateScale()) * GRID_SIZE_X) {
                             tempCharge.setAlive(false);
                         }
-                        if (tempCharge.getTranslateY() < 0 || tempCharge.getTranslateY() > (SQUARE_SIZE * calculateScale()[0]) * GRID_SIZE_Y) {
+                        if (tempCharge.getTranslateY() < 0 || tempCharge.getTranslateY() > (SQUARE_SIZE * calculateScale()) * GRID_SIZE_Y) {
                             tempCharge.setAlive(false);
                         }
                     }
@@ -231,8 +233,8 @@ public class Simulation {
         for (Simulation sim : simulationList) {
             Charge charge = sim.findCharge();
             int[] pos = indexToPos(charge.getIndex());
-            charge.getBody().setTranslateX((pos[0] * SQUARE_SIZE + SQUARE_SIZE / 2) * calculateScale()[0]);
-            charge.getBody().setTranslateY((pos[1] * SQUARE_SIZE + SQUARE_SIZE / 2) * calculateScale()[0]);
+            charge.getBody().setTranslateX((pos[0] * SQUARE_SIZE + SQUARE_SIZE / 2) * calculateScale());
+            charge.getBody().setTranslateY((pos[1] * SQUARE_SIZE + SQUARE_SIZE / 2) * calculateScale());
             charge.setAlive(true);
             //removes all magnetic fields
             for (Component[] row : sim.map) {
@@ -257,8 +259,8 @@ public class Simulation {
     }
 
     public int[] findNearestEmpty(Charge charge) {
-        return absolutePosToGridPos(charge.getTranslateX() - charge.getVelocity()[0] * calculateScale()[0],
-                                    charge.getTranslateY() - charge.getVelocity()[1] * calculateScale()[0]);
+        return absolutePosToGridPos(charge.getTranslateX() - charge.getVelocity()[0] * calculateScale(),
+                                    charge.getTranslateY() - charge.getVelocity()[1] * calculateScale());
     }
 
     public int calculateShortestPath(int[] endPostion) {
@@ -327,7 +329,7 @@ public class Simulation {
      */
     public int[] absolutePosToGridPos(double translateX, double translateY) {
         //TODO MAKE IT WORK THIS METHOD BREAKS EVERYTHING
-        return new int[]{(int) (translateX / (SQUARE_SIZE * calculateScale()[0])), (int) (translateY / (SQUARE_SIZE * calculateScale()[1]))};
+        return new int[]{(int) (translateX / (SQUARE_SIZE * calculateScale())), (int) (translateY / (SQUARE_SIZE * calculateScale()))};
     }
 
     private boolean isValid(int row, int col) {
@@ -349,17 +351,35 @@ public class Simulation {
      *
      * @return double array(scaleX,scaleY)
      */
-    public double[] calculateScale() {
+    public double calculateScale() {
+        Screen screen = Screen.getPrimary();
+        
+        // Get the bounds of the primary screen
+        Rectangle2D bounds = screen.getVisualBounds();
+        
+        double screenWidth = bounds.getWidth();
+        double screenHeight = bounds.getHeight();
+        
+        double realSquareSizeW = screenWidth/ GRID_SIZE_X;
+        double realSquareSizeH = screenHeight/ GRID_SIZE_Y;
+        
+        double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
+        
+        double ratioSquareSize = minSquareSize/ SQUARE_SIZE;
+        
+        double ratio = screenWidth/screenHeight;
+        
         int numSimulations = Simulation.getSimulationList().size();
-        int numRows = (int) Math.ceil(Math.sqrt(numSimulations));
-        int numCols = (int) Math.ceil((double) numSimulations / numRows);
+        double numRows = Math.sqrt(numSimulations);
+        double numCols = Math.ceil((double) numSimulations / numRows);
 
-        // Determine the maximum number of rows or columns based on the x/y ratio
-        int maxDimension = Math.max(numRows, numCols);
+        // Determine the maximum number of rows or columns based on the x/y ratioSquareSize
+        double minDimension = Math.max(numRows, numCols);
 
-        double scale = 1.0 / maxDimension;
+        double scale = 1.0 / minDimension;
+        
 
-        return new double[]{scale, scale};
+        return ratioSquareSize * scale;
     }
 
     Component checkRightValue(int index) {

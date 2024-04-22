@@ -1,10 +1,13 @@
 package com.example.magnetai;
 
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.util.ArrayDeque;
@@ -132,48 +135,50 @@ public class SimulationDisplay extends Simulation {
      */
     public void showAllSimulations() {
         //This method opens a window with all the simulations with copied map
+        double scale = calculateScale();
         Simulation.getSimulationList().remove(this);
         FlowPane root = new FlowPane();
         root.setAlignment(Pos.TOP_LEFT);
-        root.setPrefWrapLength(1600);
+        
         for (Simulation sim : Simulation.getSimulationList()) {
             root.getChildren().add(sim.getSimPane());
         }
 
         //scaling down to fit all simulations
-        double scaleX = calculateScale()[0];
-        double scaleY = calculateScale()[1];
-        root.setHgap((GRID_SIZE_X * SQUARE_SIZE + SQUARE_SIZE) * scaleX);
-        root.setVgap((GRID_SIZE_Y * SQUARE_SIZE + SQUARE_SIZE) * scaleY);
-        int width = 1200;
-        int height = 1000;
-        width += SQUARE_SIZE * scaleX * GRID_SIZE_X;
-        height -= SQUARE_SIZE * scaleY * GRID_SIZE_Y;
+
+        
+        root.setHgap((GRID_SIZE_X * SQUARE_SIZE + SQUARE_SIZE) * scale);
+        root.setVgap((GRID_SIZE_Y * SQUARE_SIZE + SQUARE_SIZE) * scale);
+        root.setPrefWrapLength(1600);
+        int width = 0;
+        int height = 0;
+        width += (SQUARE_SIZE * scale * GRID_SIZE_X);
+        height += SQUARE_SIZE * scale * GRID_SIZE_Y;
 
         //looping through each component to scale them down
         for (Simulation sim : Simulation.getSimulationList()) {
             for (Rectangle square : sim.squareList) {
                 if (!isScaled) {
-                    square.setWidth(square.getWidth() * scaleX);
-                    square.setHeight(square.getHeight() * scaleY);
-                    square.setTranslateX(square.getTranslateX() * scaleX);
-                    square.setTranslateY(square.getTranslateY() * scaleY);
+                    square.setWidth(square.getWidth() * scale);
+                    square.setHeight(square.getHeight() * scale);
+                    square.setTranslateX(square.getTranslateX() * scale);
+                    square.setTranslateY(square.getTranslateY() * scale);
                 }
             }
             for (Component[] row : sim.map) {
                 for (Component component : row) {
                     if (component != null) {
                         switch (component.getType()) {
-                            case MagneticField.TYPE, "obstacle", "superconductor", "finishLine" -> {
-                                ((Rectangle) component.getBody()).setWidth(((Rectangle) component.getBody()).getWidth() * scaleX);
-                                ((Rectangle) component.getBody()).setHeight(((Rectangle) component.getBody()).getHeight() * scaleY);
-                                component.getBody().setTranslateX(component.getBody().getTranslateX() * scaleX);
-                                component.getBody().setTranslateY(component.getBody().getTranslateY() * scaleY);
+                            case MagneticField.TYPE, Obstacle.TYPE , Superconductor.TYPE , FinishLine.TYPE -> {
+                                ((Rectangle) component.getBody()).setWidth(((Rectangle) component.getBody()).getWidth() * scale);
+                                ((Rectangle) component.getBody()).setHeight(((Rectangle) component.getBody()).getHeight() * scale);
+                                component.getBody().setTranslateX(component.getBody().getTranslateX() * scale);
+                                component.getBody().setTranslateY(component.getBody().getTranslateY() * scale);
                             }
                             case "charge" -> {
-                                ((Circle) component.getBody()).setRadius(((Circle) component.getBody()).getRadius() * scaleX);
-                                component.getBody().setTranslateX(component.getBody().getTranslateX() * scaleX);
-                                component.getBody().setTranslateY(component.getBody().getTranslateY() * scaleY);
+                                ((Circle) component.getBody()).setRadius(((Circle) component.getBody()).getRadius() * scale);
+                                component.getBody().setTranslateX(component.getBody().getTranslateX() * scale);
+                                component.getBody().setTranslateY(component.getBody().getTranslateY() * scale);
 
                             }
                         }
