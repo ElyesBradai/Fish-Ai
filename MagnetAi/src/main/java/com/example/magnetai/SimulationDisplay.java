@@ -135,10 +135,21 @@ public class SimulationDisplay extends Simulation {
      */
     public void showAllSimulations() {
         //This method opens a window with all the simulations with copied map
+        
         double scale = calculateScale();
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+        double screenWidth = bounds.getWidth();
+        double screenHeight = bounds.getHeight();
         Simulation.getSimulationList().remove(this);
         FlowPane root = new FlowPane();
+        ScrollPane scrollPane = new ScrollPane(root);
+        scrollPane.setFitToWidth(false);
+        scrollPane.setFitToHeight(false);
         root.setAlignment(Pos.TOP_LEFT);
+        root.setPrefWidth(screenWidth);
+        root.setPrefHeight(screenHeight+(GRID_SIZE_Y * SQUARE_SIZE + SQUARE_SIZE)*scale);
+        
         
         for (Simulation sim : Simulation.getSimulationList()) {
             root.getChildren().add(sim.getSimPane());
@@ -149,7 +160,7 @@ public class SimulationDisplay extends Simulation {
         
         root.setHgap((GRID_SIZE_X * SQUARE_SIZE + SQUARE_SIZE) * scale);
         root.setVgap((GRID_SIZE_Y * SQUARE_SIZE + SQUARE_SIZE) * scale);
-        root.setPrefWrapLength(1600);
+        root.setPrefWrapLength(screenWidth);
         int width = 0;
         int height = 0;
         width += (SQUARE_SIZE * scale * GRID_SIZE_X);
@@ -199,7 +210,7 @@ public class SimulationDisplay extends Simulation {
 
         isScaled = true;
         this.getTimerInstance().start();
-        Scene scene = new Scene(root, width, height);
+        Scene scene = new Scene(scrollPane, width, height);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setFullScreen(true);

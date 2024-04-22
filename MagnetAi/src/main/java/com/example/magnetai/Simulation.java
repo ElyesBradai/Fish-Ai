@@ -367,16 +367,14 @@ public class Simulation {
         
         double ratioSquareSize = minSquareSize/ SQUARE_SIZE;
         
-        double ratio = screenWidth/screenHeight;
-        
         int numSimulations = Simulation.getSimulationList().size();
         double numRows = Math.sqrt(numSimulations);
-        double numCols = Math.ceil((double) numSimulations / numRows);
+        double numCols = ((double) numSimulations / numRows);
 
         // Determine the maximum number of rows or columns based on the x/y ratioSquareSize
-        double minDimension = Math.max(numRows, numCols);
+        double maxDimension = Math.max(numRows, numCols);
 
-        double scale = 1.0 / minDimension;
+        double scale = 1.0 / maxDimension;
         
 
         return ratioSquareSize * scale;
