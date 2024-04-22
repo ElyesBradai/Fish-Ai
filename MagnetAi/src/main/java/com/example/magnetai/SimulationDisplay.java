@@ -117,13 +117,13 @@ public class SimulationDisplay extends Simulation {
 //            double[] predictions = sim.getBrain().predict(empty.stream().mapToDouble(Double::doubleValue).toArray());
 //            double[] predictions = sim.getBrain().predict(sim.map)TODO FLATTEN AND INPUT MAP
             //TODO USE ANGLE
-            double angle = predictions[0] * Math.PI; //index 0 is the angle for the charge and the rest is the strength
-            for (int i = 0; i < sim.map.length; i++) {
-                for (int j = 0; j < sim.map[0].length; j++) {
-                    sim.map[i][j] = new MagneticField(i*GRID_SIZE_Y+j,new double[] {0,0,predictions[counter]*MagneticField.STRENGTH_COEFFICIENT});
-                    counter++;
-                }
-            }
+//            double angle = predictions[0] * Math.PI; //index 0 is the angle for the charge and the rest is the strength
+//            for (int i = 0; i < sim.map.length; i++) {
+//                for (int j = 0; j < sim.map[0].length; j++) {
+//                    sim.map[i][j] = new MagneticField(i*GRID_SIZE_Y+j,new double[] {0,0,predictions[counter]*MagneticField.STRENGTH_COEFFICIENT});
+//                    counter++;
+//                }
+//            }
         }
     }
 

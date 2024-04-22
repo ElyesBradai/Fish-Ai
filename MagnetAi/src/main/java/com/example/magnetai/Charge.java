@@ -121,9 +121,17 @@ public class Charge extends Circle implements Component {
 
     @Override
     public Component clone() {
-        return new Charge(this.startingIndex, this.chargeType, this.velocity);
+        return new Charge(this.startingIndex, this.chargeType, this.speed);
     }
-
+    
+    public double getSpeed(){
+        return speed;
+    }
+    
+    public void setSpeed(double speed){
+        this.speed = speed;
+    }
+    
     public boolean isAlive() {
         return this.isAlive;
     }

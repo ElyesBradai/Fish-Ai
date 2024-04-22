@@ -83,7 +83,7 @@ public class FxController {
     public void handle() {
 
         startButton.setOnAction(event -> {
-            if(s1.findFinish() != null || s1.findCharge()!=null){
+            if(s1.findFinish() != null && s1.findCharge()!=null){
                 s1.saveDesign();
                 s1.showAllSimulations();
                 velocitySlider.setDisable(true);
@@ -112,8 +112,8 @@ public class FxController {
             polarity = (chargeChoiceBox.getValue() == null) ? null : chargeChoiceBox.getValue().toString();
         });
         velocitySlider.valueProperty().addListener((observableValue, newValue, OldValue) -> {
-            s1.findCharge().getVelocity()[0] = newValue.doubleValue();
-            s1.findCharge().getVelocity()[1] = newValue.doubleValue();
+            s1.findCharge().setSpeed(newValue.doubleValue());
+            
             velocityTextField.setText(newValue.toString());
         });
         strengthSlider.valueProperty().addListener((observableValue, newValue, OldValue) -> {
