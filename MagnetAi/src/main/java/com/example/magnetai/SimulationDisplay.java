@@ -19,11 +19,11 @@ public class SimulationDisplay extends Simulation {
     private boolean isScaled;
 
 
+
     //    TODO MAKE FINISHLINE AND CHARGE A SINGLETON WHITNG THE SIMULATION
 //    private boolean hasFinishLine;
     public SimulationDisplay() {
         super();
-//        this.hasFinishLine = false;   //will make finishline a singleton within the grid (and charge too)
         selectedComponentType = "";
         bckg();
         addClickable();
@@ -98,36 +98,7 @@ public class SimulationDisplay extends Simulation {
             sim.map = copiedMap;
         }
         createBrains();
-    }
-
-    private void createBrains() {
-        //this part creates decides the values (0 if empty or 1 if other)
-        Deque<Double> empty = new ArrayDeque<Double>();
-        for (Component[] row : this.map) {
-            for (Component component: row) {
-                if (component == null){
-                    empty.add(0.0);
-                }
-                else {
-                    empty.add(1.0);
-                }
-            }
-        }
-        //this part creates the brain (neural network) and call the predict method
-        for (Simulation sim : simulationList) {
-            int counter = 0; //to use within the empty array
-            sim.setBrain(new NeuralNetwork(0.5f, new int[]{GRID_SIZE_Y * GRID_SIZE_X, 4,empty.size()+1}));
-//            double[] predictions = sim.getBrain().predict(empty.stream().mapToDouble(Double::doubleValue).toArray());
-//            double[] predictions = sim.getBrain().predict(sim.map)TODO FLATTEN AND INPUT MAP
-            //TODO USE ANGLE
-//            double angle = predictions[0] * Math.PI; //index 0 is the angle for the charge and the rest is the strength
-//            for (int i = 0; i < sim.map.length; i++) {
-//                for (int j = 0; j < sim.map[0].length; j++) {
-//                    sim.map[i][j] = new MagneticField(i*GRID_SIZE_Y+j,new double[] {0,0,predictions[counter]*MagneticField.STRENGTH_COEFFICIENT});
-//                    counter++;
-//                }
-//            }
-        }
+        makeSimPaneShowNeuralDisplay();
     }
 
     /**
@@ -142,7 +113,7 @@ public class SimulationDisplay extends Simulation {
         double screenWidth = bounds.getWidth();
         double screenHeight = bounds.getHeight();
         Simulation.getSimulationList().remove(this);
-        FlowPane root = new FlowPane();
+        root = new FlowPane();
         ScrollPane scrollPane = new ScrollPane(root);
         scrollPane.setFitToWidth(false);
         scrollPane.setFitToHeight(false);

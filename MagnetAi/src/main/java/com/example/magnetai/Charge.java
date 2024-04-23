@@ -19,7 +19,7 @@ public class Charge extends Circle implements Component {
     boolean isAlive;
     
     private Random random = new Random();
-    private double angle=random.nextDouble(-Math.PI,Math.PI);
+    private double angle = random.nextDouble(-Math.PI,Math.PI);
 
     /**
      * @param startingIndex
@@ -74,6 +74,9 @@ public class Charge extends Circle implements Component {
                     this.setTranslateX(this.getTranslateX() + (velocity[0]) * scale);
                     this.setTranslateY(this.getTranslateY() + (velocity[1]) * scale);
                 }
+                case FinishLine.TYPE -> {
+                    this.setAlive(false);
+                }
                 default -> {
                     this.setTranslateX(this.getTranslateX() + (velocity[0]) * scale);
                     this.setTranslateY(this.getTranslateY() + (velocity[1]) * scale);
@@ -95,7 +98,7 @@ public class Charge extends Circle implements Component {
     }
 
     public void setNewVelocity(double newAngle){
-        this.velocity = new double[]{speed * Math.cos(newAngle), speed * Math.sin(newAngle),0};
+        this.velocity = new double[]{speed * Math.cos(newAngle), speed * Math.sin(newAngle), 0};
     }
     
     @Override

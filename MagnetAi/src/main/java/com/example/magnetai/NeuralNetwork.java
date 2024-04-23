@@ -49,6 +49,17 @@ public class NeuralNetwork {
         return neuralNetwork;
     }
 
+    public NeuralNetwork clone(float learningRate) {
+
+        NeuralNetwork neuralNetwork = new NeuralNetwork(learningRate, this.layers);
+        for (int i = 0; i < this.hiddenLayers.length; i++) {
+            neuralNetwork.hiddenLayers[i] = this.hiddenLayers[i].clone();
+        }
+
+
+        return neuralNetwork;
+    }
+
     /**
      * @param input
      * @return
@@ -83,6 +94,10 @@ public class NeuralNetwork {
      */
     public HiddenLayer[] getHiddenLayers() {
         return hiddenLayers;
+    }
+
+    public float getLearningRate() {
+        return this.learningRate;
     }
 
     /**

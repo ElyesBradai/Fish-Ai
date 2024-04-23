@@ -2,19 +2,22 @@ package com.example.magnetai;
 
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Simulation {
     public static final int GRID_SIZE_X = 7;
     public static final int GRID_SIZE_Y = 7;
     public static final int SQUARE_SIZE = 100;
+    public static int generationCounter = 0;
+    private static Simulation displayedSim;
+    public static FlowPane root;
+    public static NeuralDisplay neuralDisplay;
     public static ArrayList<Simulation> simulationList = new ArrayList();
     private final myTimer timer = new myTimer(); // timer is a singleton within the class
     private final int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
@@ -31,6 +34,7 @@ public class Simulation {
         squareList = new ArrayList<Rectangle>();
         simulationList.add(this);
         fitnessScore = Integer.MAX_VALUE;
+        brain = null;
         bckg();
     }
 
@@ -179,12 +183,7 @@ public class Simulation {
     public Component checkCollision() {
         Charge charge = this.findCharge();
         int[] componentPos = absolutePosToGridPos(charge.getTranslateX(), charge.getTranslateY());
-        //if(map[componentPos[0]][componentPos[1]] != null){
-//        if (this.map[componentPos[0]][componentPos[1]] != null && this.map[componentPos[0]][componentPos[1]].getType().equals(Obstacle.TYPE))
-//            System.out.println("The fitness score is " + calcutateFitnessScore() + " in sim " + simulationList.indexOf(this));
         return this.map[componentPos[0]][componentPos[1]];
-        //}
-        //return null;
     }
 
     public boolean checkAllAlive() {
@@ -204,6 +203,9 @@ public class Simulation {
             }
             resetAllSim();
             mutateAllSim();
+            createBrains();
+            showNeuralDisplay(displayedSim);
+            System.out.println(++generationCounter);
         }
     }
 
@@ -218,12 +220,58 @@ public class Simulation {
                 bestFitnessValue = currentFitness;
             }
         }
-
+        float baseLearningRate = bestFitnessSim.getBrain().getLearningRate();
+        float minLearningRate = 0.05f;
+        float scaledLearningRate = baseLearningRate / (fitnessScore + minLearningRate);
+        // Ensure the learning rate doesn't exceed the base learning rate or go below the minimum
+        scaledLearningRate = Math.max(minLearningRate, scaledLearningRate);
+        scaledLearningRate = Math.min(baseLearningRate, scaledLearningRate);
         for (Simulation sim : simulationList) {
 
             if (!sim.equals(bestFitnessSim)) {
+                sim.setBrain(bestFitnessSim.getBrain().clone(scaledLearningRate));
                 sim.getBrain().mutate();
                 sim.setFitnessScore(Integer.MAX_VALUE);
+            }
+
+        }
+    }
+    public static void createBrains() {
+        //this part creates decides the values (0 if empty or 1 if other)
+        int emptyCounter = 0;
+        Deque<Double> inputMap = new ArrayDeque();
+        for (Component[] row : simulationList.get(0).map) {
+            for (Component component: row) {
+                if (component == null){
+                    inputMap.add(0.0);
+                    emptyCounter++;
+                }
+                else {
+                    inputMap.add(1.0);
+                }
+            }
+        }
+
+        //this part creates the brain (neural network) and call the predict method
+        for (Simulation sim : simulationList) {
+            int counter = 1; //to use within the empty array
+            if (sim.getBrain() == null)
+                {
+                    sim.setBrain(new NeuralNetwork(0.5f, new int[]{GRID_SIZE_Y * GRID_SIZE_X, emptyCounter + 1}));
+                }
+            double[] predictions = sim.getBrain().predict(inputMap.stream().mapToDouble(Double::doubleValue).toArray());
+            double angle = predictions[0] * Math.PI; //index 0 is the angle for the charge and the rest is the strength
+            sim.findCharge().setNewVelocity(angle);
+            int index = 0;
+            for (Component[] row : sim.map) {
+                for (Component component : row) {
+                    if (component == null) {
+                        component = new MagneticField(index, new double[] {0,0,predictions[counter]*MagneticField.STRENGTH_COEFFICIENT});
+                        sim.addToMap(component,component.getIndex());
+                        counter++;
+                    }
+                    index++;
+                }
             }
         }
     }
@@ -291,6 +339,7 @@ public class Simulation {
                         (map[newRow][newCol] == null ||
                                 map[newRow][newCol].getType().equals(Charge.TYPE) ||
                                 map[newRow][newCol].getType().equals(FinishLine.TYPE) ||
+                                map[newRow][newCol].getType().equals(Superconductor.TYPE) ||
                                 map[newRow][newCol].getType().equals(MagneticField.TYPE))) {
                     int newDist = dist + 1;
                     if (newDist < distance[newRow][newCol]) {
@@ -310,7 +359,7 @@ public class Simulation {
                 int newRow = current[0] + dir[0];
                 int newCol = current[1] + dir[1];
                 if (isValid(newRow, newCol) && distance[newRow][newCol] == steps - 1) {
-                    this.squareList.get(posToIndex(new int[]{newRow, newCol})).setFill(Color.YELLOW);
+//                    this.squareList.get(posToIndex(new int[]{newRow, newCol})).setFill(Color.YELLOW);
                     current = new int[]{newRow, newCol};
                     steps--;
                     break;
@@ -378,6 +427,25 @@ public class Simulation {
         
 
         return ratioSquareSize * scale;
+    }
+
+    private static void showNeuralDisplay(Simulation sim) {
+        if (sim != null) {
+            if (root.getChildren().contains(neuralDisplay)) {
+                root.getChildren().remove(neuralDisplay);
+            }
+            neuralDisplay = new NeuralDisplay(sim);
+            root.getChildren().add(neuralDisplay);
+        }
+    }
+
+    protected static void makeSimPaneShowNeuralDisplay() {
+        for (Simulation sim : simulationList) {
+            sim.getSimPane().setOnMouseClicked(event -> {
+                showNeuralDisplay(sim);
+                displayedSim = sim;
+            });
+        }
     }
 
     Component checkRightValue(int index) {
