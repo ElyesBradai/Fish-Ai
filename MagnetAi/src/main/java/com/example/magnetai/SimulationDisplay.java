@@ -151,7 +151,7 @@ public class SimulationDisplay extends Simulation {
                 for (Component component : row) {
                     if (component != null) {
                         switch (component.getType()) {
-                            case MagneticField.TYPE, Obstacle.TYPE , Superconductor.TYPE , FinishLine.TYPE -> {
+                            case Obstacle.TYPE , Superconductor.TYPE , FinishLine.TYPE -> {
                                 ((Rectangle) component.getBody()).setWidth(((Rectangle) component.getBody()).getWidth() * scale);
                                 ((Rectangle) component.getBody()).setHeight(((Rectangle) component.getBody()).getHeight() * scale);
                                 component.getBody().setTranslateX(component.getBody().getTranslateX() * scale);

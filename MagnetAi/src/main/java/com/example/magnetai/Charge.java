@@ -12,6 +12,7 @@ public class Charge extends Circle implements Component {
     static final String NOTHING = "nothing";
     private static final Color CHARGE_COLOR = Color.RED;
     private double[] velocity;
+    private boolean finished;
     
     private double speed;
     ChargeType chargeType;
@@ -19,7 +20,7 @@ public class Charge extends Circle implements Component {
     boolean isAlive;
     
     private Random random = new Random();
-    private double angle = random.nextDouble(-Math.PI,Math.PI);
+    private double angle = 0;
 
     /**
      * @param startingIndex
@@ -32,20 +33,19 @@ public class Charge extends Circle implements Component {
         this.setFill(CHARGE_COLOR);
         this.isAlive = true;
         this.velocity = new double[]{0,0,0};
-        
-        
+        this.finished = false;
+
     }
 
-    public Charge(int startingIndex, ChargeType type, double velocity) {
+    public Charge(int startingIndex, ChargeType type, double speed) {
         super(CHARGE_RADIUS, Color.RED);
         this.startingIndex = startingIndex;
         this.chargeType = type;
         this.setFill(CHARGE_COLOR);
         this.isAlive = true;
-        this.speed = velocity;
+        this.speed = speed;
         this.velocity = new double[]{speed * Math.cos(angle), speed * Math.sin(angle),0};
-        
-        
+        this.finished = false;
         
     }
 
@@ -76,6 +76,9 @@ public class Charge extends Circle implements Component {
                 }
                 case FinishLine.TYPE -> {
                     this.setAlive(false);
+                    this.setFinished(true);
+                    System.out.println("SOLVED");
+//                    Simulation.setSolved(true);
                 }
                 default -> {
                     this.setTranslateX(this.getTranslateX() + (velocity[0]) * scale);
@@ -84,6 +87,7 @@ public class Charge extends Circle implements Component {
             }
         }
     }
+
 
     /**
      * returns the component intersecting with this charge
@@ -161,6 +165,12 @@ public class Charge extends Circle implements Component {
     
     public double[] getVelocity(){
         return velocity;
+    }
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+    public boolean isFinished() {
+        return this.finished;
     }
     
     public void setVelocity(double[] velocity){

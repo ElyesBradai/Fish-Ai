@@ -2,8 +2,10 @@ package com.example.magnetai;
 
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
@@ -16,13 +18,14 @@ public class Simulation {
     public static final int SQUARE_SIZE = 100;
     public static int generationCounter = 0;
     private static Simulation displayedSim;
+    private static boolean isSolved = false;
     public static FlowPane root;
     public static NeuralDisplay neuralDisplay;
     public static ArrayList<Simulation> simulationList = new ArrayList();
     private final myTimer timer = new myTimer(); // timer is a singleton within the class
     private final int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     Component[][] map;
-    Pane simPane;//not sure if i should use pane or other :/
+    Pane simPane;//not sure if I should use pane or other :/
     Rectangle player = new Rectangle(50, 50);
     ArrayList<Rectangle> squareList;
     private NeuralNetwork brain;
@@ -199,13 +202,16 @@ public class Simulation {
     public void setupNextGeneration() {
         if (!checkAllAlive()) {
             for (Simulation sim : simulationList) {
-                sim.setFitnessScore(sim.calcutateFitnessScore());
+                sim.setFitnessScore(sim.calculateFitnessScore());
             }
             resetAllSim();
             mutateAllSim();
             createBrains();
             showNeuralDisplay(displayedSim);
             System.out.println(++generationCounter);
+//            if (isSolved) {
+//                showEndScreen();
+//            }
         }
     }
 
@@ -213,13 +219,19 @@ public class Simulation {
         int bestFitnessValue = Integer.MAX_VALUE;
         Simulation bestFitnessSim = null;
 
+        ArrayList<Simulation> solvedList = new ArrayList<>();
+
         for (Simulation sim : simulationList) {
             int currentFitness = sim.getFitnessScore();
             if (currentFitness < bestFitnessValue) {
                 bestFitnessSim = sim;
                 bestFitnessValue = currentFitness;
+                if (sim.findCharge().isFinished()) {
+                    solvedList.add(sim);
+                }
             }
         }
+
         float baseLearningRate = bestFitnessSim.getBrain().getLearningRate();
         float minLearningRate = 0.05f;
         float scaledLearningRate = baseLearningRate / (fitnessScore + minLearningRate);
@@ -228,8 +240,8 @@ public class Simulation {
         scaledLearningRate = Math.min(baseLearningRate, scaledLearningRate);
         for (Simulation sim : simulationList) {
 
-            if (!sim.equals(bestFitnessSim)) {
-                sim.setBrain(bestFitnessSim.getBrain().clone(scaledLearningRate));
+            if (!solvedList.contains(sim) && !sim.equals(bestFitnessSim)) {
+                sim.setBrain(solvedList.isEmpty() ? bestFitnessSim.getBrain().clone(scaledLearningRate) : solvedList.get(0).getBrain().clone(scaledLearningRate));
                 sim.getBrain().mutate();
                 sim.setFitnessScore(Integer.MAX_VALUE);
             }
@@ -243,7 +255,7 @@ public class Simulation {
         for (Component[] row : simulationList.get(0).map) {
             for (Component component: row) {
                 if (component == null){
-                    inputMap.add(0.0);
+                    inputMap.add(-1.0);
                     emptyCounter++;
                 }
                 else {
@@ -254,22 +266,28 @@ public class Simulation {
 
         //this part creates the brain (neural network) and call the predict method
         for (Simulation sim : simulationList) {
-            int counter = 1; //to use within the empty array
+            int counter = 0; //to use within the empty array
             if (sim.getBrain() == null)
                 {
-                    sim.setBrain(new NeuralNetwork(0.5f, new int[]{GRID_SIZE_Y * GRID_SIZE_X, emptyCounter + 1}));
+                    sim.setBrain(new NeuralNetwork(0.5f, new int[]{GRID_SIZE_Y * GRID_SIZE_X, emptyCounter}));
                 }
             double[] predictions = sim.getBrain().predict(inputMap.stream().mapToDouble(Double::doubleValue).toArray());
-            double angle = predictions[0] * Math.PI; //index 0 is the angle for the charge and the rest is the strength
-            sim.findCharge().setNewVelocity(angle);
+//            double angle = predictions[0] * Math.PI; //index 0 is the angle for the charge and the rest is the strength
+//            sim.findCharge().setNewVelocity(angle);
             int index = 0;
             for (Component[] row : sim.map) {
                 for (Component component : row) {
-                    if (component == null) {
+                    if (component == null || component.getType().equals(MagneticField.TYPE)) {
                         component = new MagneticField(index, new double[] {0,0,predictions[counter]*MagneticField.STRENGTH_COEFFICIENT});
                         sim.addToMap(component,component.getIndex());
+                        double scale = calculateScale();
+                        ((Rectangle) component.getBody()).setWidth(((Rectangle) component.getBody()).getWidth() * scale);
+                        ((Rectangle) component.getBody()).setHeight(((Rectangle) component.getBody()).getHeight() * scale);
+                        component.getBody().setTranslateX(component.getBody().getTranslateX() * scale);
+                        component.getBody().setTranslateY(component.getBody().getTranslateY() * scale);
                         counter++;
                     }
+                    sim.findCharge().toFront();
                     index++;
                 }
             }
@@ -284,22 +302,25 @@ public class Simulation {
             charge.getBody().setTranslateX((pos[0] * SQUARE_SIZE + SQUARE_SIZE / 2) * calculateScale());
             charge.getBody().setTranslateY((pos[1] * SQUARE_SIZE + SQUARE_SIZE / 2) * calculateScale());
             charge.setAlive(true);
+            charge.setSpeed(2);
+            charge.setNewVelocity(charge.getAngle());
+
             //removes all magnetic fields
-            for (Component[] row : sim.map) {
-
-                for (Component component : row) {
-
-                    if (component != null && component.getType().equals(MagneticField.TYPE)) {
-                        int[] componentPos = indexToPos(component.getIndex());
-                        map[componentPos[0]][componentPos[1]] = null;
-                        sim.getSimPane().getChildren().remove(component.getBody());
-                    }
-                }
-            }
+//            for (Component[] row : sim.map) {
+//
+//                for (Component component : row) {
+//
+//                    if (component != null && component.getType().equals(MagneticField.TYPE)) {
+//                        int[] componentPos = indexToPos(component.getIndex());
+//                        map[componentPos[0]][componentPos[1]] = null;
+//                        sim.getSimPane().getChildren().remove(component.getBody());
+//                    }
+//                }
+//            }
         }
     }
 
-    public int calcutateFitnessScore() {
+    public int calculateFitnessScore() {
         Charge charge = this.findCharge();
         int[] endPosition = findNearestEmpty(charge);
         int fitness = calculateShortestPath(endPosition);
@@ -311,7 +332,7 @@ public class Simulation {
                                     charge.getTranslateY() - charge.getVelocity()[1] * calculateScale());
     }
 
-    public int calculateShortestPath(int[] endPostion) {
+    public int calculateShortestPath(int[] endPosition) {
         int[][] distance = new int[GRID_SIZE_X][GRID_SIZE_Y];
         int finalDist = -1;
         for (int[] row : distance)
@@ -320,8 +341,8 @@ public class Simulation {
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[2] - b[2]); // {row, col, distance}
 
 
-        pq.offer(new int[]{endPostion[0], endPostion[1], 0});
-        distance[endPostion[0]][endPostion[1]] = 0;
+        pq.offer(new int[]{endPosition[0], endPosition[1], 0});
+        distance[endPosition[0]][endPosition[1]] = 0;
 
         while (!pq.isEmpty()) {
             int[] current = pq.poll();
@@ -396,11 +417,11 @@ public class Simulation {
     }
 
     /**
-     * calculates the scale depening on the number of simulations
+     * calculates the scale depending on the number of simulations
      *
      * @return double array(scaleX,scaleY)
      */
-    public double calculateScale() {
+    public static double calculateScale() {
         Screen screen = Screen.getPrimary();
         
         // Get the bounds of the primary screen
@@ -447,7 +468,23 @@ public class Simulation {
             });
         }
     }
+    public static void showEndScreen() {
+        //find the best simulation
+        Simulation bestFitnessSim = null;
+        int bestFitnessValue = Integer.MAX_VALUE;
+        for (Simulation sim : simulationList) {
+            if (sim.fitnessScore < bestFitnessValue) {
+                bestFitnessSim = sim;
+            }
+        }
+        //show end screen
+        root.getChildren().clear();
+        simulationList = new ArrayList<>();
+        simulationList.add(bestFitnessSim);
+        root = new FlowPane(new VBox(new Label("The Ai solved the maze! Here is the best attempt"), bestFitnessSim.getSimPane()));
 
+
+    }
     Component checkRightValue(int index) {
         return posToValue(indexToPos(++index));
     }
@@ -495,6 +532,13 @@ public class Simulation {
 
     public void setFitnessScore(int fitnessScore) {
         this.fitnessScore = fitnessScore;
+    }
+    public static void setSolved(boolean solved) {
+        isSolved = solved;
+    }
+
+    public static boolean isSolved() {
+        return isSolved;
     }
 
     public void setBrain(NeuralNetwork brain) {

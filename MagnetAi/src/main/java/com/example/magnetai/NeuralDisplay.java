@@ -67,6 +67,12 @@ public class NeuralDisplay extends Pane {
             for (int j = 0; j < activations[i].length; j++) {
 
                 Label value = new Label();
+                value.setStyle("-fx-text-fill: white;"+
+                        "-fx-background-color: black;"+
+                        "-fx-font: Courier New;"+
+                        "-fx-font-family: Courier New;"+
+                        "-fx-font-weight: bold;"+
+                        "-fx-font-size: 30;");
                 value.setId("neuronNet");
                 DoubleProperty prop = new SimpleDoubleProperty(activations[i][j]);
 
