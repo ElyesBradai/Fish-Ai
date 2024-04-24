@@ -4,8 +4,10 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -61,7 +63,7 @@ public class FxController {
     @FXML
     private Label welcomeText;
     @FXML
-    private ScrollPane simDisplayPane;
+    private FlowPane simDisplayPane;
     @FXML
     private Circle chargeSelector;
     @FXML
@@ -70,17 +72,28 @@ public class FxController {
     private Rectangle fLSelector;
     @FXML
     private Rectangle sCSelector;
+    
+    public static double[] dimension = new double[2];
 
     @FXML
     public void initialize() {
 
         handle();
         createDisplay();
+        simDisplayPane.widthProperty().addListener((observable, oldValue, newValue) -> {
+            double width = newValue.doubleValue();
+            System.out.println("Pane width: " + width);
+        });
+        simDisplayPane.heightProperty().addListener((observable, oldValue, newValue) -> {
+            double height = newValue.doubleValue();
+            System.out.println("Pane height: " + height);
+        });
 
 
     }
 
     public void handle() {
+
 
         startButton.setOnAction(event -> {
             if(s1.findFinish() != null && s1.findCharge()!=null){
@@ -126,11 +139,20 @@ public class FxController {
 
     public void createDisplay() {
         HBox root = new HBox();
-        root.setSpacing(Simulation.GRID_SIZE_X * Simulation.SQUARE_SIZE);
-        simDisplayPane.setContent(root);
+       // root.setSpacing(Simulation.GRID_SIZE_X * Simulation.SQUARE_SIZE);
+        simDisplayPane.setAlignment(Pos.TOP_LEFT);
+        simDisplayPane.getChildren().add(root);
         VBox vb1 = new VBox();
         root.getChildren().addAll(vb1);
+      //   scaleDisplay(s1);
         vb1.getChildren().add(s1.getSimPane());
+        
+        
+        
+       
+        
+        
+        
         //	Charge c1 = new Charge(ChargeType.NEGATIVE);
         //	s1.addToMap(c1, 5);
         for (int i = 0; i < 30; i++) {
@@ -183,6 +205,24 @@ public class FxController {
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
-
+    
+//    public void scaleDisplay(Simulation sim){
+//            double ratioSquareSize = Simulation.caculateDisplayScale();
+//            for (int j = 0; j < sim.getSquareList().size(); j++) {
+//              Rectangle temp = sim.getSquareList().get(j);
+//              temp.setHeight(temp.getHeight() * ratioSquareSize);
+//              temp.setWidth(temp.getWidth() * ratioSquareSize);
+//
+//               // System.out.println(temp.getHeight() + " " + temp.getWidth());
+//               //   System.out.println(ratioSquareSize);
+//
+//                temp.setTranslateX(temp.getTranslateX() * ratioSquareSize);
+//                temp.setTranslateY(temp.getTranslateY() * ratioSquareSize);
+//
+//        }
+//
+//
+//
+//    }
 }
 

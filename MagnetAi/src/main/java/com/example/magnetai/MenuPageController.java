@@ -55,6 +55,7 @@ public class MenuPageController{
 		Scene scene = new Scene(fxmlloader.load(), 1300, 1000);
 		stage.setTitle("Hello");
 		stage.setScene(scene);
+		stage.setFullScreen(true);
 		stage.show();
 		
 	}

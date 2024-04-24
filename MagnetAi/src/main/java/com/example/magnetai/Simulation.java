@@ -7,15 +7,16 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 
 import java.util.*;
 
 public class Simulation {
-    public static final int GRID_SIZE_X = 7;
-    public static final int GRID_SIZE_Y = 7;
-    public static final int SQUARE_SIZE = 100;
+    public static final int GRID_SIZE_X = 20;
+    public static final int GRID_SIZE_Y = 20;
+    public static final double SQUARE_SIZE = caculateDisplayScale();
     public static int generationCounter = 0;
     private static Simulation displayedSim;
     private static boolean isSolved = false;
@@ -27,6 +28,9 @@ public class Simulation {
     Component[][] map;
     Pane simPane;//not sure if I should use pane or other :/
     Rectangle player = new Rectangle(50, 50);
+    
+
+    
     ArrayList<Rectangle> squareList;
     private NeuralNetwork brain;
     int fitnessScore;
@@ -548,6 +552,38 @@ public class Simulation {
     public myTimer getTimerInstance() {
         return (timer == null) ? new myTimer() : timer;
     }
+    
+    public ArrayList<Rectangle> getSquareList(){
+        return squareList;
+    }
+    
+    public void setSquareList(ArrayList<Rectangle> squareList){
+        this.squareList = squareList;
+    }
+    
+    public static double caculateDisplayScale(){
+        Screen screen = Screen.getPrimary();
+        
+        // Get the bounds of the primary screen
+        Rectangle2D bounds = screen.getVisualBounds();
+        
+        double screenWidth = bounds.getWidth();
+        double screenHeight = bounds.getHeight();
+        
+        double width = screenWidth * (1131.0 / 1440.0);
+        double height = screenHeight * (739.0 / 900.0);
+        
+//        System.out.println("W: " + screenWidth * (1131 / 1440));
+//        System.out.println("H: " + screenHeight * (739 / 900));
+        
+        double realSquareSizeW = width/ GRID_SIZE_X;
+        double realSquareSizeH = height/ GRID_SIZE_Y;
+        
+        double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
+        
+        double ratioSquareSize = minSquareSize;
+        return ratioSquareSize;
+    }
 
     public class myTimer extends AnimationTimer {
         @Override
@@ -556,4 +592,5 @@ public class Simulation {
             setupNextGeneration();
         }
     }
+    
 }

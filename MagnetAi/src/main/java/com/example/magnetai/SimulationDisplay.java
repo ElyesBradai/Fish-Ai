@@ -207,4 +207,5 @@ public class SimulationDisplay extends Simulation {
         this.map = new Component[GRID_SIZE_X][GRID_SIZE_Y];
 
     }
+    
 }

@@ -7,7 +7,7 @@ import javafx.scene.shape.Shape;
 import java.util.Random;
 
 public class Charge extends Circle implements Component {
-    static final double CHARGE_RADIUS = 15;
+    static final double CHARGE_RADIUS = Simulation.caculateDisplayScale()/4;
     static final String TYPE = "charge";
     static final String NOTHING = "nothing";
     private static final Color CHARGE_COLOR = Color.RED;
