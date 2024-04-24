@@ -2,6 +2,8 @@ package com.example.magnetai;
 
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
@@ -14,8 +16,8 @@ import javafx.stage.Screen;
 import java.util.*;
 
 public class Simulation {
-    public static final int GRID_SIZE_X = 20;
-    public static final int GRID_SIZE_Y = 20;
+    public static final int GRID_SIZE_X = 6;
+    public static final int GRID_SIZE_Y = 5;
     public static final double SQUARE_SIZE = caculateDisplayScale();
     public static int generationCounter = 0;
     private static Simulation displayedSim;
@@ -327,8 +329,16 @@ public class Simulation {
     public int calculateFitnessScore() {
         Charge charge = this.findCharge();
         int[] endPosition = findNearestEmpty(charge);
-        int fitness = calculateShortestPath(endPosition);
-        return fitness;
+        return calculateShortestPath(endPosition);
+    }
+    public boolean checkValidPathDisplay() {
+        boolean isValid = true;
+        Charge charge = this.findCharge();
+        int[] endPosition = absolutePosToGridPosDisplay(charge.getTranslateX(),charge.getTranslateY());
+        if (calculateShortestPath(endPosition) == -1){
+            isValid = false;
+        }
+        return isValid;
     }
 
     public int[] findNearestEmpty(Charge charge) {
@@ -339,9 +349,9 @@ public class Simulation {
     public int calculateShortestPath(int[] endPosition) {
         int[][] distance = new int[GRID_SIZE_X][GRID_SIZE_Y];
         int finalDist = -1;
-        for (int[] row : distance)
+        for (int[] row : distance) {
             Arrays.fill(row, Integer.MAX_VALUE);
-
+        }
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[2] - b[2]); // {row, col, distance}
 
 
@@ -374,11 +384,12 @@ public class Simulation {
                 }
             }
         }
-
+        int maxLoop = 0;
         // Highlight shortest path
         int[] current = indexToPos(findFinish().getIndex());
         int steps = distance[current[0]][current[1]];
         while (steps > 0) {
+            if (maxLoop >= Math.pow(GRID_SIZE_X * GRID_SIZE_Y + 1,2)) break;
             //	System.out.println(steps);
             for (int[] dir : directions) {
                 int newRow = current[0] + dir[0];
@@ -390,6 +401,7 @@ public class Simulation {
                     break;
                 }
             }
+            maxLoop++;
         }
         return finalDist;
     }
@@ -571,7 +583,7 @@ public class Simulation {
         double screenHeight = bounds.getHeight();
         
         double width = screenWidth * (1131.0 / 1440.0);
-        double height = screenHeight * (739.0 / 900.0);
+        double height = screenHeight * (639.0 / 900.0);
         
 //        System.out.println("W: " + screenWidth * (1131 / 1440));
 //        System.out.println("H: " + screenHeight * (739 / 900));
@@ -580,7 +592,7 @@ public class Simulation {
         double realSquareSizeH = height/ GRID_SIZE_Y;
         
         double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
-        
+
         double ratioSquareSize = minSquareSize;
         return ratioSquareSize;
     }

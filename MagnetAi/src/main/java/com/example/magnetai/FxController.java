@@ -14,6 +14,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 
 public class FxController {
@@ -93,32 +96,33 @@ public class FxController {
     }
 
     public void handle() {
-
-
         startButton.setOnAction(event -> {
-            if(s1.findFinish() != null && s1.findCharge()!=null){
-                s1.saveDesign();
-                s1.showAllSimulations();
-                velocitySlider.setDisable(true);
-            }else{
-                Alert alert = new Alert(Alert.AlertType.ERROR,"Please choose place a Charge and a FinishLine on your map!", ButtonType.OK);
+            if(s1.findFinish() != null && s1.findCharge()!=null && s1.checkValidPathDisplay()){
+                    s1.saveDesign();
+                    s1.showAllSimulations();
+                    velocitySlider.setDisable(true);
+                    Stage stage = (Stage) startButton.getScene().getWindow();
+                    stage.close();
+
+            }else if (!s1.checkValidPathDisplay()) {
+                Alert noPathAlert = new Alert(Alert.AlertType.ERROR, "Make sure there is a path from the charge to the finish line!", ButtonType.OK);
+                noPathAlert.show();}
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR,"Please choose place a Charge and a FinishLine on your map! " +
+                        "Also make sure there is a path from the charge to the finish line!",
+                        ButtonType.OK);
                 alert.show();
             }
         });
         resetButton.setOnAction(actionEvent -> {
             s1.emptyDisplay();
-
         });
         pauseButton.setOnAction(actionEvent -> {
             for (Simulation sim : Simulation.getSimulationList()) {
                 sim.getTimerInstance().stop();
             }
-
-
         });
         saveButton.setOnAction(actionEvent -> {
-
-
         });
         chargeChoiceBox.getItems().addAll("Proton", "Electron");
         chargeChoiceBox.setOnAction(actionEvent -> {
@@ -126,15 +130,12 @@ public class FxController {
         });
         velocitySlider.valueProperty().addListener((observableValue, newValue, OldValue) -> {
             s1.findCharge().setSpeed(newValue.doubleValue());
-            
             velocityTextField.setText(newValue.toString());
         });
         strengthSlider.valueProperty().addListener((observableValue, newValue, OldValue) -> {
             // = newValue.doubleValue();
             strengthTextField.setText(newValue.toString());
         });
-
-
     }
 
     public void createDisplay() {
@@ -146,20 +147,13 @@ public class FxController {
         root.getChildren().addAll(vb1);
       //   scaleDisplay(s1);
         vb1.getChildren().add(s1.getSimPane());
-        
-        
-        
-       
-        
-        
-        
+
         //	Charge c1 = new Charge(ChargeType.NEGATIVE);
         //	s1.addToMap(c1, 5);
         for (int i = 0; i < 30; i++) {
             Simulation s2 = new Simulation();
 
         }
-
 
         // Create an object property to hold the selected rectangle
         ObjectProperty<Shape> selectedShape = new SimpleObjectProperty<>();
@@ -168,7 +162,6 @@ public class FxController {
         // Bind the fill property of the circle to the fill property of the selected rectangle
         selected.fillProperty().bind(Bindings.createObjectBinding(() ->
                 selectedShape.get() != null ? selectedShape.get().getFill() : Color.BLACK, selectedShape));
-
 
         chargeSelector.setOnMouseClicked(event -> {
             s1.setSelectedComponentType(Charge.TYPE);
@@ -190,15 +183,6 @@ public class FxController {
             System.out.println(Superconductor.TYPE);
             selectedShape.set(sCSelector);
         });
-
-
-//        VBox selectorBox = new VBox(ObstacleSelector,FLSelector,SCSelector,selected,b1);
-//        root.getChildren().add(selectorBox);
-//        Scene scene = new Scene(root, 1200, 800);
-//        Stage stage = new Stage();
-//        stage.setTitle("Hello!");
-//        stage.setScene(scene);
-//        stage.show();
     }
 
     @FXML
