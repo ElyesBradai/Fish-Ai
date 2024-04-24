@@ -1,5 +1,6 @@
 package com.example.magnetai;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -120,6 +121,7 @@ public class SimulationDisplay extends Simulation {
         root.setAlignment(Pos.TOP_LEFT);
         root.setPrefWidth(screenWidth);
         root.setPrefHeight(screenHeight+(GRID_SIZE_Y * SQUARE_SIZE + SQUARE_SIZE)*scale);
+        root.setPadding(new Insets(10,GRID_SIZE_X*SQUARE_SIZE*scale,GRID_SIZE_Y*SQUARE_SIZE*scale,GRID_SIZE_X*SQUARE_SIZE*scale));
         
         
         for (Simulation sim : Simulation.getSimulationList()) {

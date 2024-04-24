@@ -16,8 +16,8 @@ import javafx.stage.Screen;
 import java.util.*;
 
 public class Simulation {
-    public static final int GRID_SIZE_X = 6;
-    public static final int GRID_SIZE_Y = 5;
+    public static final int GRID_SIZE_X = 15;
+    public static final int GRID_SIZE_Y = 15;
     public static final double SQUARE_SIZE = caculateDisplayScale();
     public static int generationCounter = 0;
     private static Simulation displayedSim;
