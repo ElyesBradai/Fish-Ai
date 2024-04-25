@@ -18,8 +18,8 @@ import javafx.stage.Stage;
 import java.util.*;
 
 public class Simulation {
-    public static final int GRID_SIZE_X = 5;
-    public static final int GRID_SIZE_Y = 3;
+    public static final int GRID_SIZE_X = 15;
+    public static final int GRID_SIZE_Y = 15;
     public static final double SQUARE_SIZE = caculateDisplayScale();
     public static int generationCounter = 0;
     private static Simulation displayedSim;
@@ -298,6 +298,9 @@ public class Simulation {
                         component.getBody().setTranslateX(component.getBody().getTranslateX() * scale);
                         component.getBody().setTranslateY(component.getBody().getTranslateY() * scale);
                         component.getBody().setStrokeWidth(component.getBody().getStrokeWidth() * scale);
+                        if (((MagneticField)component).getStrength()[2]>0) {
+                            component.getBody().setFill(Color.DARKGREEN);
+                        }
                         counter++;
                     }
                     sim.findCharge().toFront();
