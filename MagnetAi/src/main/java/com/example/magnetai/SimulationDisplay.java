@@ -158,6 +158,7 @@ public class SimulationDisplay extends Simulation {
                                 ((Rectangle) component.getBody()).setHeight(((Rectangle) component.getBody()).getHeight() * scale);
                                 component.getBody().setTranslateX(component.getBody().getTranslateX() * scale);
                                 component.getBody().setTranslateY(component.getBody().getTranslateY() * scale);
+                                component.getBody().setStrokeWidth(component.getBody().getStrokeWidth() * scale);
                             }
                             case "charge" -> {
                                 ((Circle) component.getBody()).setRadius(((Circle) component.getBody()).getRadius() * scale);

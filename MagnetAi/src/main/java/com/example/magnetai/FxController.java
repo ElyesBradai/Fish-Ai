@@ -101,8 +101,7 @@ public class FxController {
                     s1.saveDesign();
                     s1.showAllSimulations();
                     velocitySlider.setDisable(true);
-                    Stage stage = (Stage) startButton.getScene().getWindow();
-                    stage.close();
+                    ((Stage) startButton.getScene().getWindow()).close();
 
             }else if (!s1.checkValidPathDisplay()) {
                 Alert noPathAlert = new Alert(Alert.AlertType.ERROR, "Make sure there is a path from the charge to the finish line!", ButtonType.OK);

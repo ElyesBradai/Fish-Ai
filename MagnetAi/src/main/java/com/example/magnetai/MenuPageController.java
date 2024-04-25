@@ -27,8 +27,7 @@ public class MenuPageController{
 		startmenu.setOnAction(actionEvent -> {
 			try{
 				showstartmenu();
-				Stage stage = (Stage) startmenu.getScene().getWindow();
-				stage.close();
+				((Stage) startmenu.getScene().getWindow()).close();
 			} catch (IOException e){
 				throw new RuntimeException(e);
 			}

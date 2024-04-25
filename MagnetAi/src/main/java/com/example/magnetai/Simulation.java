@@ -2,6 +2,7 @@ package com.example.magnetai;
 
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -12,16 +13,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 import java.util.*;
 
 public class Simulation {
-    public static final int GRID_SIZE_X = 15;
-    public static final int GRID_SIZE_Y = 15;
+    public static final int GRID_SIZE_X = 5;
+    public static final int GRID_SIZE_Y = 3;
     public static final double SQUARE_SIZE = caculateDisplayScale();
     public static int generationCounter = 0;
     private static Simulation displayedSim;
     private static boolean isSolved = false;
+    public static double universalScale;
+    public static boolean isScaleCalculated = false;
+    private static boolean isEndScreenShown = false;
     public static FlowPane root;
     public static NeuralDisplay neuralDisplay;
     public static ArrayList<Simulation> simulationList = new ArrayList();
@@ -215,9 +220,10 @@ public class Simulation {
             createBrains();
             showNeuralDisplay(displayedSim);
             System.out.println(++generationCounter);
-//            if (isSolved) {
-//                showEndScreen();
-//            }
+            if (isSolved) {
+//                isScaleCalculated = false;
+                showEndScreen();
+            }
         }
     }
 
@@ -260,7 +266,7 @@ public class Simulation {
         Deque<Double> inputMap = new ArrayDeque();
         for (Component[] row : simulationList.get(0).map) {
             for (Component component: row) {
-                if (component == null){
+                if (component == null || component.getType().equals(MagneticField.TYPE)){
                     inputMap.add(-1.0);
                     emptyCounter++;
                 }
@@ -272,14 +278,14 @@ public class Simulation {
 
         //this part creates the brain (neural network) and call the predict method
         for (Simulation sim : simulationList) {
-            int counter = 0; //to use within the empty array
+            int counter = 1; //to use within the empty array
             if (sim.getBrain() == null)
                 {
-                    sim.setBrain(new NeuralNetwork(0.5f, new int[]{GRID_SIZE_Y * GRID_SIZE_X, emptyCounter}));
+                    sim.setBrain(new NeuralNetwork(0.5f, new int[]{GRID_SIZE_Y * GRID_SIZE_X, GRID_SIZE_X*GRID_SIZE_Y,8,emptyCounter + 1}));
                 }
             double[] predictions = sim.getBrain().predict(inputMap.stream().mapToDouble(Double::doubleValue).toArray());
-//            double angle = predictions[0] * Math.PI; //index 0 is the angle for the charge and the rest is the strength
-//            sim.findCharge().setNewVelocity(angle);
+            double angle = predictions[0] * Math.PI; //index 0 is the angle for the charge and the rest is the strength
+            sim.findCharge().setNewVelocity(angle);
             int index = 0;
             for (Component[] row : sim.map) {
                 for (Component component : row) {
@@ -291,6 +297,7 @@ public class Simulation {
                         ((Rectangle) component.getBody()).setHeight(((Rectangle) component.getBody()).getHeight() * scale);
                         component.getBody().setTranslateX(component.getBody().getTranslateX() * scale);
                         component.getBody().setTranslateY(component.getBody().getTranslateY() * scale);
+                        component.getBody().setStrokeWidth(component.getBody().getStrokeWidth() * scale);
                         counter++;
                     }
                     sim.findCharge().toFront();
@@ -438,6 +445,7 @@ public class Simulation {
      * @return double array(scaleX,scaleY)
      */
     public static double calculateScale() {
+        if (!isScaleCalculated) {
         Screen screen = Screen.getPrimary();
         
         // Get the bounds of the primary screen
@@ -462,8 +470,12 @@ public class Simulation {
 
         double scale = 1.0 / maxDimension;
         
-
+        isScaleCalculated = true;
+        universalScale = ratioSquareSize * scale;
         return ratioSquareSize * scale;
+        }
+
+        else return universalScale;
     }
 
     private static void showNeuralDisplay(Simulation sim) {
@@ -485,21 +497,29 @@ public class Simulation {
         }
     }
     public static void showEndScreen() {
-        //find the best simulation
-        Simulation bestFitnessSim = null;
-        int bestFitnessValue = Integer.MAX_VALUE;
-        for (Simulation sim : simulationList) {
-            if (sim.fitnessScore < bestFitnessValue) {
-                bestFitnessSim = sim;
+        if (!isEndScreenShown) {
+            isEndScreenShown = true;
+            //find the best simulation
+            Simulation bestFitnessSim = null;
+            int bestFitnessValue = Integer.MAX_VALUE;
+            for (Simulation sim : simulationList) {
+                if (sim.fitnessScore < bestFitnessValue) {
+                    bestFitnessSim = sim;
+                }
             }
+            //show end screen
+            FlowPane endRoot = new FlowPane(new VBox(new Label("The Ai solved the maze! Here is the best attempt"), bestFitnessSim.getSimPane()));
+//        root.getChildren().clear();
+            simulationList = new ArrayList<>();
+            simulationList.add(bestFitnessSim);
+
+            ((Stage) root.getScene().getWindow()).close();
+            Scene scene = new Scene(endRoot, 1000, 1000);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setFullScreen(true);
+            stage.show();
         }
-        //show end screen
-        root.getChildren().clear();
-        simulationList = new ArrayList<>();
-        simulationList.add(bestFitnessSim);
-        root = new FlowPane(new VBox(new Label("The Ai solved the maze! Here is the best attempt"), bestFitnessSim.getSimPane()));
-
-
     }
     Component checkRightValue(int index) {
         return posToValue(indexToPos(++index));
