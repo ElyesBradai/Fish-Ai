@@ -515,13 +515,43 @@ public class Simulation {
 //        root.getChildren().clear();
             simulationList = new ArrayList<>();
             simulationList.add(bestFitnessSim);
-
             ((Stage) root.getScene().getWindow()).close();
             Scene scene = new Scene(endRoot, 1000, 1000);
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setFullScreen(true);
             stage.show();
+//            isScaleCalculated = false;
+//            for (Component[] row : bestFitnessSim.map) {
+//                for (Component component : row) {
+//                    if (component != null) {
+//                        switch (component.getType()) {
+//                            case Obstacle.TYPE , Superconductor.TYPE , FinishLine.TYPE -> {
+//                                ((Rectangle) component.getBody()).setWidth(SQUARE_SIZE * universalScale);
+//                                ((Rectangle) component.getBody()).setHeight(SQUARE_SIZE * universalScale);
+//                                component.getBody().setTranslateX(component.getBody().getTranslateX() * universalScale);
+//                                component.getBody().setTranslateY(component.getBody().getTranslateY() * universalScale);
+//                                component.getBody().setStrokeWidth(3 * universalScale);
+//                            }
+//                            case "charge" -> {
+//                                ((Circle) component.getBody()).setRadius(((Circle) component.getBody()).getRadius() * universalScale);
+//                                component.getBody().setTranslateX(component.getBody().getTranslateX() * universalScale);
+//                                component.getBody().setTranslateY(component.getBody().getTranslateY() * universalScale);
+//
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            for (int i = 0; i < GRID_SIZE_X; i++) {
+//                for (int j = 0; j < GRID_SIZE_Y; j++) {
+//                    Rectangle square = bestFitnessSim.squareList.get(bestFitnessSim.posToIndex(new int[]{i,j}));
+//                    square.setWidth(SQUARE_SIZE * universalScale);
+//                    square.setHeight(SQUARE_SIZE * universalScale);
+//                    square.setTranslateX(i * SQUARE_SIZE * universalScale);
+//                    square.setTranslateY(j * SQUARE_SIZE * universalScale);
+//                }
+//            }
         }
     }
     Component checkRightValue(int index) {
