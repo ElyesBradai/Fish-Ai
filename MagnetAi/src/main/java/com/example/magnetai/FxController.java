@@ -58,8 +58,12 @@ public class FxController {
     public MenuBar menuBar;
     @FXML
     public BorderPane borderPane;
+    @FXML
+    public TextField sizeYTextField;
+    @FXML
+    public TextField sizeXTextField;
     Charge c1;
-    SimulationDisplay s1 = new SimulationDisplay();
+    SimulationDisplay s1;
     @FXML
     private Label welcomeText;
     @FXML
@@ -75,6 +79,7 @@ public class FxController {
     @FXML
     private Rectangle eraserSelector;
     private double speed=0;
+    private int simulationSize = 0;
     
     public static double[] dimension = new double[2];
 
@@ -82,7 +87,6 @@ public class FxController {
     public void initialize() {
 
         handle();
-        createDisplay();
 //        simDisplayPane.widthProperty().addListener((observable, oldValue, newValue) -> {
 //            double width = newValue.doubleValue();
 //            System.out.println("Pane width: " + width);
@@ -102,9 +106,6 @@ public class FxController {
                     s1.saveDesign();
                     s1.showAllSimulations((Stage)startButton.getScene().getWindow());
                     velocitySlider.setDisable(true);
-                System.out.println(1);
-              //      ((Stage) startButton.getScene().getWindow()).close();
-                System.out.println(2);
             }
             else if(s1.findFinish() == null || s1.findCharge()==null){
                 Alert alert = new Alert(Alert.AlertType.ERROR,"Please place a Charge and a FinishLine on your map! " ,
@@ -126,32 +127,36 @@ public class FxController {
             }
         });
         saveButton.setOnAction(actionEvent -> {
+            simulationSize = Integer.parseInt(simulationsTextField.getText());
+            Simulation.GRID_SIZE_X = Integer.parseInt(sizeXTextField.getText());
+            Simulation.GRID_SIZE_Y = Integer.parseInt(sizeYTextField.getText());
             int xPadding = 20;
             Simulation.dimensions[0]=simDisplayPane.getWidth() - 2 * xPadding;
             Simulation.dimensions[1]=simDisplayPane.getHeight();
             simDisplayPane.setAlignment(Pos.TOP_LEFT);
-            
-            
             Simulation.SQUARE_SIZE=Simulation.calculateDisplayScale();
             double gridHeight = Simulation.GRID_SIZE_Y * Simulation.SQUARE_SIZE;
             double padding = (simDisplayPane.getHeight()-gridHeight)/2;
             Charge.CHARGE_RADIUS=Simulation.calculateDisplayScale()/4;
             simDisplayPane.setStyle("-fx-background-color: #808080;");
+            createDisplay();
             s1.bckg();
             s1.getSimPane().setTranslateY(padding);
             simDisplayPane.setPadding(new Insets(0,0,0,xPadding));
-//            s1.getSimPane().setTranslateX(20);
             s1.addClickable();
+            startButton.setDisable(false);
+            resetButton.setDisable(false);
+            pauseButton.setDisable(false);
         });
         chargeChoiceBox.getItems().addAll("Proton", "Electron");
         chargeChoiceBox.setOnAction(actionEvent -> {
             polarity = (chargeChoiceBox.getValue() == null) ? null : chargeChoiceBox.getValue().toString();
         });
-        velocitySlider.valueProperty().addListener((observableValue, newValue, OldValue) -> {
+        velocitySlider.valueProperty().addListener((observableValue, newValue, oldValue) -> {
             speed=(newValue.doubleValue());
             velocityTextField.setText(newValue.toString());
         });
-        strengthSlider.valueProperty().addListener((observableValue, newValue, OldValue) -> {
+        strengthSlider.valueProperty().addListener((observableValue, newValue, oldValue) -> {
             // = newValue.doubleValue();
             strengthTextField.setText(newValue.toString());
         });
@@ -160,9 +165,15 @@ public class FxController {
     }
     
     public void createDisplay(){
+        s1 = new SimulationDisplay();
         
         // root.setSpacing(Simulation.GRID_SIZE_X * Simulation.SQUARE_SIZE);
         simDisplayPane.getChildren().add(s1.getSimPane());
+        System.out.println(simulationSize);
+        for (int i = 0; i < simulationSize; i++) {
+            new Simulation();
+            
+        }
 //        VBox vb1 = new VBox();
 //        root.getChildren().addAll(vb1);
 //      //   scaleDisplay(s1);
@@ -170,10 +181,6 @@ public class FxController {
         
         //	Charge c1 = new Charge(ChargeType.NEGATIVE);
         //	s1.addToMap(c1, 5);
-        for (int i = 0; i < 10; i++) {
-            Simulation s2 = new Simulation();
-            
-        }
         
         // Create an object property to hold the selected rectangle
         ObjectProperty<Shape> selectedShape = new SimpleObjectProperty<>();

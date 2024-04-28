@@ -103,17 +103,17 @@
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="startButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Start" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+                        <Button fx:id="startButton" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Start" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="resetButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Reset" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                        <Button fx:id="resetButton" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Reset" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="pauseButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Pause" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+                        <Button fx:id="pauseButton" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Pause" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -127,14 +127,11 @@
                                 <Insets right="10.0" />
                             </padding>
                         </VBox>
-                        <Slider fx:id="simulationsSlider" majorTickUnit="5.0" max="30.0" min="1.0" minorTickCount="2" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="127.0" text="Size X&#10;" GridPane.rowIndex="6">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Slider fx:id="sizeYSlider" majorTickUnit="3.0" max="15.0" min="1.0" minorTickCount="2" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <Slider fx:id="sizeXSlider" majorTickUnit="3.0" max="15.0" min="1.0" minorTickCount="2" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4">
                             <children>
                                 <TextField fx:id="inputLayersTextField" />
@@ -143,20 +140,29 @@
                                 <Insets right="10.0" />
                             </padding>
                         </VBox>
-                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
                             <padding>
                                 <Insets right="10.0" />
                             </padding>
+                     <children>
+                        <TextField fx:id="simulationsTextField" />
+                     </children>
                         </VBox>
-                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="6">
+                        <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="6">
                             <padding>
                                 <Insets right="10.0" />
                             </padding>
+                     <children>
+                        <TextField fx:id="sizeXTextField" />
+                     </children>
                         </VBox>
-                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="7">
+                        <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="7">
                             <padding>
                                 <Insets right="10.0" />
                             </padding>
+                     <children>
+                        <TextField fx:id="sizeYTextField" />
+                     </children>
                         </VBox>
                         <VBox alignment="CENTER" spacing="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <children>

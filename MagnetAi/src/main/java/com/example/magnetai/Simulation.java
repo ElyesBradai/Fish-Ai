@@ -17,8 +17,8 @@ import javafx.stage.Stage;
 import java.util.*;
 
 public class Simulation {
-    public static final int GRID_SIZE_X = 10;
-    public static final int GRID_SIZE_Y = 10;
+    public static int GRID_SIZE_X;
+    public static int GRID_SIZE_Y;
     public static double SQUARE_SIZE;
     public static int generationCounter = 0;
     private static Simulation displayedSim;
@@ -533,6 +533,7 @@ public class Simulation {
             }
             //show end screen
             FlowPane endRoot = new FlowPane(new VBox(new Label("The Ai solved the maze! Here is the best attempt")),bestFitnessSim.getSimPane());
+            endRoot.setAlignment(Pos.CENTER);
 //        root.getChildren().clear();
             simulationList = new ArrayList<>();
             simulationList.add(bestFitnessSim);
