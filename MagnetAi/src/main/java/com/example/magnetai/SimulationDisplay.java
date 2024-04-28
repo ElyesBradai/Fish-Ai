@@ -26,8 +26,8 @@ public class SimulationDisplay extends Simulation {
     public SimulationDisplay() {
         super();
         selectedComponentType = "";
-        bckg();
-        addClickable();
+//        bckg();
+//        addClickable();
         isScaled = false;
         
     }
@@ -69,6 +69,14 @@ public class SimulationDisplay extends Simulation {
                     case MagneticField.TYPE -> {
                         MagneticField m1 = new MagneticField(index, new double[]{0, 0, 0.06});
                         this.addToMap(m1, m1.getIndex());
+                    } case "eraser" -> {
+                        System.out.println("eraser");
+                        int[] pos = indexToPos(index);
+                        System.out.println(this.map[pos[0]][pos[1]].getType());
+                        if(this.map[pos[0]][pos[1]] != null){
+                            simPane.getChildren().remove(this.map[pos[0]][pos[1]].getBody());
+                            this.map[pos[0]][pos[1]] = null;
+                        }
                     }
                     //case "Charge": {break;}
                     default -> {
@@ -105,8 +113,9 @@ public class SimulationDisplay extends Simulation {
     /**
      * opens a new stage with all the simulations running
      */
-    public void showAllSimulations() {
+    public void showAllSimulations(Stage stage) {
         //This method opens a window with all the simulations with copied map
+        //TODO remove unnecessary code
         
         double scale = calculateScale();
         Screen screen = Screen.getPrimary();
@@ -120,8 +129,8 @@ public class SimulationDisplay extends Simulation {
         scrollPane.setFitToHeight(false);
         root.setAlignment(Pos.TOP_LEFT);
         root.setPrefWidth(screenWidth);
-        root.setPrefHeight(screenHeight+(GRID_SIZE_Y * SQUARE_SIZE + SQUARE_SIZE)*scale);
-        root.setPadding(new Insets(10,GRID_SIZE_X*SQUARE_SIZE*scale,GRID_SIZE_Y*SQUARE_SIZE*scale,GRID_SIZE_X*SQUARE_SIZE*scale));
+        root.setPrefHeight(screenHeight+(GRID_SIZE_Y * SQUARE_SIZE + SQUARE_SIZE) * scale);
+        root.setPadding(new Insets(10,GRID_SIZE_X*SQUARE_SIZE * scale,GRID_SIZE_Y*SQUARE_SIZE * scale,GRID_SIZE_X * SQUARE_SIZE*scale));
         
         
         for (Simulation sim : Simulation.getSimulationList()) {
@@ -181,14 +190,15 @@ public class SimulationDisplay extends Simulation {
                 }
             }
         }
+        
 
         isScaled = true;
         this.getTimerInstance().start();
         Scene scene = new Scene(scrollPane, width, height);
-        Stage stage = new Stage();
+//        Stage stage = new Stage();
         stage.setScene(scene);
         stage.setFullScreen(true);
-        stage.show();
+        //stage.show();
     }
 
     public String getSelectedComponentType() {

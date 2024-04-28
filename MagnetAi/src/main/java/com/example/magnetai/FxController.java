@@ -4,19 +4,16 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 
 public class FxController {
@@ -75,6 +72,9 @@ public class FxController {
     private Rectangle fLSelector;
     @FXML
     private Rectangle sCSelector;
+    @FXML
+    private Rectangle eraserSelector;
+    private double speed=0;
     
     public static double[] dimension = new double[2];
 
@@ -83,14 +83,14 @@ public class FxController {
 
         handle();
         createDisplay();
-        simDisplayPane.widthProperty().addListener((observable, oldValue, newValue) -> {
-            double width = newValue.doubleValue();
-            System.out.println("Pane width: " + width);
-        });
-        simDisplayPane.heightProperty().addListener((observable, oldValue, newValue) -> {
-            double height = newValue.doubleValue();
-            System.out.println("Pane height: " + height);
-        });
+//        simDisplayPane.widthProperty().addListener((observable, oldValue, newValue) -> {
+//            double width = newValue.doubleValue();
+//            System.out.println("Pane width: " + width);
+//        });
+//        simDisplayPane.heightProperty().addListener((observable, oldValue, newValue) -> {
+//            double height = newValue.doubleValue();
+//            System.out.println("Pane height: " + height);
+//        });
 
 
     }
@@ -98,20 +98,24 @@ public class FxController {
     public void handle() {
         startButton.setOnAction(event -> {
             if(s1.findFinish() != null && s1.findCharge()!=null && s1.checkValidPathDisplay()){
+                s1.findCharge().setSpeed(speed);
                     s1.saveDesign();
-                    s1.showAllSimulations();
+                    s1.showAllSimulations((Stage)startButton.getScene().getWindow());
                     velocitySlider.setDisable(true);
-                    ((Stage) startButton.getScene().getWindow()).close();
-
+                System.out.println(1);
+              //      ((Stage) startButton.getScene().getWindow()).close();
+                System.out.println(2);
+            }
+            else if(s1.findFinish() == null || s1.findCharge()==null){
+                Alert alert = new Alert(Alert.AlertType.ERROR,"Please place a Charge and a FinishLine on your map! " ,
+                        ButtonType.OK);
+                alert.initOwner(startButton.getScene().getWindow());
+                alert.show();
             }else if (!s1.checkValidPathDisplay()) {
                 Alert noPathAlert = new Alert(Alert.AlertType.ERROR, "Make sure there is a path from the charge to the finish line!", ButtonType.OK);
-                noPathAlert.show();}
-            else {
-                Alert alert = new Alert(Alert.AlertType.ERROR,"Please choose place a Charge and a FinishLine on your map! " +
-                        "Also make sure there is a path from the charge to the finish line!",
-                        ButtonType.OK);
-                alert.show();
-            }
+                noPathAlert.initOwner(startButton.getScene().getWindow());
+                noPathAlert.show();
+                }
         });
         resetButton.setOnAction(actionEvent -> {
             s1.emptyDisplay();
@@ -122,38 +126,55 @@ public class FxController {
             }
         });
         saveButton.setOnAction(actionEvent -> {
+            int xPadding = 20;
+            Simulation.dimensions[0]=simDisplayPane.getWidth() - 2 * xPadding;
+            Simulation.dimensions[1]=simDisplayPane.getHeight();
+            simDisplayPane.setAlignment(Pos.TOP_LEFT);
+            
+            
+            Simulation.SQUARE_SIZE=Simulation.calculateDisplayScale();
+            double gridHeight = Simulation.GRID_SIZE_Y * Simulation.SQUARE_SIZE;
+            double padding = (simDisplayPane.getHeight()-gridHeight)/2;
+            Charge.CHARGE_RADIUS=Simulation.calculateDisplayScale()/4;
+            simDisplayPane.setStyle("-fx-background-color: #808080;");
+            s1.bckg();
+            s1.getSimPane().setTranslateY(padding);
+            simDisplayPane.setPadding(new Insets(0,0,0,xPadding));
+//            s1.getSimPane().setTranslateX(20);
+            s1.addClickable();
         });
         chargeChoiceBox.getItems().addAll("Proton", "Electron");
         chargeChoiceBox.setOnAction(actionEvent -> {
             polarity = (chargeChoiceBox.getValue() == null) ? null : chargeChoiceBox.getValue().toString();
         });
         velocitySlider.valueProperty().addListener((observableValue, newValue, OldValue) -> {
-            s1.findCharge().setSpeed(newValue.doubleValue());
+            speed=(newValue.doubleValue());
             velocityTextField.setText(newValue.toString());
         });
         strengthSlider.valueProperty().addListener((observableValue, newValue, OldValue) -> {
             // = newValue.doubleValue();
             strengthTextField.setText(newValue.toString());
         });
+        
+        
     }
-
-    public void createDisplay() {
-        HBox root = new HBox();
-       // root.setSpacing(Simulation.GRID_SIZE_X * Simulation.SQUARE_SIZE);
-        simDisplayPane.setAlignment(Pos.TOP_LEFT);
-        simDisplayPane.getChildren().add(root);
-        VBox vb1 = new VBox();
-        root.getChildren().addAll(vb1);
-      //   scaleDisplay(s1);
-        vb1.getChildren().add(s1.getSimPane());
-
+    
+    public void createDisplay(){
+        
+        // root.setSpacing(Simulation.GRID_SIZE_X * Simulation.SQUARE_SIZE);
+        simDisplayPane.getChildren().add(s1.getSimPane());
+//        VBox vb1 = new VBox();
+//        root.getChildren().addAll(vb1);
+//      //   scaleDisplay(s1);
+//        vb1.getChildren().add();
+        
         //	Charge c1 = new Charge(ChargeType.NEGATIVE);
         //	s1.addToMap(c1, 5);
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 10; i++) {
             Simulation s2 = new Simulation();
-
+            
         }
-
+        
         // Create an object property to hold the selected rectangle
         ObjectProperty<Shape> selectedShape = new SimpleObjectProperty<>();
         Circle selected = new Circle(50);
@@ -161,51 +182,38 @@ public class FxController {
         // Bind the fill property of the circle to the fill property of the selected rectangle
         selected.fillProperty().bind(Bindings.createObjectBinding(() ->
                 selectedShape.get() != null ? selectedShape.get().getFill() : Color.BLACK, selectedShape));
-
+        
         chargeSelector.setOnMouseClicked(event -> {
             s1.setSelectedComponentType(Charge.TYPE);
-            System.out.println(Charge.TYPE);
+         //   System.out.println(Charge.TYPE);
             selectedShape.set(chargeSelector);
         });
         obstacleSelector.setOnMouseClicked(event -> {
             s1.setSelectedComponentType(Obstacle.TYPE);
-            System.out.println(Obstacle.TYPE);
+           // System.out.println(Obstacle.TYPE);
             selectedShape.set(obstacleSelector);
         });
         fLSelector.setOnMouseClicked(event -> {
             s1.setSelectedComponentType(FinishLine.TYPE);
-            System.out.println(FinishLine.TYPE);
+           // System.out.println(FinishLine.TYPE);
             selectedShape.set(fLSelector);
         });
         sCSelector.setOnMouseClicked(event -> {
             s1.setSelectedComponentType(Superconductor.TYPE);
-            System.out.println(Superconductor.TYPE);
+           // System.out.println(Superconductor.TYPE);
             selectedShape.set(sCSelector);
         });
+        
+        eraserSelector.setOnMouseClicked(mouseEvent ->{
+            s1.setSelectedComponentType("eraser");
+            selectedShape.set(eraserSelector);
+            
+        });
     }
-
+    
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
     
-//    public void scaleDisplay(Simulation sim){
-//            double ratioSquareSize = Simulation.caculateDisplayScale();
-//            for (int j = 0; j < sim.getSquareList().size(); j++) {
-//              Rectangle temp = sim.getSquareList().get(j);
-//              temp.setHeight(temp.getHeight() * ratioSquareSize);
-//              temp.setWidth(temp.getWidth() * ratioSquareSize);
-//
-//               // System.out.println(temp.getHeight() + " " + temp.getWidth());
-//               //   System.out.println(ratioSquareSize);
-//
-//                temp.setTranslateX(temp.getTranslateX() * ratioSquareSize);
-//                temp.setTranslateY(temp.getTranslateY() * ratioSquareSize);
-//
-//        }
-//
-//
-//
-//    }
 }
-

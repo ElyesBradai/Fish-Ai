@@ -1,10 +1,9 @@
 package com.example.magnetai;
 
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
@@ -18,9 +17,9 @@ import javafx.stage.Stage;
 import java.util.*;
 
 public class Simulation {
-    public static final int GRID_SIZE_X = 15;
-    public static final int GRID_SIZE_Y = 15;
-    public static final double SQUARE_SIZE = caculateDisplayScale();
+    public static final int GRID_SIZE_X = 10;
+    public static final int GRID_SIZE_Y = 10;
+    public static double SQUARE_SIZE;
     public static int generationCounter = 0;
     private static Simulation displayedSim;
     private static boolean isSolved = false;
@@ -34,7 +33,8 @@ public class Simulation {
     private final int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     Component[][] map;
     Pane simPane;//not sure if I should use pane or other :/
-    Rectangle player = new Rectangle(50, 50);
+    public static double[] dimensions = new double[2];
+    
     
 
     
@@ -49,7 +49,7 @@ public class Simulation {
         simulationList.add(this);
         fitnessScore = Integer.MAX_VALUE;
         brain = null;
-        bckg();
+        // bckg();
     }
 
     public static ArrayList<Simulation> getSimulationList() {
@@ -175,7 +175,7 @@ public class Simulation {
                 for (Component charge : row) {
                     if (charge != null && charge.getType().equals(Charge.TYPE) && ((Charge) charge).isAlive()) {
                         Charge tempCharge = (Charge) charge;
-                        tempCharge.move(sim.checkCollision(), calculateScale());
+                        tempCharge.move(sim.checkCollision());
 
                         if (tempCharge.getTranslateX() < 0 || tempCharge.getTranslateX() > (SQUARE_SIZE * calculateScale()) * GRID_SIZE_X) {
                             tempCharge.setAlive(false);
@@ -480,6 +480,26 @@ public class Simulation {
 
         else return universalScale;
     }
+    
+    public static double endScreenScale(){
+        Screen screen = Screen.getPrimary();
+        
+        // Get the bounds of the primary screen
+        Rectangle2D bounds = screen.getVisualBounds();
+        
+        double screenWidth = bounds.getWidth();
+        double screenHeight = bounds.getHeight();
+        double width = SQUARE_SIZE*calculateScale()*GRID_SIZE_X;
+        double height = SQUARE_SIZE*calculateScale()*GRID_SIZE_Y;
+        double realSquareSizeW = screenWidth/width;
+        double realSquareSizeH = screenHeight/height;
+        
+        double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
+        
+       // double ratioSquareSize = minSquareSize/ SQUARE_SIZE;
+        System.out.println(minSquareSize);
+        return minSquareSize;
+    }
 
     private static void showNeuralDisplay(Simulation sim) {
         if (sim != null) {
@@ -508,35 +528,37 @@ public class Simulation {
             for (Simulation sim : simulationList) {
                 if (sim.fitnessScore < bestFitnessValue) {
                     bestFitnessSim = sim;
+                    bestFitnessValue = sim.fitnessScore;
                 }
             }
             //show end screen
-            FlowPane endRoot = new FlowPane(new VBox(new Label("The Ai solved the maze! Here is the best attempt"), bestFitnessSim.getSimPane()));
+            FlowPane endRoot = new FlowPane(new VBox(new Label("The Ai solved the maze! Here is the best attempt")),bestFitnessSim.getSimPane());
 //        root.getChildren().clear();
             simulationList = new ArrayList<>();
             simulationList.add(bestFitnessSim);
-            ((Stage) root.getScene().getWindow()).close();
-            Scene scene = new Scene(endRoot, 1000, 1000);
-            Stage stage = new Stage();
+//            ((Stage) root.getScene().getWindow()).close();
+            Scene scene = new Scene(endRoot);
+            Stage stage = (Stage) root.getScene().getWindow();
             stage.setScene(scene);
-            stage.setFullScreen(true);
-            stage.show();
+//            Stage stage = new Stage();
+//            stage.setScene(scene);
+//            stage.setFullScreen(true);
+//            stage.show();
 //            isScaleCalculated = false;
 //            for (Component[] row : bestFitnessSim.map) {
 //                for (Component component : row) {
 //                    if (component != null) {
 //                        switch (component.getType()) {
 //                            case Obstacle.TYPE , Superconductor.TYPE , FinishLine.TYPE -> {
-//                                ((Rectangle) component.getBody()).setWidth(SQUARE_SIZE * universalScale);
-//                                ((Rectangle) component.getBody()).setHeight(SQUARE_SIZE * universalScale);
-//                                component.getBody().setTranslateX(component.getBody().getTranslateX() * universalScale);
-//                                component.getBody().setTranslateY(component.getBody().getTranslateY() * universalScale);
-//                                component.getBody().setStrokeWidth(3 * universalScale);
+//                                ((Rectangle) component.getBody()).setWidth(SQUARE_SIZE * endScreenScale());
+//                                ((Rectangle) component.getBody()).setHeight(SQUARE_SIZE * endScreenScale());
+//                                component.getBody().setTranslateX((component.getBody().getTranslateX()/calculateScale()) * endScreenScale());
+//                                component.getBody().setTranslateY((component.getBody().getTranslateY()/calculateScale()) * endScreenScale());
+//                                component.getBody().setStrokeWidth(3 * endScreenScale());
 //                            }
 //                            case "charge" -> {
-//                                ((Circle) component.getBody()).setRadius(((Circle) component.getBody()).getRadius() * universalScale);
-//                                component.getBody().setTranslateX(component.getBody().getTranslateX() * universalScale);
-//                                component.getBody().setTranslateY(component.getBody().getTranslateY() * universalScale);
+//                                ((Circle) component.getBody()).setRadius((((Circle) component.getBody()).getRadius()/calculateScale()) * endScreenScale());
+//                                component.getBody().setTranslateX((component.getBody().getTranslateX()/calculateScale()) * endScreenScale());
 //
 //                            }
 //                        }
@@ -554,10 +576,7 @@ public class Simulation {
 //            }
         }
     }
-    Component checkRightValue(int index) {
-        return posToValue(indexToPos(++index));
-    }
-
+    
     /**
      * takes the 2d position on the grid and returns its corresponding component
      *
@@ -567,20 +586,7 @@ public class Simulation {
     Component posToValue(int[] pos) {
         return map[pos[0]][pos[1]];
     }
-
-    Component checkLeftValue(int index) {
-        return posToValue(indexToPos(--index));
-    }
-
-    Component checkUpValue(int index) {
-        index -= GRID_SIZE_Y;
-        return posToValue(indexToPos(index));
-    }
-
-    Component checkDownValue(int index) {
-        index += GRID_SIZE_Y;
-        return posToValue(indexToPos(index));
-    }
+    
 
     //getters and setters (will later be removed using lombok)
     public Pane getSimPane() {
@@ -626,29 +632,16 @@ public class Simulation {
         this.squareList = squareList;
     }
     
-    public static double caculateDisplayScale(){
-        Screen screen = Screen.getPrimary();
-        
-        // Get the bounds of the primary screen
-        Rectangle2D bounds = screen.getVisualBounds();
-        
-        double screenWidth = bounds.getWidth();
-        double screenHeight = bounds.getHeight();
-        
-        double width = screenWidth * (1131.0 / 1440.0);
-        double height = screenHeight * (639.0 / 900.0);
-        
-//        System.out.println("W: " + screenWidth * (1131 / 1440));
-//        System.out.println("H: " + screenHeight * (739 / 900));
-        
-        double realSquareSizeW = width/ GRID_SIZE_X;
-        double realSquareSizeH = height/ GRID_SIZE_Y;
-        
+    public static double calculateDisplayScale(){
+        double width = dimensions[0];
+        double height = dimensions[1];
+        double realSquareSizeW = width / GRID_SIZE_X;
+        double realSquareSizeH = height / GRID_SIZE_Y;
         double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
-
-        double ratioSquareSize = minSquareSize;
-        return ratioSquareSize;
+     //   System.out.println(minSquareSize);
+        return minSquareSize;
     }
+    
 
     public class myTimer extends AnimationTimer {
         @Override

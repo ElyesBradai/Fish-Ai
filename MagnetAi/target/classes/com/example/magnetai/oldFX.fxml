@@ -45,114 +45,151 @@
     <left>
         <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="863.0" prefWidth="294.0">
             <children>
-                <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="294.0">
+                <GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="872.0" prefWidth="294.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="126.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="168.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                        <ColumnConstraints hgrow="SOMETIMES" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="188.0" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="195.0" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="150.0" text="Charge">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="125.0" text="Charge">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" text="Initial Velocity&#10; of Charge" GridPane.rowIndex="1">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="128.0" text="Initial Velocity&#10; of Charge" GridPane.rowIndex="1">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="121.0" text="Magnetic Field &#10;Strength" GridPane.rowIndex="2">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="127.0" text="Magnetic Field &#10;Strength" GridPane.rowIndex="2">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Mutation Rate" GridPane.rowIndex="3">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="126.0" text="Mutation Rate" GridPane.rowIndex="3">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Input Layers" GridPane.rowIndex="4">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="127.0" text="Hidden Layers" GridPane.rowIndex="4">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Number of &#10;Simulations" GridPane.rowIndex="5">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="126.0" text="Number of &#10;Simulations" GridPane.rowIndex="5">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="Generation &#10;Counter&#10;" GridPane.rowIndex="6">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="127.0" text="Size Y&#10;" GridPane.rowIndex="7">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Button fx:id="saveButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Save" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                        <Button fx:id="saveButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Save" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="startButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Start" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                        <Button fx:id="startButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Start" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="resetButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Reset" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                        <Button fx:id="resetButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Reset" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="pauseButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Pause" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                        <Button fx:id="pauseButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Pause" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <TextField fx:id="mutationRateTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="inputLayersTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="simulationsTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="generationCounterTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <VBox alignment="CENTER" spacing="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <children>
                                 <TextField fx:id="strengthTextField" disable="true" />
                                 <Slider fx:id="strengthSlider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" />
                             </children>
                             <padding>
-                                <Insets bottom="20.0" top="40.0" />
+                                <Insets right="10.0" />
+                            </padding>
+                        </VBox>
+                        <Slider fx:id="simulationsSlider" majorTickUnit="5.0" max="30.0" min="1.0" minorTickCount="2" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="127.0" text="Size X&#10;" GridPane.rowIndex="6">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Slider fx:id="sizeYSlider" majorTickUnit="3.0" max="15.0" min="1.0" minorTickCount="2" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Slider fx:id="sizeXSlider" majorTickUnit="3.0" max="15.0" min="1.0" minorTickCount="2" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                            <children>
+                                <TextField fx:id="inputLayersTextField" />
+                            </children>
+                            <padding>
+                                <Insets right="10.0" />
+                            </padding>
+                        </VBox>
+                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="5">
+                            <padding>
+                                <Insets right="10.0" />
+                            </padding>
+                        </VBox>
+                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="6">
+                            <padding>
+                                <Insets right="10.0" />
+                            </padding>
+                        </VBox>
+                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="7">
+                            <padding>
+                                <Insets right="10.0" />
+                            </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <children>
+                                <TextField fx:id="velocityTextField" disable="true" />
+                                <Slider fx:id="velocitySlider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" />
+                            </children>
+                            <padding>
+                                <Insets right="10.0" />
+                            </padding>
+                        </VBox>
+                        <VBox GridPane.columnIndex="1">
+                            <padding>
+                                <Insets right="10.0" />
                             </padding>
                         </VBox>
                         <ChoiceBox fx:id="chargeChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" />
-                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="171.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <children>
-                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="168.0" spacing="25.0">
-                           <children>
-                              <TextField fx:id="velocityTextField" disable="true" />
-                              <Slider fx:id="velocitySlider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" />
-                           </children>
-                           <padding>
-                              <Insets bottom="20.0" top="40.0" />
-                           </padding>
+                        <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <children>
+                                <TextField fx:id="mutationRateTextField" />
+                            </children>
+                            <padding>
+                                <Insets right="10.0" />
+                            </padding>
                         </VBox>
-                     </children>
-                  </HBox>
                     </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
+                    <padding>
+                        <Insets bottom="10.0" />
+                    </padding>
                 </GridPane>
             </children>
-         <BorderPane.margin>
-            <Insets bottom="15.0" left="15.0" />
-         </BorderPane.margin>
+            <BorderPane.margin>
+                <Insets bottom="15.0" left="15.0" />
+            </BorderPane.margin>
         </VBox>
     </left>
     <bottom>
@@ -165,7 +202,7 @@
                                 <Insets />
                             </VBox.margin>
                         </Circle>
-                        <Label text="CHARGE">
+                        <Label text="Charge">
                             <font>
                                 <Font size="24.0" />
                             </font>
@@ -226,10 +263,27 @@
                         </Label>
                     </children>
                 </VBox>
+                <VBox alignment="CENTER" layoutX="509.0" layoutY="10.0" prefHeight="200.0" prefWidth="300.0">
+                    <children>
+                        <Rectangle fx:id="eraserSelector" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="40.0" stroke="BLACK" strokeType="INSIDE" width="40.0">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </Rectangle>
+                        <Label text="Eraser">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </Label>
+                    </children>
+                </VBox>
             </children>
         </HBox>
     </bottom>
-   <center>
-      <FlowPane fx:id="simDisplayPane" BorderPane.alignment="CENTER" />
-   </center>
+    <center>
+        <FlowPane fx:id="simDisplayPane" BorderPane.alignment="CENTER" />
+    </center>
 </BorderPane>

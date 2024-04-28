@@ -7,7 +7,7 @@ import javafx.scene.shape.Shape;
 import java.util.Random;
 
 public class Charge extends Circle implements Component {
-    static final double CHARGE_RADIUS = Simulation.caculateDisplayScale()/4;
+    static double CHARGE_RADIUS;
     static final String TYPE = "charge";
     static final String NOTHING = "nothing";
     private static final Color CHARGE_COLOR = Color.RED;
@@ -21,6 +21,8 @@ public class Charge extends Circle implements Component {
     
     private Random random = new Random();
     private double angle = 0;
+    
+    private double scale = Simulation.calculateScale();
 
     /**
      * @param startingIndex
@@ -54,7 +56,7 @@ public class Charge extends Circle implements Component {
      *
      * @param component
      */
-    public void move(Component component, double scale) {
+    public void move(Component component) {
         if (this.isAlive) {
             switch (checkCollisionType(component)) {
                 case Obstacle.TYPE -> {
@@ -103,6 +105,10 @@ public class Charge extends Circle implements Component {
 
     public void setNewVelocity(double newAngle){
         this.velocity = new double[]{speed * Math.cos(newAngle), speed * Math.sin(newAngle), 0};
+    }
+    
+    public void setScale(double scale){
+        this.scale = scale;
     }
     
     @Override
