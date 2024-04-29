@@ -21,11 +21,14 @@ public class Simulation {
     public static int GRID_SIZE_Y;
     public static double SQUARE_SIZE;
     public static int generationCounter = 0;
+    public static int[] layerInput;
+    public static float mutationRate;
     private static Simulation displayedSim;
     private static boolean isSolved = false;
     public static double universalScale;
     public static boolean isScaleCalculated = false;
     private static boolean isEndScreenShown = false;
+    private static Simulation bestFitnessSim = null;
     public static FlowPane root;
     public static NeuralDisplay neuralDisplay;
     public static ArrayList<Simulation> simulationList = new ArrayList();
@@ -229,21 +232,19 @@ public class Simulation {
 
     public void mutateAllSim() {
         int bestFitnessValue = Integer.MAX_VALUE;
-        Simulation bestFitnessSim = null;
-
-        ArrayList<Simulation> solvedList = new ArrayList<>();
-
+        Simulation solvedSim = null;
         for (Simulation sim : simulationList) {
             int currentFitness = sim.getFitnessScore();
             if (currentFitness < bestFitnessValue) {
                 bestFitnessSim = sim;
                 bestFitnessValue = currentFitness;
                 if (sim.findCharge().isFinished()) {
-                    solvedList.add(sim);
+                    solvedSim = sim;
+                    bestFitnessSim = sim;
+                    break;
                 }
             }
         }
-
         float baseLearningRate = bestFitnessSim.getBrain().getLearningRate();
         float minLearningRate = 0.05f;
         float scaledLearningRate = baseLearningRate / (fitnessScore + minLearningRate);
@@ -251,15 +252,15 @@ public class Simulation {
         scaledLearningRate = Math.max(minLearningRate, scaledLearningRate);
         scaledLearningRate = Math.min(baseLearningRate, scaledLearningRate);
         for (Simulation sim : simulationList) {
-
-            if (!solvedList.contains(sim) && !sim.equals(bestFitnessSim)) {
-                sim.setBrain(solvedList.isEmpty() ? bestFitnessSim.getBrain().clone(scaledLearningRate) : solvedList.get(0).getBrain().clone(scaledLearningRate));
+            if (sim != bestFitnessSim && sim != solvedSim) {
+                if (sim == bestFitnessSim || sim == solvedSim) System.out.println("pwoblem");
+                sim.setBrain(solvedSim == null ? bestFitnessSim.getBrain().clone(scaledLearningRate) : solvedSim.getBrain().clone(scaledLearningRate));
                 sim.getBrain().mutate();
                 sim.setFitnessScore(Integer.MAX_VALUE);
             }
-
         }
     }
+
     public static void createBrains() {
         //this part creates decides the values (0 if empty or 1 if other)
         int emptyCounter = 0;
@@ -281,7 +282,13 @@ public class Simulation {
             int counter = 1; //to use within the empty array
             if (sim.getBrain() == null)
                 {
-                    sim.setBrain(new NeuralNetwork(0.5f, new int[]{GRID_SIZE_Y * GRID_SIZE_X, GRID_SIZE_X*GRID_SIZE_Y,8,emptyCounter + 1}));
+                    int[] input = new int[layerInput.length + 1];
+                    for (int i = 1; i < layerInput.length; i++) {
+                        input[i] = layerInput[i];
+                    }
+                    input[0] = GRID_SIZE_Y * GRID_SIZE_X;
+                    input[layerInput.length] = emptyCounter + 1;
+                    sim.setBrain(new NeuralNetwork(mutationRate, input));
                 }
             double[] predictions = sim.getBrain().predict(inputMap.stream().mapToDouble(Double::doubleValue).toArray());
             double angle = predictions[0] * Math.PI; //index 0 is the angle for the charge and the rest is the strength
@@ -523,14 +530,6 @@ public class Simulation {
         if (!isEndScreenShown) {
             isEndScreenShown = true;
             //find the best simulation
-            Simulation bestFitnessSim = null;
-            int bestFitnessValue = Integer.MAX_VALUE;
-            for (Simulation sim : simulationList) {
-                if (sim.fitnessScore < bestFitnessValue) {
-                    bestFitnessSim = sim;
-                    bestFitnessValue = sim.fitnessScore;
-                }
-            }
             //show end screen
             FlowPane endRoot = new FlowPane(new VBox(new Label("The Ai solved the maze! Here is the best attempt")),bestFitnessSim.getSimPane());
             endRoot.setAlignment(Pos.CENTER);

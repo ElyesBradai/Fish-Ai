@@ -29,7 +29,7 @@ public class FxController {
     @FXML
     public Button resetButton;
     @FXML
-    public Button pauseButton;
+    public Button recommendedButton;
     @FXML
     public TextField velocityTextField;
     @FXML
@@ -45,7 +45,7 @@ public class FxController {
     @FXML
     public TextField mutationRateTextField;
     @FXML
-    public TextField inputLayersTextField;
+    public TextField HiddenLayersTextField;
     @FXML
     public TextField simulationsTextField;
     @FXML
@@ -78,7 +78,7 @@ public class FxController {
     private Rectangle sCSelector;
     @FXML
     private Rectangle eraserSelector;
-    private double speed=0;
+    private double speed = 0;
     private int simulationSize = 0;
     
     public static double[] dimension = new double[2];
@@ -103,9 +103,9 @@ public class FxController {
         startButton.setOnAction(event -> {
             if(s1.findFinish() != null && s1.findCharge()!=null && s1.checkValidPathDisplay()){
                 s1.findCharge().setSpeed(speed);
-                    s1.saveDesign();
-                    s1.showAllSimulations((Stage)startButton.getScene().getWindow());
-                    velocitySlider.setDisable(true);
+                s1.saveDesign();
+                s1.showAllSimulations((Stage)startButton.getScene().getWindow());
+                velocitySlider.setDisable(true);
             }
             else if(s1.findFinish() == null || s1.findCharge()==null){
                 Alert alert = new Alert(Alert.AlertType.ERROR,"Please place a Charge and a FinishLine on your map! " ,
@@ -120,24 +120,42 @@ public class FxController {
         });
         resetButton.setOnAction(actionEvent -> {
             s1.emptyDisplay();
+            simDisplayPane.getChildren().remove(s1.getSimPane());
         });
-        pauseButton.setOnAction(actionEvent -> {
-            for (Simulation sim : Simulation.getSimulationList()) {
-                sim.getTimerInstance().stop();
-            }
+        recommendedButton.setOnAction(actionEvent -> {
+            chargeChoiceBox.setValue("Proton");
+            velocitySlider.valueProperty().setValue(3.5);
+            velocityTextField.setText("3.5");
+            speed = 3.5;
+            strengthSlider.setValue(1);
+            strengthTextField.setText("1");
+            MagneticField.STRENGTH_COEFFICIENT = 0.1;
+            mutationRateTextField.setText("0.5");
+            Simulation.mutationRate = 0.5f;
+            HiddenLayersTextField.setText("n,8");
+            Simulation.layerInput = setupLayers("n,8");
+            simulationsTextField.setText("10");
+            sizeXTextField.setText("8");
+            sizeYTextField.setText("7");
+            saveButton.arm();
+            saveButton.fire();
         });
         saveButton.setOnAction(actionEvent -> {
+            if (s1 != null) {
+                s1.emptyDisplay();
+                simDisplayPane.getChildren().remove(s1.getSimPane());
+            }
             simulationSize = Integer.parseInt(simulationsTextField.getText());
             Simulation.GRID_SIZE_X = Integer.parseInt(sizeXTextField.getText());
             Simulation.GRID_SIZE_Y = Integer.parseInt(sizeYTextField.getText());
             int xPadding = 20;
-            Simulation.dimensions[0]=simDisplayPane.getWidth() - 2 * xPadding;
-            Simulation.dimensions[1]=simDisplayPane.getHeight();
+            Simulation.dimensions[0] = simDisplayPane.getWidth() - 2 * xPadding;
+            Simulation.dimensions[1] = simDisplayPane.getHeight();
             simDisplayPane.setAlignment(Pos.TOP_LEFT);
-            Simulation.SQUARE_SIZE=Simulation.calculateDisplayScale();
+            Simulation.SQUARE_SIZE = Simulation.calculateDisplayScale();
             double gridHeight = Simulation.GRID_SIZE_Y * Simulation.SQUARE_SIZE;
             double padding = (simDisplayPane.getHeight()-gridHeight)/2;
-            Charge.CHARGE_RADIUS=Simulation.calculateDisplayScale()/4;
+            Charge.CHARGE_RADIUS = Simulation.calculateDisplayScale()/4;
             simDisplayPane.setStyle("-fx-background-color: #808080;");
             createDisplay();
             s1.bckg();
@@ -146,18 +164,17 @@ public class FxController {
             s1.addClickable();
             startButton.setDisable(false);
             resetButton.setDisable(false);
-            pauseButton.setDisable(false);
         });
         chargeChoiceBox.getItems().addAll("Proton", "Electron");
         chargeChoiceBox.setOnAction(actionEvent -> {
             polarity = (chargeChoiceBox.getValue() == null) ? null : chargeChoiceBox.getValue().toString();
         });
         velocitySlider.valueProperty().addListener((observableValue, newValue, oldValue) -> {
-            speed=(newValue.doubleValue());
+            speed = newValue.doubleValue();
             velocityTextField.setText(newValue.toString());
         });
         strengthSlider.valueProperty().addListener((observableValue, newValue, oldValue) -> {
-            // = newValue.doubleValue();
+            MagneticField.STRENGTH_COEFFICIENT = newValue.doubleValue() / 10;
             strengthTextField.setText(newValue.toString());
         });
         
@@ -169,7 +186,6 @@ public class FxController {
         
         // root.setSpacing(Simulation.GRID_SIZE_X * Simulation.SQUARE_SIZE);
         simDisplayPane.getChildren().add(s1.getSimPane());
-        System.out.println(simulationSize);
         for (int i = 0; i < simulationSize; i++) {
             new Simulation();
             
@@ -192,22 +208,18 @@ public class FxController {
         
         chargeSelector.setOnMouseClicked(event -> {
             s1.setSelectedComponentType(Charge.TYPE);
-         //   System.out.println(Charge.TYPE);
             selectedShape.set(chargeSelector);
         });
         obstacleSelector.setOnMouseClicked(event -> {
             s1.setSelectedComponentType(Obstacle.TYPE);
-           // System.out.println(Obstacle.TYPE);
             selectedShape.set(obstacleSelector);
         });
         fLSelector.setOnMouseClicked(event -> {
             s1.setSelectedComponentType(FinishLine.TYPE);
-           // System.out.println(FinishLine.TYPE);
             selectedShape.set(fLSelector);
         });
         sCSelector.setOnMouseClicked(event -> {
             s1.setSelectedComponentType(Superconductor.TYPE);
-           // System.out.println(Superconductor.TYPE);
             selectedShape.set(sCSelector);
         });
         
@@ -216,6 +228,29 @@ public class FxController {
             selectedShape.set(eraserSelector);
             
         });
+    }
+
+    private int[] setupLayers(String layerInput) {
+        try {
+            String[] neuronsPerLayerArray = layerInput.split(",");
+            int[] neuronsPerLayer = new int[neuronsPerLayerArray.length];
+
+            // Convert the string values to integers
+            for (int i = 0; i < neuronsPerLayerArray.length; i++) {
+                if (neuronsPerLayerArray[i].trim().equals("n")) {
+                    neuronsPerLayer[i] = Simulation.GRID_SIZE_Y * Simulation.GRID_SIZE_X;
+                }
+                else {
+                neuronsPerLayer[i] = Integer.parseInt(neuronsPerLayerArray[i].trim());
+                }
+            }
+
+            return neuronsPerLayer;
+        } catch (NumberFormatException ex) {
+            // Handle the case where the input is not a valid integer
+            System.err.println("Invalid input. Please enter valid integers for neurons per layer.");
+        }
+        return null;
     }
     
     @FXML

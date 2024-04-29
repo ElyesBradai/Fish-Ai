@@ -70,9 +70,7 @@ public class SimulationDisplay extends Simulation {
                         MagneticField m1 = new MagneticField(index, new double[]{0, 0, 0.06});
                         this.addToMap(m1, m1.getIndex());
                     } case "eraser" -> {
-                        System.out.println("eraser");
                         int[] pos = indexToPos(index);
-                        System.out.println(this.map[pos[0]][pos[1]].getType());
                         if(this.map[pos[0]][pos[1]] != null){
                             simPane.getChildren().remove(this.map[pos[0]][pos[1]].getBody());
                             this.map[pos[0]][pos[1]] = null;

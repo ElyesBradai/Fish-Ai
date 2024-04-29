@@ -79,8 +79,8 @@ public class Charge extends Circle implements Component {
                 case FinishLine.TYPE -> {
                     this.setAlive(false);
                     this.setFinished(true);
-                    System.out.println("SOLVED");
                     Simulation.setSolved(true);
+                    System.out.println("solved");
                 }
                 default -> {
                     this.setTranslateX(this.getTranslateX() + (velocity[0]) * scale);

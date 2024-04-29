@@ -100,7 +100,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="pauseButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Pause" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
+                        <Button fx:id="recommendedButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" text="Pause" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -108,7 +108,7 @@
                         <TextField fx:id="inwardTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="outwardTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="mutationRateTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="inputLayersTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="HiddenLayersTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <TextField fx:id="simulationsTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <TextField fx:id="generationCounterTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <HBox GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
