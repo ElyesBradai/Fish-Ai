@@ -219,11 +219,13 @@ public class Simulation {
                 sim.setFitnessScore(sim.calculateFitnessScore());
             }
             resetAllSim();
-            mutateAllSim();
-            createBrains();
-            showNeuralDisplay(displayedSim);
-            System.out.println(++generationCounter);
-            if (isSolved) {
+            if (!isSolved) {
+                mutateAllSim();
+                createBrains();
+                showNeuralDisplay(displayedSim);
+                System.out.println(++generationCounter);
+            }
+            else {
 //                isScaleCalculated = false;
                 showEndScreen();
             }
@@ -282,17 +284,33 @@ public class Simulation {
             int counter = 1; //to use within the empty array
             if (sim.getBrain() == null)
                 {
-                    int[] input = new int[layerInput.length + 1];
-                    for (int i = 1; i < layerInput.length; i++) {
-                        input[i] = layerInput[i];
+                    Deque<Integer> allLayersList = new ArrayDeque<Integer>();
+                    if (layerInput != null) {
+                        for (int nbNeurons : layerInput) {
+                            allLayersList.add(nbNeurons);
+                        }
                     }
-                    input[0] = GRID_SIZE_Y * GRID_SIZE_X;
-                    input[layerInput.length] = emptyCounter + 1;
+                    allLayersList.addFirst(GRID_SIZE_X * GRID_SIZE_Y);
+                    allLayersList.addLast(emptyCounter + 1);
+
+                    int[] input = allLayersList.stream().mapToInt(Integer::intValue).toArray();
+
+//                    sim.setBrain(new NeuralNetwork(mutationRate, new int[]{GRID_SIZE_Y * GRID_SIZE_X, GRID_SIZE_X*GRID_SIZE_Y,8,emptyCounter + 1}));
+//                    int[] input = new int[layerInput.length + 1];
+//                    for (int i = 1; i < layerInput.length; i++) {
+//                        input[i] = layerInput[i-1];
+//                    }
+//                    input[0] = GRID_SIZE_Y * GRID_SIZE_X;
+//                    input[layerInput.length] = emptyCounter + 1;
+//                    for (Integer x : input) System.out.print(x + ", ");
+//                    System.out.println();
                     sim.setBrain(new NeuralNetwork(mutationRate, input));
                 }
             double[] predictions = sim.getBrain().predict(inputMap.stream().mapToDouble(Double::doubleValue).toArray());
             double angle = predictions[0] * Math.PI; //index 0 is the angle for the charge and the rest is the strength
-            sim.findCharge().setNewVelocity(angle);
+            Charge charge = sim.findCharge();
+            charge.setAngle(angle);
+            charge.setNewVelocity(angle);
             int index = 0;
             for (Component[] row : sim.map) {
                 for (Component component : row) {
@@ -325,7 +343,7 @@ public class Simulation {
             charge.getBody().setTranslateX((pos[0] * SQUARE_SIZE + SQUARE_SIZE / 2) * calculateScale());
             charge.getBody().setTranslateY((pos[1] * SQUARE_SIZE + SQUARE_SIZE / 2) * calculateScale());
             charge.setAlive(true);
-            charge.setSpeed(2);
+            charge.setSpeed(charge.getSpeed());
             charge.setNewVelocity(charge.getAngle());
 
             //removes all magnetic fields
@@ -531,11 +549,19 @@ public class Simulation {
             isEndScreenShown = true;
             //find the best simulation
             //show end screen
-            FlowPane endRoot = new FlowPane(new VBox(new Label("The Ai solved the maze! Here is the best attempt")),bestFitnessSim.getSimPane());
+            Simulation showedSim = null;
+            for (Simulation sim : simulationList) {
+                Charge charge = sim.findCharge();
+                if (charge.isFinished()) {
+                    showedSim = sim;
+                }
+            }
+
+            FlowPane endRoot = new FlowPane(new VBox(new Label("The Ai solved the maze! Here is the best attempt")),showedSim.getSimPane());
             endRoot.setAlignment(Pos.CENTER);
 //        root.getChildren().clear();
             simulationList = new ArrayList<>();
-            simulationList.add(bestFitnessSim);
+            simulationList.add(showedSim);
 //            ((Stage) root.getScene().getWindow()).close();
             Scene scene = new Scene(endRoot);
             Stage stage = (Stage) root.getScene().getWindow();

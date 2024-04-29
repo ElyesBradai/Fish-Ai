@@ -18,8 +18,6 @@ public class Charge extends Circle implements Component {
     ChargeType chargeType;
     int startingIndex;
     boolean isAlive;
-    
-    private Random random = new Random();
     private double angle = 0;
     
     private double scale = Simulation.calculateScale();

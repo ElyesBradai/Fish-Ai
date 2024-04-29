@@ -132,8 +132,7 @@ public class FxController {
             MagneticField.STRENGTH_COEFFICIENT = 0.1;
             mutationRateTextField.setText("0.5");
             Simulation.mutationRate = 0.5f;
-            HiddenLayersTextField.setText("n,8");
-            Simulation.layerInput = setupLayers("n,8");
+            HiddenLayersTextField.setText("n,n,8");
             simulationsTextField.setText("10");
             sizeXTextField.setText("8");
             sizeYTextField.setText("7");
@@ -144,8 +143,10 @@ public class FxController {
             if (s1 != null) {
                 s1.emptyDisplay();
                 simDisplayPane.getChildren().remove(s1.getSimPane());
+                s1 = new SimulationDisplay();
             }
             simulationSize = Integer.parseInt(simulationsTextField.getText());
+            Simulation.mutationRate = Float.valueOf(mutationRateTextField.getText());
             Simulation.GRID_SIZE_X = Integer.parseInt(sizeXTextField.getText());
             Simulation.GRID_SIZE_Y = Integer.parseInt(sizeYTextField.getText());
             int xPadding = 20;
@@ -157,6 +158,7 @@ public class FxController {
             double padding = (simDisplayPane.getHeight()-gridHeight)/2;
             Charge.CHARGE_RADIUS = Simulation.calculateDisplayScale()/4;
             simDisplayPane.setStyle("-fx-background-color: #808080;");
+            Simulation.layerInput = setupLayers(HiddenLayersTextField.getText());
             createDisplay();
             s1.bckg();
             s1.getSimPane().setTranslateY(padding);
@@ -252,7 +254,7 @@ public class FxController {
         }
         return null;
     }
-    
+
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
