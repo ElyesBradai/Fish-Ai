@@ -3,16 +3,21 @@ package com.example.magnetai;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
@@ -62,6 +67,9 @@ public class FxController {
     public TextField sizeYTextField;
     @FXML
     public TextField sizeXTextField;
+    public MenuItem closeButtonMenuBar;
+    public MenuItem deleteButtonMenuBar;
+    public MenuItem aboutButtonMenuBar;
     Charge c1;
     SimulationDisplay s1;
     @FXML
@@ -85,38 +93,71 @@ public class FxController {
 
     @FXML
     public void initialize() {
-
         handle();
-//        simDisplayPane.widthProperty().addListener((observable, oldValue, newValue) -> {
-//            double width = newValue.doubleValue();
-//            System.out.println("Pane width: " + width);
-//        });
-//        simDisplayPane.heightProperty().addListener((observable, oldValue, newValue) -> {
-//            double height = newValue.doubleValue();
-//            System.out.println("Pane height: " + height);
-//        });
-
-
+        setupMenuBar();
     }
 
+    private void setupMenuBar() {
+        closeButtonMenuBar.setOnAction((ActionEvent t) -> {
+            System.exit(0);
+        });
+        deleteButtonMenuBar.setOnAction(actionEvent -> {
+            s1.emptyDisplay();
+            simDisplayPane.getChildren().remove(s1.getSimPane());
+        });
+        aboutButtonMenuBar.setOnAction(actionEvent -> showaboutpage());
+    }
+
+
+    private void showaboutpage(){
+        Text text1 = new Text(30, 50, "About");
+        text1.setFont(new Font("SansSerif",40));
+        String text = """
+                The goal of this project is to demonstrate the phenomena of magnetic fields by displaying how magnetic fields 
+                are able to redirect the direction of charges. A charge (shown in red in the following visual representation) 
+                will have an initial velocity.e goal of the program is to get the charge to the finish line (in yellow). We will 
+                also implement superconductors (shown in blue) which are squares that are not obstacles for the charge, but for 
+                the magnetic fields. This means that on blue squares, it is impossible to place a magnetic field, but the electron 
+                will not be affected by them.We will also implement an Ai that chooses the location of the magnetic fields and try 
+                to get the best arrangement of the two types of magnetic fields (inwards or outwards) to get the electron as close
+                as possible to the finish line.
+                """;
+        Text text2 = new Text(30, 100, text);
+        text2.setFont(new Font("SansSerif",17));
+        Text text3 = new Text(30, 200, "Team Members: Elyes Bradai, Ziad Agha, Amine Ait Yakoub");
+        text3.setFont(new Font("SansSerif",10));
+        VBox vbox = new VBox(text1, text2,text3);
+        vbox.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(vbox, 1200, 600);
+        Stage aboutPageStage = new Stage();
+        aboutPageStage.setTitle("About Page");
+        aboutPageStage.setScene(scene);
+        aboutPageStage.show();
+    }
+
+    /**
+     *
+     */
     public void handle() {
         startButton.setOnAction(event -> {
-            if(s1.findFinish() != null && s1.findCharge()!=null && s1.checkValidPathDisplay()){
+            if (s1.findFinish() != null && s1.findCharge() != null && s1.checkValidPathDisplay()){
                 s1.findCharge().setSpeed(speed);
                 s1.saveDesign();
                 s1.showAllSimulations((Stage)startButton.getScene().getWindow());
                 velocitySlider.setDisable(true);
             }
-            else if(s1.findFinish() == null || s1.findCharge()==null){
+            else if (s1.findFinish() == null || s1.findCharge() == null){
                 Alert alert = new Alert(Alert.AlertType.ERROR,"Please place a Charge and a FinishLine on your map! " ,
                         ButtonType.OK);
                 alert.initOwner(startButton.getScene().getWindow());
                 alert.show();
-            }else if (!s1.checkValidPathDisplay()) {
-                Alert noPathAlert = new Alert(Alert.AlertType.ERROR, "Make sure there is a path from the charge to the finish line!", ButtonType.OK);
+            }
+            else if (!s1.checkValidPathDisplay()) {
+                Alert noPathAlert = new Alert(Alert.AlertType.ERROR, "Make sure there is a path from the charge to the finish line!",
+                        ButtonType.OK);
                 noPathAlert.initOwner(startButton.getScene().getWindow());
                 noPathAlert.show();
-                }
+            }
         });
         resetButton.setOnAction(actionEvent -> {
             s1.emptyDisplay();
@@ -179,35 +220,27 @@ public class FxController {
             MagneticField.STRENGTH_COEFFICIENT = newValue.doubleValue() / 10;
             strengthTextField.setText(newValue.toString());
         });
-        
-        
     }
-    
+
+    /**
+     *
+     */
     public void createDisplay(){
         s1 = new SimulationDisplay();
-        
-        // root.setSpacing(Simulation.GRID_SIZE_X * Simulation.SQUARE_SIZE);
+
         simDisplayPane.getChildren().add(s1.getSimPane());
         for (int i = 0; i < simulationSize; i++) {
             new Simulation();
-            
         }
-//        VBox vb1 = new VBox();
-//        root.getChildren().addAll(vb1);
-//      //   scaleDisplay(s1);
-//        vb1.getChildren().add();
-        
-        //	Charge c1 = new Charge(ChargeType.NEGATIVE);
-        //	s1.addToMap(c1, 5);
-        
+
         // Create an object property to hold the selected rectangle
         ObjectProperty<Shape> selectedShape = new SimpleObjectProperty<>();
         Circle selected = new Circle(50);
         selected.setStrokeWidth(3);
+
         // Bind the fill property of the circle to the fill property of the selected rectangle
         selected.fillProperty().bind(Bindings.createObjectBinding(() ->
                 selectedShape.get() != null ? selectedShape.get().getFill() : Color.BLACK, selectedShape));
-        
         chargeSelector.setOnMouseClicked(event -> {
             s1.setSelectedComponentType(Charge.TYPE);
             selectedShape.set(chargeSelector);
@@ -224,7 +257,6 @@ public class FxController {
             s1.setSelectedComponentType(Superconductor.TYPE);
             selectedShape.set(sCSelector);
         });
-        
         eraserSelector.setOnMouseClicked(mouseEvent ->{
             s1.setSelectedComponentType("eraser");
             selectedShape.set(eraserSelector);
@@ -232,6 +264,11 @@ public class FxController {
         });
     }
 
+    /**
+     *
+     * @param layerInput
+     * @return
+     */
     private int[] setupLayers(String layerInput) {
         try {
             String[] neuronsPerLayerArray = layerInput.split(",");
@@ -243,10 +280,9 @@ public class FxController {
                     neuronsPerLayer[i] = Simulation.GRID_SIZE_Y * Simulation.GRID_SIZE_X;
                 }
                 else {
-                neuronsPerLayer[i] = Integer.parseInt(neuronsPerLayerArray[i].trim());
+                    neuronsPerLayer[i] = Integer.parseInt(neuronsPerLayerArray[i].trim());
                 }
             }
-
             return neuronsPerLayer;
         } catch (NumberFormatException ex) {
             // Handle the case where the input is not a valid integer
@@ -259,5 +295,4 @@ public class FxController {
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
-    
 }

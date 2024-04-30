@@ -11,6 +11,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -38,13 +40,14 @@ public class Simulation {
     Pane simPane;//not sure if I should use pane or other :/
     public static double[] dimensions = new double[2];
     
-    
 
-    
     ArrayList<Rectangle> squareList;
     private NeuralNetwork brain;
     int fitnessScore;
 
+    /**
+     *
+     */
     public Simulation() {
         map = new Component[GRID_SIZE_X][GRID_SIZE_Y];
         simPane = new Pane();
@@ -52,7 +55,6 @@ public class Simulation {
         simulationList.add(this);
         fitnessScore = Integer.MAX_VALUE;
         brain = null;
-        // bckg();
     }
 
     public static ArrayList<Simulation> getSimulationList() {
@@ -94,24 +96,19 @@ public class Simulation {
             simPane.getChildren().remove(charge.getBody());
             map[posOfCharge[0]][posOfCharge[1]] = null;
         }
-
         if (component.getType().equals(FinishLine.TYPE) && findFinish() != null) {
             FinishLine fl = findFinish();
             int[] posOfCharge = indexToPos(fl.getIndex());
             simPane.getChildren().remove(fl.getBody());
             map[posOfCharge[0]][posOfCharge[1]] = null;
-
         }
-
         if (map[pos[0]][pos[1]] == null) {
-
             simPane.getChildren().add(component.getBody());
         } else {
             simPane.getChildren().remove(map[pos[0]][pos[1]].getBody());
             simPane.getChildren().add(component.getBody());
         }
         map[pos[0]][pos[1]] = component;
-
         boolean isObstacle = component.getType().equals(Obstacle.TYPE)
                 || component.getType().equals(Superconductor.TYPE)
                 || component.getType().equals(FinishLine.TYPE)
@@ -147,6 +144,10 @@ public class Simulation {
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public FinishLine findFinish() {
         for (Component[] row : this.map) {
             for (Component comp : row) {
@@ -203,6 +204,10 @@ public class Simulation {
         return this.map[componentPos[0]][componentPos[1]];
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean checkAllAlive() {
         boolean alive = false;
         for (Simulation sim : simulationList) {
@@ -213,6 +218,9 @@ public class Simulation {
         return alive;
     }
 
+    /**
+     *
+     */
     public void setupNextGeneration() {
         if (!checkAllAlive()) {
             for (Simulation sim : simulationList) {
@@ -232,6 +240,9 @@ public class Simulation {
         }
     }
 
+    /**
+     *
+     */
     public void mutateAllSim() {
         int bestFitnessValue = Integer.MAX_VALUE;
         Simulation solvedSim = null;
@@ -263,6 +274,9 @@ public class Simulation {
         }
     }
 
+    /**
+     *
+     */
     public static void createBrains() {
         //this part creates decides the values (0 if empty or 1 if other)
         int emptyCounter = 0;
@@ -285,25 +299,15 @@ public class Simulation {
             if (sim.getBrain() == null)
                 {
                     Deque<Integer> allLayersList = new ArrayDeque<Integer>();
-                    if (layerInput != null) {
+                    if (layerInput != null)
+                    {
                         for (int nbNeurons : layerInput) {
                             allLayersList.add(nbNeurons);
                         }
                     }
                     allLayersList.addFirst(GRID_SIZE_X * GRID_SIZE_Y);
                     allLayersList.addLast(emptyCounter + 1);
-
                     int[] input = allLayersList.stream().mapToInt(Integer::intValue).toArray();
-
-//                    sim.setBrain(new NeuralNetwork(mutationRate, new int[]{GRID_SIZE_Y * GRID_SIZE_X, GRID_SIZE_X*GRID_SIZE_Y,8,emptyCounter + 1}));
-//                    int[] input = new int[layerInput.length + 1];
-//                    for (int i = 1; i < layerInput.length; i++) {
-//                        input[i] = layerInput[i-1];
-//                    }
-//                    input[0] = GRID_SIZE_Y * GRID_SIZE_X;
-//                    input[layerInput.length] = emptyCounter + 1;
-//                    for (Integer x : input) System.out.print(x + ", ");
-//                    System.out.println();
                     sim.setBrain(new NeuralNetwork(mutationRate, input));
                 }
             double[] predictions = sim.getBrain().predict(inputMap.stream().mapToDouble(Double::doubleValue).toArray());
@@ -335,6 +339,9 @@ public class Simulation {
         }
     }
 
+    /**
+     *
+     */
     public void resetAllSim() {
         //resets all charges
         for (Simulation sim : simulationList) {
@@ -345,27 +352,23 @@ public class Simulation {
             charge.setAlive(true);
             charge.setSpeed(charge.getSpeed());
             charge.setNewVelocity(charge.getAngle());
-
-            //removes all magnetic fields
-//            for (Component[] row : sim.map) {
-//
-//                for (Component component : row) {
-//
-//                    if (component != null && component.getType().equals(MagneticField.TYPE)) {
-//                        int[] componentPos = indexToPos(component.getIndex());
-//                        map[componentPos[0]][componentPos[1]] = null;
-//                        sim.getSimPane().getChildren().remove(component.getBody());
-//                    }
-//                }
-//            }
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int calculateFitnessScore() {
         Charge charge = this.findCharge();
         int[] endPosition = findNearestEmpty(charge);
         return calculateShortestPath(endPosition);
     }
+
+    /**
+     *
+     * @return
+     */
     public boolean checkValidPathDisplay() {
         boolean isValid = true;
         Charge charge = this.findCharge();
@@ -376,11 +379,21 @@ public class Simulation {
         return isValid;
     }
 
+    /**
+     *
+     * @param charge
+     * @return
+     */
     public int[] findNearestEmpty(Charge charge) {
         return absolutePosToGridPos(charge.getTranslateX() - charge.getVelocity()[0] * calculateScale(),
                                     charge.getTranslateY() - charge.getVelocity()[1] * calculateScale());
     }
 
+    /**
+     *
+     * @param endPosition
+     * @return
+     */
     public int calculateShortestPath(int[] endPosition) {
         int[][] distance = new int[GRID_SIZE_X][GRID_SIZE_Y];
         int finalDist = -1;
@@ -475,27 +488,17 @@ public class Simulation {
     public static double calculateScale() {
         if (!isScaleCalculated) {
         Screen screen = Screen.getPrimary();
-        
-        // Get the bounds of the primary screen
         Rectangle2D bounds = screen.getVisualBounds();
-        
         double screenWidth = bounds.getWidth();
         double screenHeight = bounds.getHeight();
-        
         double realSquareSizeW = screenWidth/ GRID_SIZE_X;
         double realSquareSizeH = screenHeight/ GRID_SIZE_Y;
-        
         double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
-        
         double ratioSquareSize = minSquareSize/ SQUARE_SIZE;
-        
         int numSimulations = Simulation.getSimulationList().size();
         double numRows = Math.sqrt(numSimulations);
         double numCols = ((double) numSimulations / numRows);
-
-        // Determine the maximum number of rows or columns based on the x/y ratioSquareSize
         double maxDimension = Math.max(numRows, numCols);
-
         double scale = 1.0 / maxDimension;
         
         isScaleCalculated = true;
@@ -518,7 +521,6 @@ public class Simulation {
         double height = SQUARE_SIZE*calculateScale()*GRID_SIZE_Y;
         double realSquareSizeW = screenWidth/width;
         double realSquareSizeH = screenHeight/height;
-        
         double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
         
        // double ratioSquareSize = minSquareSize/ SQUARE_SIZE;
@@ -557,49 +559,20 @@ public class Simulation {
                 }
             }
 
-            FlowPane endRoot = new FlowPane(new VBox(new Label("The Ai solved the maze! Here is the best attempt")),showedSim.getSimPane());
+            Text endText = new Text("The Ai solved the maze! Here is the best attempt");
+            endText.setFont(new Font("SansSerif",25));
+            VBox  endVbox= new VBox(endText, showedSim.getSimPane());
+            endVbox.setSpacing(20);
+            endVbox.setAlignment(Pos.CENTER);
+            FlowPane endRoot = new FlowPane(endVbox);
             endRoot.setAlignment(Pos.CENTER);
-//        root.getChildren().clear();
+            endRoot.setVgap(30);
             simulationList = new ArrayList<>();
             simulationList.add(showedSim);
-//            ((Stage) root.getScene().getWindow()).close();
             Scene scene = new Scene(endRoot);
             Stage stage = (Stage) root.getScene().getWindow();
             stage.setScene(scene);
-//            Stage stage = new Stage();
-//            stage.setScene(scene);
-//            stage.setFullScreen(true);
-//            stage.show();
-//            isScaleCalculated = false;
-//            for (Component[] row : bestFitnessSim.map) {
-//                for (Component component : row) {
-//                    if (component != null) {
-//                        switch (component.getType()) {
-//                            case Obstacle.TYPE , Superconductor.TYPE , FinishLine.TYPE -> {
-//                                ((Rectangle) component.getBody()).setWidth(SQUARE_SIZE * endScreenScale());
-//                                ((Rectangle) component.getBody()).setHeight(SQUARE_SIZE * endScreenScale());
-//                                component.getBody().setTranslateX((component.getBody().getTranslateX()/calculateScale()) * endScreenScale());
-//                                component.getBody().setTranslateY((component.getBody().getTranslateY()/calculateScale()) * endScreenScale());
-//                                component.getBody().setStrokeWidth(3 * endScreenScale());
-//                            }
-//                            case "charge" -> {
-//                                ((Circle) component.getBody()).setRadius((((Circle) component.getBody()).getRadius()/calculateScale()) * endScreenScale());
-//                                component.getBody().setTranslateX((component.getBody().getTranslateX()/calculateScale()) * endScreenScale());
-//
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            for (int i = 0; i < GRID_SIZE_X; i++) {
-//                for (int j = 0; j < GRID_SIZE_Y; j++) {
-//                    Rectangle square = bestFitnessSim.squareList.get(bestFitnessSim.posToIndex(new int[]{i,j}));
-//                    square.setWidth(SQUARE_SIZE * universalScale);
-//                    square.setHeight(SQUARE_SIZE * universalScale);
-//                    square.setTranslateX(i * SQUARE_SIZE * universalScale);
-//                    square.setTranslateY(j * SQUARE_SIZE * universalScale);
-//                }
-//            }
+
         }
     }
     

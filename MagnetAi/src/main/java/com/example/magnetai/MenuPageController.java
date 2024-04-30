@@ -21,24 +21,22 @@ public class MenuPageController{
 	
 	@FXML
 	public void initialize(){
-		
 		helpmenu.setOnAction(actionEvent -> showhelppage());
-		
 		startmenu.setOnAction(actionEvent -> {
-			try{
+			try {
 				showstartmenu();
 				((Stage) startmenu.getScene().getWindow()).close();
-			} catch (IOException e){
-				throw new RuntimeException(e);
-			}
-		});
-		
+				}
+					catch (IOException e){
+					throw new RuntimeException(e);
+				}
+			});
 		exitmenu.setOnAction(actionEvent -> {
 			System.exit(0);
 		});
-		
 	}
-	
+
+
 	public void showhelppage(){
 		Stage helppagestage = new Stage();
 		Text text = new Text(30, 100, "Information");
@@ -51,14 +49,12 @@ public class MenuPageController{
 	
 	public void showstartmenu() throws IOException{
 		Stage stage = new Stage();
-		
 		FXMLLoader fxmlloader = new FXMLLoader(MainClass.class.getResource("oldFX.fxml"));
 		Scene scene = new Scene(fxmlloader.load(), 1300, 1000);
 		stage.setTitle("Hello");
 		stage.setScene(scene);
 		stage.setFullScreen(true);
 		stage.show();
-		
 	}
 	
 	@FXML
