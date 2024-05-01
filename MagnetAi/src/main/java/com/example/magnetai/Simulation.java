@@ -230,7 +230,6 @@ public class Simulation {
             if (!isSolved) {
                 mutateAllSim();
                 createBrains();
-                showNeuralDisplay(displayedSim);
                 System.out.println(++generationCounter);
             }
             else {
@@ -528,24 +527,16 @@ public class Simulation {
         return minSquareSize;
     }
 
-    private static void showNeuralDisplay(Simulation sim) {
+    private static void showNeuralDisplay(Simulation sim, Pane displayRoot) {
         if (sim != null) {
-            if (root.getChildren().contains(neuralDisplay)) {
-                root.getChildren().remove(neuralDisplay);
+            if (displayRoot.getChildren().contains(neuralDisplay)) {
+                displayRoot.getChildren().remove(neuralDisplay);
             }
             neuralDisplay = new NeuralDisplay(sim);
-            root.getChildren().add(neuralDisplay);
+            displayRoot.getChildren().add(neuralDisplay);
         }
     }
 
-    protected static void makeSimPaneShowNeuralDisplay() {
-        for (Simulation sim : simulationList) {
-            sim.getSimPane().setOnMouseClicked(event -> {
-                showNeuralDisplay(sim);
-                displayedSim = sim;
-            });
-        }
-    }
     public static void showEndScreen() {
         if (!isEndScreenShown) {
             isEndScreenShown = true;
@@ -561,10 +552,11 @@ public class Simulation {
 
             Text endText = new Text("The Ai solved the maze! Here is the best attempt");
             endText.setFont(new Font("SansSerif",25));
-            VBox  endVbox= new VBox(endText, showedSim.getSimPane());
+            VBox endVbox = new VBox(endText, showedSim.getSimPane());
             endVbox.setSpacing(20);
             endVbox.setAlignment(Pos.CENTER);
             FlowPane endRoot = new FlowPane(endVbox);
+            showNeuralDisplay(showedSim,endRoot);
             endRoot.setAlignment(Pos.CENTER);
             endRoot.setVgap(30);
             simulationList = new ArrayList<>();

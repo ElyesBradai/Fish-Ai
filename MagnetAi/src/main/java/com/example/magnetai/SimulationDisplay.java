@@ -105,7 +105,6 @@ public class SimulationDisplay extends Simulation {
             sim.map = copiedMap;
         }
         createBrains();
-        makeSimPaneShowNeuralDisplay();
     }
 
     /**

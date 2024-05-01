@@ -176,9 +176,7 @@ public class FxController {
             HiddenLayersTextField.setText("n,n,8");
             simulationsTextField.setText("10");
             sizeXTextField.setText("8");
-            sizeYTextField.setText("7");
-            saveButton.arm();
-            saveButton.fire();
+            sizeYTextField.setText("8");
         });
         saveButton.setOnAction(actionEvent -> {
             if (s1 != null) {
