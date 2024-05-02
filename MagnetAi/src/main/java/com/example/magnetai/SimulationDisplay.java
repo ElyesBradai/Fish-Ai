@@ -93,6 +93,7 @@ public class SimulationDisplay extends Simulation {
     public void saveDesign() {
         for (Simulation sim : Simulation.getSimulationList()) {
             Component[][] copiedMap = new Component[map.length][map[0].length];
+            
             for (int i = 0; i < map.length; i++) {
                 for (int j = 0; j < map[0].length; j++) {
                     // Perform deep copy of each Component object

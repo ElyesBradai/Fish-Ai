@@ -4,7 +4,6 @@ package com.example.magnetai;
 import javafx.scene.shape.Shape;
 
 public interface Component{
-	double square_size = Simulation.SQUARE_SIZE;
 	
 	int getIndex();
 	

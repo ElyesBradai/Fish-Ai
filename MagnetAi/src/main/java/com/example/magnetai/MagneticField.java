@@ -9,6 +9,7 @@ public class MagneticField extends Rectangle implements Component {
     int index;
     private double[] strength;
     public static double STRENGTH_COEFFICIENT = 0.3;
+    public static double square_size = Simulation.SQUARE_SIZE;
 
     /**
      * @param index

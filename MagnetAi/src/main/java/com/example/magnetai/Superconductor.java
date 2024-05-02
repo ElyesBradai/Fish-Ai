@@ -7,6 +7,7 @@ import javafx.scene.shape.Shape;
 public class Superconductor extends Rectangle implements Component{
 	static final String TYPE = "superconductor";
 	int index;
+	public static double square_size = Simulation.SQUARE_SIZE;
 	
 	public Superconductor(int index){
 		super(square_size, square_size, Color.CYAN); //creates a square of size 50 by 50

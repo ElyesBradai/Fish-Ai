@@ -141,10 +141,14 @@ public class FxController {
     public void handle() {
         startButton.setOnAction(event -> {
             if (s1.findFinish() != null && s1.findCharge() != null && s1.checkValidPathDisplay()){
+                for (int i = 0; i < simulationSize; i++) {
+                    new Simulation();
+                }
                 s1.findCharge().setSpeed(speed);
                 s1.saveDesign();
                 s1.showAllSimulations((Stage)startButton.getScene().getWindow());
                 velocitySlider.setDisable(true);
+                
             }
             else if (s1.findFinish() == null || s1.findCharge() == null){
                 Alert alert = new Alert(Alert.AlertType.ERROR,"Please place a Charge and a FinishLine on your map! " ,
@@ -182,7 +186,7 @@ public class FxController {
             if (s1 != null) {
                 s1.emptyDisplay();
                 simDisplayPane.getChildren().remove(s1.getSimPane());
-                s1 = new SimulationDisplay();
+                Simulation.getSimulationList().remove(s1);
             }
             simulationSize = Integer.parseInt(simulationsTextField.getText());
             Simulation.mutationRate = Float.valueOf(mutationRateTextField.getText());
@@ -192,12 +196,14 @@ public class FxController {
             Simulation.dimensions[0] = simDisplayPane.getWidth() - 2 * xPadding;
             Simulation.dimensions[1] = simDisplayPane.getHeight();
             simDisplayPane.setAlignment(Pos.TOP_LEFT);
-            Simulation.SQUARE_SIZE = Simulation.calculateDisplayScale();
+            Simulation.calculateDisplayScale();
+            
             double gridHeight = Simulation.GRID_SIZE_Y * Simulation.SQUARE_SIZE;
             double padding = (simDisplayPane.getHeight()-gridHeight)/2;
-            Charge.CHARGE_RADIUS = Simulation.calculateDisplayScale()/4;
             simDisplayPane.setStyle("-fx-background-color: #808080;");
             Simulation.layerInput = setupLayers(HiddenLayersTextField.getText());
+            s1 = new SimulationDisplay();
+            simDisplayPane.getChildren().add(s1.getSimPane());
             createDisplay();
             s1.bckg();
             s1.getSimPane().setTranslateY(padding);
@@ -224,12 +230,6 @@ public class FxController {
      *
      */
     public void createDisplay(){
-        s1 = new SimulationDisplay();
-
-        simDisplayPane.getChildren().add(s1.getSimPane());
-        for (int i = 0; i < simulationSize; i++) {
-            new Simulation();
-        }
 
         // Create an object property to hold the selected rectangle
         ObjectProperty<Shape> selectedShape = new SimpleObjectProperty<>();
