@@ -53,9 +53,6 @@ public class NeuralDisplay extends Pane {
         generateNeurons();
         generateWeight();
 
-        this.setLayoutX(600 * calculateNeuralScale());
-        this.setLayoutY(-20);
-
     }
 
     private void generateNeurons() {
