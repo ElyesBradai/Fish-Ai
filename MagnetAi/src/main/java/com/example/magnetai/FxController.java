@@ -183,7 +183,7 @@ public class FxController {
             if (s1 != null) {
                 s1.emptyDisplay();
                 simDisplayPane.getChildren().remove(s1.getSimPane());
-                Simulation.getSimulationList().remove(s1);
+                Simulation.getSimulationList().clear();
             }
             simulationSize = Integer.parseInt(simulationsTextField.getText());
             Simulation.mutationRate = Float.valueOf(mutationRateTextField.getText());

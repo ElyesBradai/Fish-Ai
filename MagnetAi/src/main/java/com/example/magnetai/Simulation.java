@@ -4,12 +4,12 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -528,13 +528,27 @@ public class Simulation {
         return minSquareSize;
     }
 
-    private static void showNeuralDisplay(Simulation sim, Pane displayRoot) {
+    private static void showNeuralDisplay(Simulation sim, ScrollPane displayRoot, Slider slider) {
         if (sim != null) {
-            if (displayRoot.getChildren().contains(neuralDisplay)) {
-                displayRoot.getChildren().remove(neuralDisplay);
+            if (displayRoot.getContent() == null) {
+                displayRoot.setContent(null);
             }
             neuralDisplay = new NeuralDisplay(sim);
-            displayRoot.getChildren().add(neuralDisplay);
+            displayRoot.setContent(neuralDisplay);
+            neuralDisplay.setMinSize(NeuralDisplay.width, NeuralDisplay.height);
+
+            slider.setShowTickLabels(true);
+            slider.setShowTickMarks(true);
+            slider.setMajorTickUnit(0.1);
+            slider.setBlockIncrement(0.1);
+
+            slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+                neuralDisplay.setScaleX(newValue.doubleValue());
+                neuralDisplay.setScaleY(newValue.doubleValue());
+            });
+
+            displayRoot.setPrefViewportWidth(500);
+            displayRoot.setPrefViewportHeight(500);
         }
     }
 
@@ -556,8 +570,12 @@ public class Simulation {
             VBox endVbox = new VBox(endText, showedSim.getSimPane());
             endVbox.setSpacing(20);
             endVbox.setAlignment(Pos.CENTER);
-            FlowPane endRoot = new FlowPane(endVbox);
-            showNeuralDisplay(showedSim,endRoot);
+            ScrollPane endScroll = new ScrollPane();
+            Slider slider = new Slider(0.1, 1, 1);
+            showNeuralDisplay(showedSim,endScroll,slider);
+            FlowPane endRoot = new FlowPane(endVbox,slider,endScroll);
+            endScroll.setMinHeight(400);
+            endScroll.setMinWidth(400);
             endRoot.setAlignment(Pos.CENTER);
             endRoot.setVgap(30);
             simulationList = new ArrayList<>();

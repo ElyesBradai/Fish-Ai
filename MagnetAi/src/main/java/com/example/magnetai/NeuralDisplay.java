@@ -18,8 +18,8 @@ import java.util.ArrayList;
  */
 public class NeuralDisplay extends Pane {
 
-    private static double width;
-    private static double height;
+    public static double width;
+    public static double height;
     private static double panePadding;
 
     private Simulation displayedSim;
@@ -39,9 +39,9 @@ public class NeuralDisplay extends Pane {
     public NeuralDisplay(Simulation simulation) {
 
         this.setPrefSize(width, height);
-//        width = 2.5 * Simulation.SQUARE_SIZE * simulation.getBrain().getLayers().length * calculateNeuralScale();
-//        height = 2 * Simulation.SQUARE_SIZE * simulation.getBrain().getLayers()[0] * calculateNeuralScale();
-//        panePadding = 25 * calculateNeuralScale();
+        width = 2.5 * Simulation.SQUARE_SIZE * simulation.getBrain().getLayers().length * calculateNeuralScale();
+        height = 2 * Simulation.SQUARE_SIZE * simulation.getBrain().getLayers()[0] * calculateNeuralScale() / 16;
+        panePadding = 25 * calculateNeuralScale();
         System.out.println(height);
         this.displayedSim = simulation;
         this.activations = displayedSim.getBrain().getActivations();
@@ -138,25 +138,23 @@ public class NeuralDisplay extends Pane {
     }
 
     public double calculateNeuralScale() {
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
-        double screenWidth = bounds.getWidth();
-        double screenHeight = bounds.getHeight();
-        double realSquareSizeW = screenWidth/ this.displayedSim.getBrain().getLayers().length;
-        double realSquareSizeH = screenHeight/ this.displayedSim.getBrain().getLayers()[0];
-        double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
-        double ratioSquareSize = minSquareSize/ Simulation.SQUARE_SIZE;
-        int numSimulations = Simulation.getSimulationList().size();
-        double numRows = Math.sqrt(numSimulations);
-        double numCols = ((double) numSimulations / numRows);
-        double maxDimension = Math.max(numRows, numCols);
-        double scale = 1.0 / maxDimension;
-
-        this.width = 2.5 * Simulation.SQUARE_SIZE * displayedSim.getBrain().getLayers().length * calculateNeuralScale();
-        this.height = 2 * Simulation.SQUARE_SIZE * displayedSim.getBrain().getLayers()[0] * calculateNeuralScale();
-        this.panePadding = 25 * calculateNeuralScale();
-
-        return ratioSquareSize * scale;
+        if (this.displayedSim != null) {
+            Screen screen = Screen.getPrimary();
+            Rectangle2D bounds = screen.getVisualBounds();
+            double screenWidth = bounds.getWidth();
+            double screenHeight = bounds.getHeight();
+            double realSquareSizeW = screenWidth/ this.displayedSim.getBrain().getLayers().length;
+            double realSquareSizeH = screenHeight/ this.displayedSim.getBrain().getLayers()[0];
+            double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
+            double ratioSquareSize = minSquareSize/ Simulation.SQUARE_SIZE;
+            int numSimulations = Simulation.getSimulationList().size();
+            double numRows = Math.sqrt(numSimulations);
+            double numCols = ((double) numSimulations / numRows);
+            double maxDimension = Math.max(numRows, numCols);
+            double scale = 1.0 / maxDimension;
+            return ratioSquareSize * scale;
+            }
+        return 1;
     }
 
     /**
