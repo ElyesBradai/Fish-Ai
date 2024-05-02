@@ -141,9 +141,6 @@ public class FxController {
     public void handle() {
         startButton.setOnAction(event -> {
             if (s1.findFinish() != null && s1.findCharge() != null && s1.checkValidPathDisplay()){
-                for (int i = 0; i < simulationSize; i++) {
-                    new Simulation();
-                }
                 s1.findCharge().setSpeed(speed);
                 s1.saveDesign();
                 s1.showAllSimulations((Stage)startButton.getScene().getWindow());
@@ -232,6 +229,9 @@ public class FxController {
     public void createDisplay(){
 
         // Create an object property to hold the selected rectangle
+        for (int i = 0; i < simulationSize; i++) {
+            new Simulation();
+        }
         ObjectProperty<Shape> selectedShape = new SimpleObjectProperty<>();
         Circle selected = new Circle(50);
         selected.setStrokeWidth(3);

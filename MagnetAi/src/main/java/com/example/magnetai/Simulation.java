@@ -90,7 +90,6 @@ public class Simulation {
      */
     public void addToMap(Component component, int index) {
         int[] pos = indexToPos(index);
-        System.out.println(map.length+"   + "+map[0].length);
         if (component.getType().equals(Charge.TYPE) && findCharge() != null) {
             Charge charge = findCharge();
             int[] posOfCharge = indexToPos(charge.getIndex());
@@ -494,6 +493,7 @@ public class Simulation {
         double realSquareSizeW = screenWidth/ GRID_SIZE_X;
         double realSquareSizeH = screenHeight/ GRID_SIZE_Y;
         double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
+            System.out.println("2: "+SQUARE_SIZE);
         double ratioSquareSize = minSquareSize/ SQUARE_SIZE;
         int numSimulations = Simulation.getSimulationList().size();
         double numRows = Math.sqrt(numSimulations);
@@ -631,6 +631,7 @@ public class Simulation {
         double realSquareSizeH = height / GRID_SIZE_Y;
         double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
         Simulation.SQUARE_SIZE= minSquareSize;
+        System.out.println("1: "+SQUARE_SIZE);
         MagneticField.square_size=SQUARE_SIZE;
         FinishLine.square_size=SQUARE_SIZE;
         Obstacle.square_size=SQUARE_SIZE;
