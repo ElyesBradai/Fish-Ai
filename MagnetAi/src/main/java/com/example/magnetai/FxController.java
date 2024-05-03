@@ -137,6 +137,7 @@ public class FxController {
         VBox vbox = new VBox(text1, text2,text3);
         vbox.setAlignment(Pos.CENTER);
         Scene scene = new Scene(vbox, 1200, 600);
+        scene.getStylesheets().add(Simulation.class.getResource("Style.css").toExternalForm());
         Stage aboutPageStage = new Stage();
         aboutPageStage.setTitle("About Page");
         aboutPageStage.setScene(scene);
@@ -203,8 +204,7 @@ public class FxController {
             simDisplayPane.setAlignment(Pos.TOP_LEFT);
             Simulation.calculateSquareSize();
             double gridHeight = Simulation.GRID_SIZE_Y * Simulation.SQUARE_SIZE;
-            double padding = (simDisplayPane.getHeight()-gridHeight)/2;
-            simDisplayPane.setStyle("-fx-background-color: #808080;");
+            double padding = (simDisplayPane.getHeight()-gridHeight) / 2;
             Simulation.layerInput = setupLayers(HiddenLayersTextField.getText());
             s1 = new SimulationDisplay();
             simDisplayPane.getChildren().add(s1.getSimPane());

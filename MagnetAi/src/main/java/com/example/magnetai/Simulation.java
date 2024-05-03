@@ -522,7 +522,7 @@ public class Simulation {
      */
     private static void showNeuralDisplay(Simulation sim, ScrollPane displayRoot, Slider slider) {
         if (sim != null) {
-            if (displayRoot.getContent() == null) {
+            if (displayRoot.getContent() != null) {
                 displayRoot.setContent(null);
             }
             neuralDisplay = new NeuralDisplay(sim);
@@ -558,12 +558,14 @@ public class Simulation {
                 }
             }
 
-            Text endText = new Text("The Ai solved the maze! Here is the best attempt");
+            Text endText = new Text("The Ai solved the maze! Here is the best attempt.\n" +
+                    "Use the slider to see the neural network!");
             endText.setFont(new Font("SansSerif",25));
             VBox endVbox = new VBox(endText, showedSim.getSimPane());
             endVbox.setSpacing(20);
             endVbox.setAlignment(Pos.CENTER);
             ScrollPane endScroll = new ScrollPane();
+            endScroll.getStylesheets().add(Simulation.class.getResource("Style.css").toExternalForm());
             Slider slider = new Slider(0.1, 1, 1);
             showNeuralDisplay(showedSim,endScroll,slider);
             FlowPane endRoot = new FlowPane(endVbox,slider,endScroll);
@@ -574,7 +576,10 @@ public class Simulation {
             simulationList = new ArrayList<>();
             simulationList.add(showedSim);
             Scene scene = new Scene(endRoot);
+            scene.getStylesheets().add(Simulation.class.getResource("Style.css").toExternalForm());
             Stage stage = (Stage) root.getScene().getWindow();
+            stage.setFullScreen(true);
+            stage.setTitle("Magnet Ai: Training simulations");
             stage.setScene(scene);
             stage.setFullScreen(true);
 

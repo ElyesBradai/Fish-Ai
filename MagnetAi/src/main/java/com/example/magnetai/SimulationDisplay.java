@@ -169,6 +169,8 @@ public class SimulationDisplay extends Simulation {
         isScaled = true;
         this.getTimerInstance().start();
         Scene scene = new Scene(scrollPane,600,600);
+        scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+        stage.setTitle("Magnet Ai: Training simulations");
         stage.setScene(scene);
         stage.setFullScreen(true);
     }

@@ -58,17 +58,19 @@ public class MenuPageController{
 		VBox vbox = new VBox(text1, text2,text3);
 		vbox.setAlignment(Pos.CENTER);
 		Scene scene = new Scene(vbox, 1200, 600);
+		scene.getStylesheets().add(Simulation.class.getResource("Style.css").toExternalForm());
 		Stage aboutPageStage = new Stage();
 		aboutPageStage.setTitle("About Page");
 		aboutPageStage.setScene(scene);
 		aboutPageStage.show();
 	}
-	
+
 	public void showstartmenu() throws IOException{
 		Stage stage = new Stage();
 		FXMLLoader fxmlloader = new FXMLLoader(MainClass.class.getResource("oldFX.fxml"));
 		Scene scene = new Scene(fxmlloader.load(), 1300, 1000);
-		stage.setTitle("Hello");
+		scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+		stage.setTitle("Magnet Ai: Simulation designer");
 		stage.setScene(scene);
 		stage.setFullScreen(true);
 		stage.show();

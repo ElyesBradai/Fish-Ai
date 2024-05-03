@@ -13,10 +13,11 @@ public class MainClass extends Application {
     }
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlloader = new FXMLLoader(MainClass.class.getResource("Menupage.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(MainClass.class.getResource("MenuPage.fxml"));
         Scene scene = new Scene(fxmlloader.load(), 600, 400);
-        stage.setTitle("Hello");
+        stage.setTitle("Magnet Ai: Main menu");
         stage.setScene(scene);
+        scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
         stage.show();
     }
 }
