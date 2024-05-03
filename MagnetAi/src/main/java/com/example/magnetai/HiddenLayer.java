@@ -49,7 +49,10 @@ public class HiddenLayer {
             }
         }
     }
-
+    
+    /**
+     *
+     */
     private void initRandom() {
         for (int i = 0; i < weights.length; i++) {
             for (int j = 0; j < weights[0].length; j++) {

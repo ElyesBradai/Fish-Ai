@@ -11,23 +11,17 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
-
 public class SimulationDisplay extends Simulation {
     private String selectedComponentType;
     private boolean isScaled;
-
-
-
-    //    TODO MAKE FINISHLINE AND CHARGE A SINGLETON WHITNG THE SIMULATION
-//    private boolean hasFinishLine;
+    
+    
+    /**
+     *
+     */
     public SimulationDisplay() {
         super();
         selectedComponentType = "";
-//        bckg();
-//        addClickable();
         isScaled = false;
         
     }
@@ -36,7 +30,6 @@ public class SimulationDisplay extends Simulation {
      * Makes the simulation display clickable and editable to add the components
      */
     public void addClickable() {
-        //TODO IMPLEMENT ALL COMPONENTS
         for (Rectangle square : squareList) {
             square.setOnMouseClicked(event -> {
                 int index = posToIndex(absolutePosToGridPosDisplay(square.getTranslateX(), square.getTranslateY()));
@@ -55,8 +48,6 @@ public class SimulationDisplay extends Simulation {
 
                     }
                     case FinishLine.TYPE -> {
-                        //TODO ALLOW ONLY ONE
-//                        if (this.hasFinishLine) {}
                         FinishLine f1 = new FinishLine(index);
                         this.addToMap(f1, f1.getIndex());
 
@@ -134,17 +125,9 @@ public class SimulationDisplay extends Simulation {
         for (Simulation sim : Simulation.getSimulationList()) {
             root.getChildren().add(sim.getSimPane());
         }
-
-        //scaling down to fit all simulations
-
-        
         root.setHgap((GRID_SIZE_X * SQUARE_SIZE + SQUARE_SIZE) * scale);
         root.setVgap((GRID_SIZE_Y * SQUARE_SIZE + SQUARE_SIZE) * scale);
         root.setPrefWrapLength(screenWidth);
-        int width = 0;
-        int height = 0;
-        width += (SQUARE_SIZE * scale * GRID_SIZE_X);
-        height += SQUARE_SIZE * scale * GRID_SIZE_Y;
 
         //looping through each component to scale them down
         for (Simulation sim : Simulation.getSimulationList()) {
@@ -178,7 +161,6 @@ public class SimulationDisplay extends Simulation {
                 }
             }
         }
-
         for (Simulation sim : Simulation.simulationList) {
             for (Component[] row : sim.map) {
                 for (Component charge : row) {
@@ -188,15 +170,11 @@ public class SimulationDisplay extends Simulation {
                 }
             }
         }
-        
-
         isScaled = true;
         this.getTimerInstance().start();
-        Scene scene = new Scene(scrollPane, width, height);
-//        Stage stage = new Stage();
+        Scene scene = new Scene(scrollPane,600,600);
         stage.setScene(scene);
         stage.setFullScreen(true);
-        //stage.show();
     }
 
     public String getSelectedComponentType() {

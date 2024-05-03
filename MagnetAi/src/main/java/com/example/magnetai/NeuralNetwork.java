@@ -48,7 +48,12 @@ public class NeuralNetwork {
 
         return neuralNetwork;
     }
-
+    
+    /**
+     *
+     * @param learningRate
+     * @return
+     */
     public NeuralNetwork clone(float learningRate) {
 
         NeuralNetwork neuralNetwork = new NeuralNetwork(learningRate, this.layers);

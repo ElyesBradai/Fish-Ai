@@ -36,7 +36,13 @@ public class Charge extends Circle implements Component {
         this.finished = false;
 
     }
-
+    
+    /**
+     *
+     * @param startingIndex
+     * @param type
+     * @param speed
+     */
     public Charge(int startingIndex, ChargeType type, double speed) {
         super(CHARGE_RADIUS, Color.RED);
         this.startingIndex = startingIndex;
@@ -99,13 +105,13 @@ public class Charge extends Circle implements Component {
                 component.getType() :
                 Charge.NOTHING;
     }
-
+    
+    /**
+     *
+     * @param newAngle
+     */
     public void setNewVelocity(double newAngle){
         this.velocity = new double[]{speed * Math.cos(newAngle), speed * Math.sin(newAngle), 0};
-    }
-    
-    public void setScale(double scale){
-        this.scale = scale;
     }
     
     @Override

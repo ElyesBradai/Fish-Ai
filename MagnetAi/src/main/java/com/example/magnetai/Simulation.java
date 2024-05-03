@@ -509,6 +509,10 @@ public class Simulation {
         else return universalScale;
     }
     
+    /**
+     *
+     * @return
+     */
     public static double endScreenScale(){
         Screen screen = Screen.getPrimary();
         
@@ -527,7 +531,13 @@ public class Simulation {
         System.out.println(minSquareSize);
         return minSquareSize;
     }
-
+    
+    /**
+     *
+     * @param sim
+     * @param displayRoot
+     * @param slider
+     */
     private static void showNeuralDisplay(Simulation sim, ScrollPane displayRoot, Slider slider) {
         if (sim != null) {
             if (displayRoot.getContent() == null) {
@@ -551,7 +561,10 @@ public class Simulation {
             displayRoot.setPrefViewportHeight(500);
         }
     }
-
+    
+    /**
+     *
+     */
     public static void showEndScreen() {
         if (!isEndScreenShown) {
             isEndScreenShown = true;
@@ -583,6 +596,7 @@ public class Simulation {
             Scene scene = new Scene(endRoot);
             Stage stage = (Stage) root.getScene().getWindow();
             stage.setScene(scene);
+            stage.setFullScreen(true);
 
         }
     }

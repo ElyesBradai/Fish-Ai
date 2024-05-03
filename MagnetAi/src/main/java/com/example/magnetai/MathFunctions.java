@@ -17,7 +17,7 @@ public class MathFunctions{
 	 * An electron's charge in coulombs.
 	 */
 	// public static final double ELECTRON_CONSTANT= -1.602176634 * Math.pow(10, -19);
-	public static final double ELECTRON_CONSTANT = 1;
+	public static final double ELECTRON_CONSTANT = -1;
 	// An electron's mass in kilograms.
 	// public static final double ELECTRON_MASS = 9.1093837015 * Math.pow(10, -31);
 	public static final double ELECTRON_MASS = 1;

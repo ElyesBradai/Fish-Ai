@@ -90,13 +90,19 @@ public class FxController {
     private int simulationSize = 0;
     
     public static double[] dimension = new double[2];
-
+    
+    /**
+     *
+     */
     @FXML
     public void initialize() {
         handle();
         setupMenuBar();
     }
-
+    
+    /**
+     *
+     */
     private void setupMenuBar() {
         closeButtonMenuBar.setOnAction((ActionEvent t) -> {
             System.exit(0);
@@ -107,8 +113,10 @@ public class FxController {
         });
         aboutButtonMenuBar.setOnAction(actionEvent -> showaboutpage());
     }
-
-
+    
+    /**
+     *
+     */
     private void showaboutpage(){
         Text text1 = new Text(30, 50, "About");
         text1.setFont(new Font("SansSerif",40));
@@ -194,7 +202,6 @@ public class FxController {
             Simulation.dimensions[1] = simDisplayPane.getHeight();
             simDisplayPane.setAlignment(Pos.TOP_LEFT);
             Simulation.calculateDisplayScale();
-            
             double gridHeight = Simulation.GRID_SIZE_Y * Simulation.SQUARE_SIZE;
             double padding = (simDisplayPane.getHeight()-gridHeight)/2;
             simDisplayPane.setStyle("-fx-background-color: #808080;");
@@ -288,9 +295,5 @@ public class FxController {
         }
         return null;
     }
-
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+    
 }

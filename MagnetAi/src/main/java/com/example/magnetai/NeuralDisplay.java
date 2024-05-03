@@ -54,7 +54,10 @@ public class NeuralDisplay extends Pane {
         generateWeight();
 
     }
-
+    
+    /**
+     *
+     */
     private void generateNeurons() {
         int numberOfLayers = activations.length;
         double disposableWidth = width - 2 * panePadding;
@@ -93,7 +96,10 @@ public class NeuralDisplay extends Pane {
         }
 
     }
-
+    
+    /**
+     *
+     */
     private void generateWeight() {
 
         // 3
@@ -133,7 +139,11 @@ public class NeuralDisplay extends Pane {
 
         }
     }
-
+    
+    /**
+     *
+     * @return
+     */
     public double calculateNeuralScale() {
         if (this.displayedSim != null) {
             Screen screen = Screen.getPrimary();
