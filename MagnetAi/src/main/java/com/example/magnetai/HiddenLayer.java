@@ -13,8 +13,9 @@ public class HiddenLayer {
     private final Random random = new Random();
 
     /**
-     * @param currentLayerSize
-     * @param previousLayerSize
+     * creates a hidden Layer/
+     * @param currentLayerSize the size of the current layer
+     * @param previousLayerSize the size of the previous layer
      */
     public HiddenLayer(int currentLayerSize, int previousLayerSize) {
         this.currentLayerSize = currentLayerSize;
@@ -24,7 +25,8 @@ public class HiddenLayer {
     }
 
     /**
-     * @return
+     * clones an object of this HiddenLayer.
+     * @return a cloned HiddenLayer.
      */
     @Override
     public HiddenLayer clone() {
@@ -37,7 +39,8 @@ public class HiddenLayer {
     }
 
     /**
-     * @param learningRate
+     * mutates the weights of the Hidden Layer.
+     * @param learningRate the learning rate of the Neural Network
      */
     public void mutate(float learningRate) {
         for (int i = 0; i < currentLayerSize; i++) {
@@ -51,7 +54,7 @@ public class HiddenLayer {
     }
     
     /**
-     *
+     * randomizes the weights.
      */
     private void initRandom() {
         for (int i = 0; i < weights.length; i++) {
@@ -62,44 +65,18 @@ public class HiddenLayer {
     }
 
     /**
-     * @param input
-     * @return
+     * returns the values of the next layer using activation functions.
+     * @param input the input layer
+     * @return the values of the next layer.
      */
     public double[] activate(double[] input) {
         double[] output = new double[weights.length];
         for (int i = 0; i < weights.length; i++) {
-//
-//            double activationValue = calculateActivationValue(input, weights[i]);
-//            double activatedValue = ActivationFunctions.sigmoid(activationValue); // Apply sigmoid activation
-//            output[i] = applyMagneticFieldDecision(activatedValue);
-            //TODO DETERMINE A WAY OF CHOOSING THE OUTPUT
             output[i] = ActivationFunctions.tanh(MathFunctions.multiplyVectors(input, weights[i]));
         }
         return output;
     }
-
-    public MagneticField applyMagneticFieldDecision(double activationValue) {
-        
-        final double threshold = 0.5;
-        if (random.nextDouble() < threshold) {
-            // Add magnetic field to empty square based on activation value
-            if (activationValue > 0) {
-//                return Component.MAGNETIC_FIELD_OUTWARDS;
-            }
-            else {
-//                return Component.MAGNETIC_FIELD_INWARDS;
-            }
-        }
-        else {
-//            return Component.EMPTY;
-        }
-        return null;
-    }
     
-   
-    /**
-     * @return
-     */
     public String toString() {
         String ret = "[";
 
@@ -112,10 +89,7 @@ public class HiddenLayer {
 
         return ret;
     }
-
-    /**
-     * @return
-     */
+    
     public double[][] getWeights() {
         return weights;
     }

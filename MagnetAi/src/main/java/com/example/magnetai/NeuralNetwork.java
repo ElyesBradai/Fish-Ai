@@ -14,8 +14,9 @@ public class NeuralNetwork {
     private final int[] layers;
 
     /**
-     * @param learningRate
-     * @param layers
+     * creates a neural network.
+     * @param learningRate the learning rate of the neural network
+     * @param layers the array of layers
      */
     public NeuralNetwork(float learningRate, int[] layers) {
         this.learningRate = learningRate;
@@ -30,7 +31,8 @@ public class NeuralNetwork {
     }
 
     /**
-     * @return
+     * clones an object of NeuralNetwork.
+     * @return the cloned NeuralNetwork.
      */
     @Override
     public NeuralNetwork clone() {
@@ -42,9 +44,9 @@ public class NeuralNetwork {
     }
     
     /**
-     *
-     * @param learningRate
-     * @return
+     * clones an object of NeuralNetwork with the specified learning rate.
+     * @param learningRate the learning rate of the object ot be cloned
+     * @return a clone of this Neural Network,
      */
     public NeuralNetwork clone(float learningRate) {
         NeuralNetwork neuralNetwork = new NeuralNetwork(learningRate, this.layers);
@@ -55,8 +57,9 @@ public class NeuralNetwork {
     }
 
     /**
-     * @param input
-     * @return
+     * returns an output layer based on the inlut layer.
+     * @param input the input layer
+     * @return the output layer.
      */
     public double[] predict(double[] input) {
         activations[0] = input;
@@ -67,24 +70,18 @@ public class NeuralNetwork {
     }
 
     /**
-     *
+     * mutates the hidden layers.
      */
     public void mutate() {
         for (HiddenLayer layer : this.hiddenLayers) {
             layer.mutate(this.learningRate);
         }
     }
-
-    /**
-     * @return
-     */
+    
     public double[][] getActivations() {
         return activations;
     }
-
-    /**
-     * @return
-     */
+    
     public HiddenLayer[] getHiddenLayers() {
         return hiddenLayers;
     }
@@ -92,17 +89,12 @@ public class NeuralNetwork {
     public float getLearningRate() {
         return this.learningRate;
     }
-
-    /**
-     * @return
-     */
+    
     public int[] getLayers() {
         return this.layers;
     }
 
-    /**
-     * @return
-     */
+
     public String toString() {
         String ret = "learning rate : " + this.learningRate + "\n";
         ret += "Hidden Layers : " + Arrays.toString(this.hiddenLayers) + "\n";

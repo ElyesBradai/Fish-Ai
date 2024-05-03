@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 /**
  *
- * This class consists of the visible neural display accesible in Simulation
+ * This class consists of the visible Neural Display accessible in Simulation.
  */
 public class NeuralDisplay extends Pane {
     public static double width;
@@ -29,8 +29,8 @@ public class NeuralDisplay extends Pane {
     private ArrayList<ArrayList<Circle>> neuronList = new ArrayList();
 
     /**
-     *
-     * @param simulation
+     * creates a Neural Display for the simulation.
+     * @param simulation the Neural Display's simulation
      */
     public NeuralDisplay(Simulation simulation) {
         this.setPrefSize(width, height);
@@ -49,7 +49,7 @@ public class NeuralDisplay extends Pane {
     }
     
     /**
-     *
+     * generates the neuron circles for the Neural Display.
      */
     private void generateNeurons() {
         int numberOfLayers = activations.length;
@@ -80,7 +80,7 @@ public class NeuralDisplay extends Pane {
     }
     
     /**
-     *
+     * generates the weight lines for the Neural Display.
      */
     private void generateWeight() {
         for (int layer = 0; layer < layers.length; layer++) {
@@ -109,7 +109,7 @@ public class NeuralDisplay extends Pane {
     
     /**
      *
-     * @return
+     * @return a double value for the scaling of the Neural Display.
      */
     public double calculateNeuralScale() {
         if (this.displayedSim != null) {

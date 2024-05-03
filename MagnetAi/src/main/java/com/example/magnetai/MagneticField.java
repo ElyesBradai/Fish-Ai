@@ -4,6 +4,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
+/**
+ * the magneticField class.
+ */
 public class MagneticField extends Rectangle implements Component {
     static final String TYPE = "magneticfield";
     int index;
@@ -12,8 +15,9 @@ public class MagneticField extends Rectangle implements Component {
     public static double square_size = Simulation.SQUARE_SIZE;
 
     /**
-     * @param index
-     * @param strength
+     * creates a magnetic field with the specified index and strength.
+     * @param index the index where the magnetic field will be placed
+     * @param strength the strength vector of the magnetic field
      */
     public MagneticField(int index, double[] strength) {
         super(square_size, square_size, Color.GREEN); //creates a square of size 50 by 50
@@ -33,12 +37,7 @@ public class MagneticField extends Rectangle implements Component {
     public int getIndex() {
         return this.index;
     }
-
-    @Override
-    public int[] getPosition() {
-        //TODO FINISH LATER
-        return new int[0];
-    }
+    
 
     @Override
     public String getType() {
@@ -49,11 +48,11 @@ public class MagneticField extends Rectangle implements Component {
     public Shape getBody() {
         return this;
     }
-
-    public double[] getStrength() {
+    
+    public double[] getStrength(){
         return strength;
     }
-
+    
     public void setStrength(double[] strength) {
         this.strength = strength;
     }

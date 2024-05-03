@@ -4,13 +4,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
+/**
+ * the finishLine class
+ */
 public class FinishLine extends Rectangle implements Component{
 	static final String TYPE = "finishLine";
 	int index;
 	public static double square_size = Simulation.SQUARE_SIZE;
 	
 	/**
-	 * @param index
+	 * creates a finishLine with the specified index.
+	 * @param index the index where the FinishLine will be placed
 	 */
 	public FinishLine(int index){
 		super(square_size, square_size, Color.YELLOW); //creates a square of size 50 by 50
@@ -28,12 +32,6 @@ public class FinishLine extends Rectangle implements Component{
 	@Override
 	public int getIndex(){
 		return this.index;
-	}
-	
-	@Override
-	public int[] getPosition(){
-		//TODO FINISH LATER
-		return new int[0];
 	}
 	
 	@Override
