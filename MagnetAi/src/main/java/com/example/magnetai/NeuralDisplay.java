@@ -17,18 +17,14 @@ import java.util.ArrayList;
  * This class consists of the visible neural display accesible in Simulation
  */
 public class NeuralDisplay extends Pane {
-
     public static double width;
     public static double height;
     private static double panePadding;
-
     private Simulation displayedSim;
     private NeuralNetwork neuralNetwork;
     private double[][] activations;
     private HiddenLayer[] layers;
-
     private int[] nbLayers;
-
     private ArrayList<Line> lineWeights = new ArrayList();
     private ArrayList<ArrayList<Circle>> neuronList = new ArrayList();
 
@@ -37,7 +33,6 @@ public class NeuralDisplay extends Pane {
      * @param simulation
      */
     public NeuralDisplay(Simulation simulation) {
-
         this.setPrefSize(width, height);
         width = 2.5 * Simulation.SQUARE_SIZE * simulation.getBrain().getLayers().length * calculateNeuralScale();
         height = 2 * Simulation.SQUARE_SIZE * simulation.getBrain().getLayers()[0] * calculateNeuralScale() / 16;
@@ -49,10 +44,8 @@ public class NeuralDisplay extends Pane {
         this.layers = displayedSim.getBrain().getHiddenLayers();
 
         nbLayers = simulation.getBrain().getLayers();
-
         generateNeurons();
         generateWeight();
-
     }
     
     /**
@@ -70,20 +63,11 @@ public class NeuralDisplay extends Pane {
             for (int j = 0; j < activations[i].length; j++) {
 
                 Label value = new Label();
-//                value.setStyle("-fx-text-fill: white;"+
-//                        "-fx-background-color: black;"+
-//                        "-fx-font: Courier New;"+
-//                        "-fx-font-family: Courier New;"+
-//                        "-fx-font-weight: bold;"+
-//                        "-fx-font-size: 30;");
                 value.setId("neuronNet");
                 DoubleProperty prop = new SimpleDoubleProperty(activations[i][j]);
-
                 value.textProperty().bind(prop.asString("%.2f"));
-
                 Circle neuron = new Circle(20 * calculateNeuralScale());
                 neuron.setUserData(prop);
-
                 neuron.setCenterX(layerGap * (i + 0.5) - (this.getWidth()));
                 neuron.setCenterY(heightGap * (j + 0.5) - (this.getHeight()));
                 value.setTranslateX(layerGap * (i + 0.5) - (10));
@@ -91,52 +75,35 @@ public class NeuralDisplay extends Pane {
 
                 this.getChildren().addAll(neuron, value);
                 neuronList.get(i).add(neuron);
-
             }
         }
-
     }
     
     /**
      *
      */
     private void generateWeight() {
-
-        // 3
         for (int layer = 0; layer < layers.length; layer++) {
-
-
-
             for (int currNeuron = 0; currNeuron < layers[layer].getWeights().length; currNeuron++) {
-
-
                 for (int prevNeuron = 0; prevNeuron < activations[layer].length; prevNeuron++) {
-
-
                     double k =  layers[layer].getWeights()[currNeuron][prevNeuron];
                     k = Math.abs(k);
                     Line line = new Line();
-
                     DoubleProperty value = new SimpleDoubleProperty(k);
                     line.setUserData(value);
                     line.startXProperty().bind(neuronList.get(layer+1).get(currNeuron).centerXProperty());
                     line.startYProperty().bind(neuronList.get(layer+1).get(currNeuron).centerYProperty());
                     line.endXProperty().bind(neuronList.get(layer).get(prevNeuron).centerXProperty());
                     line.endYProperty().bind(neuronList.get(layer).get(prevNeuron).centerYProperty());
-
                     line.opacityProperty().bind((value.divide(2)).multiply(calculateNeuralScale()).add(0.2));
                     line.strokeWidthProperty().bind(((value.divide(1.5)).add(0.5)).multiply(3 * calculateNeuralScale()));
-                    //line.translateXProperty().bind();
-
                     line.setOnMouseClicked((e) -> {
                         System.out.println(value.get());
                     });
                     this.getChildren().add(line);
                     line.toBack();
-
                 }
             }
-
         }
     }
     
@@ -162,13 +129,5 @@ public class NeuralDisplay extends Pane {
             return ratioSquareSize * scale;
             }
         return 1;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Simulation getDisplayedSim() {
-        return this.displayedSim;
     }
 }

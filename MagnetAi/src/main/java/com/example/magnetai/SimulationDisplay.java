@@ -4,6 +4,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.shape.Circle;
@@ -15,7 +17,6 @@ public class SimulationDisplay extends Simulation {
     private String selectedComponentType;
     private boolean isScaled;
     
-    
     /**
      *
      */
@@ -23,7 +24,6 @@ public class SimulationDisplay extends Simulation {
         super();
         selectedComponentType = "";
         isScaled = false;
-        
     }
 
     /**
@@ -43,23 +43,23 @@ public class SimulationDisplay extends Simulation {
 
                     }
                     case Obstacle.TYPE -> {
-                        Obstacle o1 = new Obstacle(index);
-                        this.addToMap(o1, o1.getIndex());
+                        Obstacle obs = new Obstacle(index);
+                        this.addToMap(obs, obs.getIndex());
 
                     }
                     case FinishLine.TYPE -> {
-                        FinishLine f1 = new FinishLine(index);
-                        this.addToMap(f1, f1.getIndex());
+                        FinishLine finish = new FinishLine(index);
+                        this.addToMap(finish, finish.getIndex());
 
                     }
                     case Superconductor.TYPE -> {
-                        Superconductor s1 = new Superconductor(index);
-                        this.addToMap(s1, s1.getIndex());
+                        Superconductor sup = new Superconductor(index);
+                        this.addToMap(sup, sup.getIndex());
 
                     }
                     case MagneticField.TYPE -> {
-                        MagneticField m1 = new MagneticField(index, new double[]{0, 0, 0.06});
-                        this.addToMap(m1, m1.getIndex());
+                        MagneticField mag = new MagneticField(index, new double[]{0, 0, 0.06});
+                        this.addToMap(mag, mag.getIndex());
                     } case "eraser" -> {
                         int[] pos = indexToPos(index);
                         if(this.map[pos[0]][pos[1]] != null){
@@ -67,11 +67,10 @@ public class SimulationDisplay extends Simulation {
                             this.map[pos[0]][pos[1]] = null;
                         }
                     }
-                    //case "Charge": {break;}
                     default -> {
-
-
-                        System.out.println("please select a valid type");
+                        Alert alert = new Alert(Alert.AlertType.ERROR,"Please select a valid component before editing the map" ,
+                                ButtonType.OK);
+                        alert.show();
                     }
                 }
             });
@@ -104,8 +103,6 @@ public class SimulationDisplay extends Simulation {
      */
     public void showAllSimulations(Stage stage) {
         //This method opens a window with all the simulations with copied map
-        //TODO remove unnecessary code
-        
         double scale = calculateScale();
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
@@ -120,7 +117,6 @@ public class SimulationDisplay extends Simulation {
         root.setPrefWidth(screenWidth);
         root.setPrefHeight(screenHeight+(GRID_SIZE_Y * SQUARE_SIZE + SQUARE_SIZE) * scale);
         root.setPadding(new Insets(10,GRID_SIZE_X*SQUARE_SIZE * scale,GRID_SIZE_Y*SQUARE_SIZE * scale,GRID_SIZE_X * SQUARE_SIZE*scale));
-        
         
         for (Simulation sim : Simulation.getSimulationList()) {
             root.getChildren().add(sim.getSimPane());
@@ -175,10 +171,6 @@ public class SimulationDisplay extends Simulation {
         Scene scene = new Scene(scrollPane,600,600);
         stage.setScene(scene);
         stage.setFullScreen(true);
-    }
-
-    public String getSelectedComponentType() {
-        return selectedComponentType;
     }
 
     public void setSelectedComponentType(String selectedComponentType) {

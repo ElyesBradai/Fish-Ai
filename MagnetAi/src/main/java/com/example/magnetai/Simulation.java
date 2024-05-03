@@ -25,7 +25,6 @@ public class Simulation {
     public static int generationCounter = 0;
     public static int[] layerInput;
     public static float mutationRate;
-    private static Simulation displayedSim;
     private static boolean isSolved = false;
     public static double universalScale;
     public static boolean isScaleCalculated = false;
@@ -37,7 +36,7 @@ public class Simulation {
     private final myTimer timer = new myTimer(); // timer is a singleton within the class
     private final int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     Component[][] map;
-    Pane simPane;//not sure if I should use pane or other :/
+    Pane simPane;
     public static double[] dimensions = new double[2];
     
 
@@ -70,7 +69,6 @@ public class Simulation {
             if (map[0].length % 2 == 0) {
                 isColored = !isColored;
             }
-
             for (int j = 0; j < map[i].length; j++) {
                 isColored = !isColored;
                 Rectangle temp = new Rectangle(SQUARE_SIZE, SQUARE_SIZE, isColored ? Color.BROWN : Color.BEIGE);
@@ -233,7 +231,6 @@ public class Simulation {
                 System.out.println(++generationCounter);
             }
             else {
-//                isScaleCalculated = false;
                 showEndScreen();
             }
         }
@@ -265,7 +262,6 @@ public class Simulation {
         scaledLearningRate = Math.min(baseLearningRate, scaledLearningRate);
         for (Simulation sim : simulationList) {
             if (sim != bestFitnessSim && sim != solvedSim) {
-                if (sim == bestFitnessSim || sim == solvedSim) System.out.println("pwoblem");
                 sim.setBrain(solvedSim == null ? bestFitnessSim.getBrain().clone(scaledLearningRate) : solvedSim.getBrain().clone(scaledLearningRate));
                 sim.getBrain().mutate();
                 sim.setFitnessScore(Integer.MAX_VALUE);
@@ -318,15 +314,15 @@ public class Simulation {
             for (Component[] row : sim.map) {
                 for (Component component : row) {
                     if (component == null || component.getType().equals(MagneticField.TYPE)) {
-                        component = new MagneticField(index, new double[] {0,0,predictions[counter]*MagneticField.STRENGTH_COEFFICIENT});
-                        sim.addToMap(component,component.getIndex());
+                        component = new MagneticField(index, new double[] {0, 0, predictions[counter]*MagneticField.STRENGTH_COEFFICIENT});
+                        sim.addToMap(component, component.getIndex());
                         double scale = calculateScale();
                         ((Rectangle) component.getBody()).setWidth(((Rectangle) component.getBody()).getWidth() * scale);
                         ((Rectangle) component.getBody()).setHeight(((Rectangle) component.getBody()).getHeight() * scale);
                         component.getBody().setTranslateX(component.getBody().getTranslateX() * scale);
                         component.getBody().setTranslateY(component.getBody().getTranslateY() * scale);
                         component.getBody().setStrokeWidth(component.getBody().getStrokeWidth() * scale);
-                        if (((MagneticField)component).getStrength()[2]>0) {
+                        if (((MagneticField)component).getStrength()[2] > 0) {
                             component.getBody().setFill(Color.DARKGREEN);
                         }
                         counter++;
@@ -371,7 +367,7 @@ public class Simulation {
     public boolean checkValidPathDisplay() {
         boolean isValid = true;
         Charge charge = this.findCharge();
-        int[] endPosition = absolutePosToGridPosDisplay(charge.getTranslateX(),charge.getTranslateY());
+        int[] endPosition = absolutePosToGridPosDisplay(charge.getTranslateX(), charge.getTranslateY());
         if (calculateShortestPath(endPosition) == -1){
             isValid = false;
         }
@@ -411,8 +407,10 @@ public class Simulation {
             int col = current[1];
             int dist = current[2];
 
-            if (map[row][col] != null && map[row][col].getType().equals(FinishLine.TYPE)) // Reached finish line
+            // Reached finish line
+            if (map[row][col] != null && map[row][col].getType().equals(FinishLine.TYPE)) {
                 finalDist = dist;
+            }
 
             for (int[] dir : directions) {
                 int newRow = row + dir[0];
@@ -436,7 +434,9 @@ public class Simulation {
         int[] current = indexToPos(findFinish().getIndex());
         int steps = distance[current[0]][current[1]];
         while (steps > 0) {
-            if (maxLoop >= Math.pow(GRID_SIZE_X * GRID_SIZE_Y + 1,2)) break;
+            if (maxLoop >= Math.pow(GRID_SIZE_X * GRID_SIZE_Y + 1,2)) {
+                break;
+            }
             //	System.out.println(steps);
             for (int[] dir : directions) {
                 int newRow = current[0] + dir[0];
@@ -461,7 +461,6 @@ public class Simulation {
      * @return int array with two components
      */
     public int[] absolutePosToGridPos(double translateX, double translateY) {
-        //TODO MAKE IT WORK THIS METHOD BREAKS EVERYTHING
         return new int[]{(int) (translateX / (SQUARE_SIZE * calculateScale())), (int) (translateY / (SQUARE_SIZE * calculateScale()))};
     }
 
@@ -493,7 +492,6 @@ public class Simulation {
         double realSquareSizeW = screenWidth/ GRID_SIZE_X;
         double realSquareSizeH = screenHeight/ GRID_SIZE_Y;
         double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
-            System.out.println("2: "+SQUARE_SIZE);
         double ratioSquareSize = minSquareSize/ SQUARE_SIZE;
         int numSimulations = Simulation.getSimulationList().size();
         double numRows = Math.sqrt(numSimulations);
@@ -505,7 +503,6 @@ public class Simulation {
         universalScale = ratioSquareSize * scale;
         return ratioSquareSize * scale;
         }
-
         else return universalScale;
     }
     
@@ -515,10 +512,8 @@ public class Simulation {
      */
     public static double endScreenScale(){
         Screen screen = Screen.getPrimary();
-        
         // Get the bounds of the primary screen
         Rectangle2D bounds = screen.getVisualBounds();
-        
         double screenWidth = bounds.getWidth();
         double screenHeight = bounds.getHeight();
         double width = SQUARE_SIZE*calculateScale()*GRID_SIZE_X;
@@ -526,9 +521,6 @@ public class Simulation {
         double realSquareSizeW = screenWidth/width;
         double realSquareSizeH = screenHeight/height;
         double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
-        
-       // double ratioSquareSize = minSquareSize/ SQUARE_SIZE;
-        System.out.println(minSquareSize);
         return minSquareSize;
     }
     
@@ -551,12 +543,10 @@ public class Simulation {
             slider.setShowTickMarks(true);
             slider.setMajorTickUnit(0.1);
             slider.setBlockIncrement(0.1);
-
             slider.valueProperty().addListener((observable, oldValue, newValue) -> {
                 neuralDisplay.setScaleX(newValue.doubleValue());
                 neuralDisplay.setScaleY(newValue.doubleValue());
             });
-
             displayRoot.setPrefViewportWidth(500);
             displayRoot.setPrefViewportHeight(500);
         }
@@ -600,25 +590,9 @@ public class Simulation {
 
         }
     }
-    
-    /**
-     * takes the 2d position on the grid and returns its corresponding component
-     *
-     * @param pos
-     * @return an component
-     */
-    Component posToValue(int[] pos) {
-        return map[pos[0]][pos[1]];
-    }
-    
 
-    //getters and setters (will later be removed using lombok)
     public Pane getSimPane() {
         return this.simPane;
-    }
-
-    public void setSimPane(Pane simPane) {
-        this.simPane = simPane;
     }
 
     public NeuralNetwork getBrain() {
@@ -632,6 +606,7 @@ public class Simulation {
     public void setFitnessScore(int fitnessScore) {
         this.fitnessScore = fitnessScore;
     }
+
     public static void setSolved(boolean solved) {
         isSolved = solved;
     }
@@ -652,23 +627,18 @@ public class Simulation {
         return squareList;
     }
     
-    public void setSquareList(ArrayList<Rectangle> squareList){
-        this.squareList = squareList;
-    }
-    
     public static void calculateDisplayScale(){
         double width = dimensions[0];
         double height = dimensions[1];
         double realSquareSizeW = width / GRID_SIZE_X;
         double realSquareSizeH = height / GRID_SIZE_Y;
         double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
-        Simulation.SQUARE_SIZE= minSquareSize;
-        System.out.println("1: "+SQUARE_SIZE);
-        MagneticField.square_size=SQUARE_SIZE;
-        FinishLine.square_size=SQUARE_SIZE;
-        Obstacle.square_size=SQUARE_SIZE;
-        Superconductor.square_size=SQUARE_SIZE;
-        Charge.CHARGE_RADIUS=SQUARE_SIZE/4;
+        Simulation.SQUARE_SIZE = minSquareSize;
+        MagneticField.square_size = SQUARE_SIZE;
+        FinishLine.square_size = SQUARE_SIZE;
+        Obstacle.square_size = SQUARE_SIZE;
+        Superconductor.square_size = SQUARE_SIZE;
+        Charge.CHARGE_RADIUS = SQUARE_SIZE / 4;
     }
     
 
