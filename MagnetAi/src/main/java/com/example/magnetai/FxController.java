@@ -20,7 +20,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
+/**
+ * the controller class for the main page in the application
+ */
 public class FxController {
 
 
@@ -92,7 +94,7 @@ public class FxController {
     public static double[] dimension = new double[2];
     
     /**
-     *
+     * initializes the application.
      */
     @FXML
     public void initialize() {
@@ -101,7 +103,7 @@ public class FxController {
     }
     
     /**
-     *
+     * sets up the menu bar.
      */
     private void setupMenuBar() {
         closeButtonMenuBar.setOnAction((ActionEvent t) -> {
@@ -115,7 +117,7 @@ public class FxController {
     }
     
     /**
-     *
+     * shows the about page
      */
     private void showaboutpage(){
         Text text1 = new Text(30, 50, "About");
@@ -145,7 +147,7 @@ public class FxController {
     }
 
     /**
-     *
+     * sets the UI for the application.
      */
     public void handle() {
         startButton.setOnAction(event -> {
@@ -231,7 +233,7 @@ public class FxController {
     }
 
     /**
-     *
+     * creates the simulations and the selector in the display.
      */
     public void createDisplay(){
 
@@ -270,9 +272,9 @@ public class FxController {
     }
 
     /**
-     *
-     * @param layerInput
-     * @return
+     * sets up the input layer.
+     * @param layerInput the input layer
+     * @return the array of the input layer.
      */
     private int[] setupLayers(String layerInput) {
         try {

@@ -1,48 +1,48 @@
 .root {
-    -fx-background-color: #f0fff0; /* Honeydew */
+    -fx-background-color: #f0fff0;
 }
 
 .label {
     -fx-font-size: 14px;
-    -fx-text-fill: #556b2f; /* Dark olive green */
+    -fx-text-fill: #556b2f;
 }
 
 .text-field {
     -fx-font-size: 14px;
-    -fx-text-fill: #228b22; /* Forest green */
-    -fx-background-color: #f5fffa; /* Mint cream */
+    -fx-text-fill: #228b22;
+    -fx-background-color: #f5fffa;
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
-    -fx-border-color: #6b8e23; /* Olive drab */
+    -fx-border-color: #6b8e23;
 }
 
 .button {
     -fx-font-size: 14px;
     -fx-text-fill: #ffffff;
-    -fx-background-color: linear-gradient(to bottom, #32cd32, #006400); /* Lime gradient */
+    -fx-background-color: linear-gradient(to bottom, #32cd32, #006400);
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
 }
 
 .button:hover {
-    -fx-background-color: linear-gradient(to bottom, #006400, #003300); /* Darker green gradient */
+    -fx-background-color: linear-gradient(to bottom, #006400, #003300);
 }
 
 .slider {
-    -fx-background-color: linear-gradient(to bottom, #32cd32, #006400); /* Lime gradient */
+    -fx-background-color: linear-gradient(to bottom, #32cd32, #006400);
 }
 
 .slider .thumb {
-    -fx-background-color: linear-gradient(to bottom, #adff2f, #7fff00); /* Green yellow gradient */
+    -fx-background-color: linear-gradient(to bottom, #adff2f, #7fff00);
     -fx-background-radius: 5px;
-    -fx-border-color: #000000; /* Black border */
-    -fx-border-width: 1px; /* Border width */
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
 }
 
 .slider .thumb:hover {
-    -fx-background-color: linear-gradient(to bottom, #7fff00, #32cd32); /* Darker green yellow gradient */
-    -fx-border-color: #000000; /* Black border */
-    -fx-border-width: 1px; /* Border width */
+    -fx-background-color: linear-gradient(to bottom, #7fff00, #32cd32);
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
 }
 
 .scroll-pane {
@@ -53,23 +53,23 @@
 .scroll-bar:horizontal .decrement-button,
 .scroll-bar:vertical .increment-button,
 .scroll-bar:vertical .decrement-button {
-    -fx-background-color: linear-gradient(to bottom, #32cd32, #006400); /* Lime gradient */
+    -fx-background-color: linear-gradient(to bottom, #32cd32, #006400);
     -fx-background-radius: 5px;
 }
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-    -fx-background-color: linear-gradient(to bottom, #adff2f, #7fff00); /* Green yellow gradient */
+    -fx-background-color: linear-gradient(to bottom, #adff2f, #7fff00);
     -fx-background-radius: 5px;
 }
 
 .scroll-bar:horizontal .thumb:hover,
 .scroll-bar:vertical .thumb:hover {
-    -fx-background-color: linear-gradient(to bottom, #7fff00, #32cd32); /* Darker green yellow gradient */
+    -fx-background-color: linear-gradient(to bottom, #7fff00, #32cd32);
 }
 
 .menu-bar {
-    -fx-background-color: #32cd32; /* Lime */
+    -fx-background-color: #32cd32;
     -fx-text-fill: #ffffff;
 }
 
@@ -78,5 +78,5 @@
 }
 
 .menu-item:hover {
-    -fx-background-color: #006400; /* Dark green on hover */
+    -fx-background-color: #006400; 
 }

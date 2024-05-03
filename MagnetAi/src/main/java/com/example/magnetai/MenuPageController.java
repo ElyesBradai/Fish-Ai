@@ -13,7 +13,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
+/**
+ * the menuPage controller
+ */
 public class MenuPageController{
 	public Button startmenu;
 	public Button helpmenu;
@@ -21,6 +23,9 @@ public class MenuPageController{
 	@FXML
 	private Label welcomeText;
 	
+	/**
+	 * initializes the menuPageController
+	 */
 	@FXML
 	public void initialize(){
 		helpmenu.setOnAction(actionEvent -> showHelpPage());
@@ -37,7 +42,10 @@ public class MenuPageController{
 			System.exit(0);
 		});
 	}
-
+	
+	/**
+	 * shows the help page.
+	 */
 	public void showHelpPage(){
 		Text text1 = new Text(30, 50, "About");
 		text1.setFont(new Font("SansSerif",40));
@@ -64,7 +72,11 @@ public class MenuPageController{
 		aboutPageStage.setScene(scene);
 		aboutPageStage.show();
 	}
-
+	
+	/**
+	 * shows start menu.
+	 * @throws IOException
+	 */
 	public void showstartmenu() throws IOException{
 		Stage stage = new Stage();
 		FXMLLoader fxmlloader = new FXMLLoader(MainClass.class.getResource("oldFX.fxml"));

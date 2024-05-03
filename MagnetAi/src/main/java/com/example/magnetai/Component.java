@@ -3,11 +3,12 @@ package com.example.magnetai;
 
 import javafx.scene.shape.Shape;
 
+/**
+ * the interface for all the components
+ */
 public interface Component{
 	
 	int getIndex();
-	
-	int[] getPosition();
 	
 	String getType(); // can also be char
 	

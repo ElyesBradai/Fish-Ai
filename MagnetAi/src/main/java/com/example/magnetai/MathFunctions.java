@@ -1,6 +1,8 @@
 package com.example.magnetai;
 
-
+/**
+ * class for tmost oif the Math Functions used in the application
+ */
 public class MathFunctions{
 	/**
 	 * A proton's mass in kilograms.
@@ -23,10 +25,11 @@ public class MathFunctions{
 	public static final double ELECTRON_MASS = 1;
 	
 	/**
-	 * @param charge
-	 * @param mass
-	 * @param magneticFieldStrength
-	 * @param velocity
+	 * calculates the final velocity for the charge.
+	 * @param charge a charge
+	 * @param mass the mass of the charge
+	 * @param magneticFieldStrength the magnetic field strength array colliding with the charge
+	 * @param velocity the velocity array of the charge
 	 * @return the final velocity of the charge.
 	 */
 	public static double[] calcFinalVelocity(double charge, double mass, double[] velocity, double[] magneticFieldStrength){
@@ -37,10 +40,11 @@ public class MathFunctions{
 	}
 	
 	/**
-	 * @param charge
-	 * @param mass
-	 * @param velocity
-	 * @param magneticFieldStrength
+	 * calculates the accelaration for the charge.
+	 * @param charge a charge
+	 * @param mass the mass of the charge
+	 * @param magneticFieldStrength the magnetic field strength array colliding with the charge
+	 * @param velocity the velocity array of the charge
 	 * @return the current acceleration of the charge.
 	 */
 	private static double[] calcAcceleration(double charge, double mass, double[] velocity, double[] magneticFieldStrength){
@@ -55,9 +59,10 @@ public class MathFunctions{
 	}
 	
 	/**
-	 * @param x
-	 * @param y
-	 * @param z
+	 * creates a vector array of (x,y,x).
+	 * @param x the x component
+	 * @param y the y component
+	 * @param z the z component
 	 * @return a vector of the chosen components.
 	 */
 	public static double[] createVec(double x, double y, double z){
@@ -65,8 +70,9 @@ public class MathFunctions{
 	}
 	
 	/**
-	 * @param vec1
-	 * @param vec2
+	 * returns the cross product of the two arrays.
+	 * @param vec1 a vector array
+	 * @param vec2 a vector array
 	 * @return the cross-product of vec1 and vec2 respectively.
 	 */
 	public static double[] crossProduct(double[] vec1, double[] vec2){
@@ -80,8 +86,9 @@ public class MathFunctions{
 	
 	
 	/**
-	 * @param vec1
-	 * @param vec2
+	 * returns the product of the multiplication.
+	 * @param vec1 a vector array
+	 * @param vec2 a vector array
 	 * @return vec1 vector due to the matrix multiplication of both vectors.
 	 */
 	public static double multiplyVectors(double[] vec1, double[] vec2){

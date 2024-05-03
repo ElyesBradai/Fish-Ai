@@ -13,6 +13,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+/**
+ * the simulation class used in designing the simulations.
+ */
 public class SimulationDisplay extends Simulation {
     private String selectedComponentType;
     private boolean isScaled;

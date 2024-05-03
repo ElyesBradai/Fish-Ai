@@ -6,6 +6,9 @@ import javafx.scene.shape.Shape;
 
 import java.util.Random;
 
+/**
+ * the Charge class
+ */
 public class Charge extends Circle implements Component {
     static double CHARGE_RADIUS;
     static final String TYPE = "charge";
@@ -23,7 +26,7 @@ public class Charge extends Circle implements Component {
     private double scale = Simulation.calculateScale();
 
     /**
-     * creates a charge in the specified index of the specified type
+     * creates a charge in the specified index of the specified type.
      * @param startingIndex the starting index of the charge
      * @param type the charge type
      */
@@ -39,10 +42,10 @@ public class Charge extends Circle implements Component {
     }
     
     /**
-     * creates a charge in the specified index of the specified type with the specied speed
+     * creates a charge in the specified index of the specified type with the specied speed.
      * @param speed the speed of the charge
      * @param startingIndex the starting index of the charge
-     * @param type the charge type
+     * @param type the charge type.
      */
     public Charge(int startingIndex, ChargeType type, double speed) {
         super(CHARGE_RADIUS, Color.RED);
@@ -57,7 +60,7 @@ public class Charge extends Circle implements Component {
     }
 
     /**
-     * makes the charge move based on the component colliding with it
+     * makes the charge move based on the component colliding with it.
      *
      * @param component the component in that charge is colliding with
      */
@@ -96,10 +99,10 @@ public class Charge extends Circle implements Component {
 
 
     /**
-     * returns the component intersecting with this charge
+     * returns the component intersecting with this charge.
      *
      * @param component the component that is colliding
-     * @return a string type of component
+     * @return a string type of component.
      */
     public String checkCollisionType(Component component) {
         return (component != null && this.intersects(component.getBody().getLayoutBounds())) ?
@@ -118,12 +121,6 @@ public class Charge extends Circle implements Component {
     @Override
     public int getIndex() {
         return this.startingIndex;
-    }
-
-    @Override
-    public int[] getPosition() {
-        //TODO finish later
-        return new int[0];
     }
 
     @Override
