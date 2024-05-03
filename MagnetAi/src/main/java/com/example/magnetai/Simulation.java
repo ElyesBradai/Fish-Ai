@@ -45,7 +45,7 @@ public class Simulation {
     int fitnessScore;
 
     /**
-     *
+     * creates an object of Simulation
      */
     public Simulation() {
         map = new Component[GRID_SIZE_X][GRID_SIZE_Y];
@@ -82,9 +82,9 @@ public class Simulation {
 
     /**
      * add the specified component at the specified index
-     *
-     * @param component
-     * @param index
+     * a charge and a finishline can only be added once
+     * @param component the component to be added
+     * @param index the index where the component will be added
      */
     public void addToMap(Component component, int index) {
         int[] pos = indexToPos(index);
@@ -119,7 +119,7 @@ public class Simulation {
     /**
      * takes an index and returns its corresponding 2d position
      *
-     * @param index
+     * @param index the index to be converted to a position
      * @return an int array of position (x,y)
      */
     public int[] indexToPos(int index) {
@@ -143,8 +143,8 @@ public class Simulation {
     }
 
     /**
-     *
-     * @return
+     * finds the finishLine in the simulation
+     * @return the finishLine in the simulation
      */
     public FinishLine findFinish() {
         for (Component[] row : this.map) {
@@ -160,8 +160,8 @@ public class Simulation {
     /**
      * Returns a grid position arr(x,y) using absolute positions on the screen, only used for sim display
      *
-     * @param translateX
-     * @param translateY
+     * @param translateX the translateX of the node on the simulation display pane
+     * @param translateY the translateY of the node on the simulation display pane
      * @return an int array of position (x,y)
      */
     public int[] absolutePosToGridPosDisplay(double translateX, double translateY) {
@@ -203,8 +203,8 @@ public class Simulation {
     }
 
     /**
-     *
-     * @return
+     * checks of all the charges are alive
+     * @return true if atleast one charge is alive amongst all the simulations in the simulation list
      */
     public boolean checkAllAlive() {
         boolean alive = false;
@@ -217,7 +217,7 @@ public class Simulation {
     }
 
     /**
-     *
+     * sets up the following generation of simulations when all the charges are dead
      */
     public void setupNextGeneration() {
         if (!checkAllAlive()) {
@@ -237,7 +237,8 @@ public class Simulation {
     }
 
     /**
-     *
+     * mutates all the simulations according to the best performing simulation
+     * scales the learning rate according to the performance of the best simulation
      */
     public void mutateAllSim() {
         int bestFitnessValue = Integer.MAX_VALUE;
@@ -270,7 +271,8 @@ public class Simulation {
     }
 
     /**
-     *
+     * creates the neural network for every simulation
+     * adds the magnetic fields to the simulation
      */
     public static void createBrains() {
         //this part creates decides the values (0 if empty or 1 if other)
@@ -281,7 +283,7 @@ public class Simulation {
                 if (component == null || component.getType().equals(MagneticField.TYPE)){
                     inputMap.add(-1.0);
                     emptyCounter++;
-                }
+                 }
                 else {
                     inputMap.add(1.0);
                 }
@@ -335,7 +337,7 @@ public class Simulation {
     }
 
     /**
-     *
+     * resets all the simulations
      */
     public void resetAllSim() {
         //resets all charges
@@ -351,8 +353,8 @@ public class Simulation {
     }
 
     /**
-     *
-     * @return
+     * calculates the shortest path to the finishline form the Charge
+     * @return the number of squares in the shortest path to the finishLine from the charge
      */
     public int calculateFitnessScore() {
         Charge charge = this.findCharge();
@@ -361,8 +363,8 @@ public class Simulation {
     }
 
     /**
-     *
-     * @return
+     * checks if it is impossible to reach the finishLine in the simulation display
+     * @return true if there is a possible path to the finishLine in the simulation display
      */
     public boolean checkValidPathDisplay() {
         boolean isValid = true;
@@ -375,9 +377,9 @@ public class Simulation {
     }
 
     /**
-     *
-     * @param charge
-     * @return
+     * finds the nearest square in which the charge was on before it died
+     * @param charge the charge in the simulation
+     * @return an array of (x,y) position
      */
     public int[] findNearestEmpty(Charge charge) {
         return absolutePosToGridPos(charge.getTranslateX() - charge.getVelocity()[0] * calculateScale(),
@@ -385,9 +387,9 @@ public class Simulation {
     }
 
     /**
-     *
-     * @param endPosition
-     * @return
+     * finds the shortest path to the finishline from the charge
+     * @param endPosition the final position of the charge before it died
+     * @return the number of squares in the shortest path from the charge to the finishline
      */
     public int calculateShortestPath(int[] endPosition) {
         int[][] distance = new int[GRID_SIZE_X][GRID_SIZE_Y];
@@ -452,18 +454,24 @@ public class Simulation {
         }
         return finalDist;
     }
-
+    
     /**
-     * Returns a grid position arr(x,y) using absolute positions on the screen
+     * Returns a grid position arr(x,y) using absolute positions on the screen, used for all simulations
      *
-     * @param translateX
-     * @param translateY
-     * @return int array with two components
+     * @param translateX the translateX of the node on the simulation pane
+     * @param translateY the translateY of the node on the simulation pane
+     * @return an int array of position (x,y)
      */
     public int[] absolutePosToGridPos(double translateX, double translateY) {
         return new int[]{(int) (translateX / (SQUARE_SIZE * calculateScale())), (int) (translateY / (SQUARE_SIZE * calculateScale()))};
     }
-
+    
+    /**
+     * checks whether there is a square in a certain position
+     * @param row the row of the position of the square being checked
+     * @param col the column of the position of the square being checked
+     * @return true if the row and column are in the simulation
+     */
     private boolean isValid(int row, int col) {
         return row >= 0 && row < GRID_SIZE_X && col >= 0 && col < GRID_SIZE_Y;
     }
@@ -471,8 +479,8 @@ public class Simulation {
     /**
      * takes an int array of position (x,y) and returns its corresponding index
      *
-     * @param pos
-     * @return an int index
+     * @param pos the position of the component
+     * @return an int index of the component
      */
     int posToIndex(int[] pos) {
         return pos[0] * GRID_SIZE_Y + pos[1];
@@ -507,28 +515,10 @@ public class Simulation {
     }
     
     /**
-     *
-     * @return
-     */
-    public static double endScreenScale(){
-        Screen screen = Screen.getPrimary();
-        // Get the bounds of the primary screen
-        Rectangle2D bounds = screen.getVisualBounds();
-        double screenWidth = bounds.getWidth();
-        double screenHeight = bounds.getHeight();
-        double width = SQUARE_SIZE*calculateScale()*GRID_SIZE_X;
-        double height = SQUARE_SIZE*calculateScale()*GRID_SIZE_Y;
-        double realSquareSizeW = screenWidth/width;
-        double realSquareSizeH = screenHeight/height;
-        double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
-        return minSquareSize;
-    }
-    
-    /**
-     *
-     * @param sim
-     * @param displayRoot
-     * @param slider
+     * shows the neural display of the simulation
+     * @param sim the simulation that succeeds
+     * @param displayRoot the pane in which the neural display will be added
+     * @param slider the zoom slider
      */
     private static void showNeuralDisplay(Simulation sim, ScrollPane displayRoot, Slider slider) {
         if (sim != null) {
@@ -553,7 +543,7 @@ public class Simulation {
     }
     
     /**
-     *
+     * shows the end screen that displays the successful simulation
      */
     public static void showEndScreen() {
         if (!isEndScreenShown) {
@@ -589,6 +579,23 @@ public class Simulation {
             stage.setFullScreen(true);
 
         }
+    }
+    
+    /**
+     * sets the square size of the simulations to fit the screen after they all start
+     */
+    public static void calculateSquareSize(){
+        double width = dimensions[0];
+        double height = dimensions[1];
+        double realSquareSizeW = width / GRID_SIZE_X;
+        double realSquareSizeH = height / GRID_SIZE_Y;
+        double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
+        Simulation.SQUARE_SIZE = minSquareSize;
+        MagneticField.square_size = SQUARE_SIZE;
+        FinishLine.square_size = SQUARE_SIZE;
+        Obstacle.square_size = SQUARE_SIZE;
+        Superconductor.square_size = SQUARE_SIZE;
+        Charge.CHARGE_RADIUS = SQUARE_SIZE / 4;
     }
 
     public Pane getSimPane() {
@@ -626,21 +633,6 @@ public class Simulation {
     public ArrayList<Rectangle> getSquareList(){
         return squareList;
     }
-    
-    public static void calculateDisplayScale(){
-        double width = dimensions[0];
-        double height = dimensions[1];
-        double realSquareSizeW = width / GRID_SIZE_X;
-        double realSquareSizeH = height / GRID_SIZE_Y;
-        double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);
-        Simulation.SQUARE_SIZE = minSquareSize;
-        MagneticField.square_size = SQUARE_SIZE;
-        FinishLine.square_size = SQUARE_SIZE;
-        Obstacle.square_size = SQUARE_SIZE;
-        Superconductor.square_size = SQUARE_SIZE;
-        Charge.CHARGE_RADIUS = SQUARE_SIZE / 4;
-    }
-    
 
     public class myTimer extends AnimationTimer {
         @Override

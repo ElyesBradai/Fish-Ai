@@ -23,8 +23,9 @@ public class Charge extends Circle implements Component {
     private double scale = Simulation.calculateScale();
 
     /**
-     * @param startingIndex
-     * @param type
+     * creates a charge in the specified index of the specified type
+     * @param startingIndex the starting index of the charge
+     * @param type the charge type
      */
     public Charge(int startingIndex, ChargeType type) {
         super(CHARGE_RADIUS, Color.RED);
@@ -38,10 +39,10 @@ public class Charge extends Circle implements Component {
     }
     
     /**
-     *
-     * @param startingIndex
-     * @param type
-     * @param speed
+     * creates a charge in the specified index of the specified type with the specied speed
+     * @param speed the speed of the charge
+     * @param startingIndex the starting index of the charge
+     * @param type the charge type
      */
     public Charge(int startingIndex, ChargeType type, double speed) {
         super(CHARGE_RADIUS, Color.RED);
@@ -58,7 +59,7 @@ public class Charge extends Circle implements Component {
     /**
      * makes the charge move based on the component colliding with it
      *
-     * @param component
+     * @param component the component in that charge is colliding with
      */
     public void move(Component component) {
         if (this.isAlive) {
@@ -97,7 +98,7 @@ public class Charge extends Circle implements Component {
     /**
      * returns the component intersecting with this charge
      *
-     * @param component
+     * @param component the component that is colliding
      * @return a string type of component
      */
     public String checkCollisionType(Component component) {
@@ -107,8 +108,8 @@ public class Charge extends Circle implements Component {
     }
     
     /**
-     *
-     * @param newAngle
+     * sets the velocity based on the new angle
+     * @param newAngle the angle of the velocity
      */
     public void setNewVelocity(double newAngle){
         this.velocity = new double[]{speed * Math.cos(newAngle), speed * Math.sin(newAngle), 0};

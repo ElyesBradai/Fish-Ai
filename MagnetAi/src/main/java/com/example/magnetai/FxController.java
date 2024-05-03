@@ -201,7 +201,7 @@ public class FxController {
             Simulation.dimensions[0] = simDisplayPane.getWidth() - 2 * xPadding;
             Simulation.dimensions[1] = simDisplayPane.getHeight();
             simDisplayPane.setAlignment(Pos.TOP_LEFT);
-            Simulation.calculateDisplayScale();
+            Simulation.calculateSquareSize();
             double gridHeight = Simulation.GRID_SIZE_Y * Simulation.SQUARE_SIZE;
             double padding = (simDisplayPane.getHeight()-gridHeight)/2;
             simDisplayPane.setStyle("-fx-background-color: #808080;");

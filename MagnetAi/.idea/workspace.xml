@@ -7,11 +7,10 @@
     <list default="true" id="8e71936f-fdf9-4254-a68c-e279714d1f69" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MenuPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/MenuPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/NeuralDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/NeuralDisplay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/NeuralNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/NeuralNetwork.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/ActivationFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/ActivationFunctions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Charge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Charge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/FxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/FxController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/SimulationDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/SimulationDisplay.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
