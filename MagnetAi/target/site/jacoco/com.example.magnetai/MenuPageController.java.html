@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MenuPageController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MagnetAi</a> &gt; <a href="index.source.html" class="el_package">com.example.magnetai</a> &gt; <span class="el_source">MenuPageController.java</span></div><h1>MenuPageController.java</h1><pre class="source lang-java linenums">package com.example.magnetai;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
+/**
+ * the menuPage controller
+ */
+<span class="nc" id="L19">public class MenuPageController{</span>
+	public Button startmenu;
+	public Button helpmenu;
+	public Button exitmenu;
+	@FXML
+	private Label welcomeText;
+	
+	/**
+	 * initializes the menuPageController
+	 */
+	@FXML
+	public void initialize(){
+<span class="nc" id="L31">		helpmenu.setOnAction(actionEvent -&gt; showHelpPage());</span>
+<span class="nc" id="L32">		startmenu.setOnAction(actionEvent -&gt; {</span>
+			try {
+<span class="nc" id="L34">				showstartmenu();</span>
+<span class="nc" id="L35">				((Stage) startmenu.getScene().getWindow()).close();</span>
+				}
+<span class="nc" id="L37">					catch (IOException e){</span>
+<span class="nc" id="L38">					throw new RuntimeException(e);</span>
+<span class="nc" id="L39">				}</span>
+<span class="nc" id="L40">			});</span>
+<span class="nc" id="L41">		exitmenu.setOnAction(actionEvent -&gt; {</span>
+<span class="nc" id="L42">			System.exit(0);</span>
+<span class="nc" id="L43">		});</span>
+<span class="nc" id="L44">	}</span>
+	
+	/**
+	 * shows the help page.
+	 */
+	public void showHelpPage(){
+<span class="nc" id="L50">		Text text1 = new Text(30, 50, &quot;About&quot;);</span>
+<span class="nc" id="L51">		text1.setFont(new Font(&quot;SansSerif&quot;,40));</span>
+<span class="nc" id="L52">		String text = &quot;&quot;&quot;</span>
+                The goal of this project is to demonstrate the phenomena of magnetic fields by displaying how magnetic fields 
+                are able to redirect the direction of charges. A charge (shown in red in the following visual representation) 
+                will have an initial velocity.e goal of the program is to get the charge to the finish line (in yellow). We will 
+                also implement superconductors (shown in blue) which are squares that are not obstacles for the charge, but for 
+                the magnetic fields. This means that on blue squares, it is impossible to place a magnetic field, but the electron 
+                will not be affected by them.We will also implement an Ai that chooses the location of the magnetic fields and try 
+                to get the best arrangement of the two types of magnetic fields (inwards or outwards) to get the electron as close
+                as possible to the finish line.
+                &quot;&quot;&quot;;
+<span class="nc" id="L62">		Text text2 = new Text(30, 100, text);</span>
+<span class="nc" id="L63">		text2.setFont(new Font(&quot;SansSerif&quot;,17));</span>
+<span class="nc" id="L64">		Text text3 = new Text(30, 200, &quot;Team Members: Elyes Bradai, Ziad Agha, Amine Ait Yakoub&quot;);</span>
+<span class="nc" id="L65">		text3.setFont(new Font(&quot;SansSerif&quot;,10));</span>
+<span class="nc" id="L66">		VBox vbox = new VBox(text1, text2,text3);</span>
+<span class="nc" id="L67">		vbox.setAlignment(Pos.CENTER);</span>
+<span class="nc" id="L68">		Scene scene = new Scene(vbox, 1200, 600);</span>
+<span class="nc" id="L69">		scene.getStylesheets().add(Simulation.class.getResource(&quot;Style.css&quot;).toExternalForm());</span>
+<span class="nc" id="L70">		Stage aboutPageStage = new Stage();</span>
+<span class="nc" id="L71">		aboutPageStage.setTitle(&quot;About Page&quot;);</span>
+<span class="nc" id="L72">		aboutPageStage.setScene(scene);</span>
+<span class="nc" id="L73">		aboutPageStage.show();</span>
+<span class="nc" id="L74">	}</span>
+	
+	/**
+	 * shows start menu.
+	 * @throws IOException
+	 */
+	public void showstartmenu() throws IOException{
+<span class="nc" id="L81">		Stage stage = new Stage();</span>
+<span class="nc" id="L82">		FXMLLoader fxmlloader = new FXMLLoader(MainClass.class.getResource(&quot;oldFX.fxml&quot;));</span>
+<span class="nc" id="L83">		Scene scene = new Scene(fxmlloader.load(), 1300, 1000);</span>
+<span class="nc" id="L84">		scene.getStylesheets().add(getClass().getResource(&quot;Style.css&quot;).toExternalForm());</span>
+<span class="nc" id="L85">		stage.setTitle(&quot;Magnet Ai: Simulation designer&quot;);</span>
+<span class="nc" id="L86">		stage.setScene(scene);</span>
+<span class="nc" id="L87">		stage.setFullScreen(true);</span>
+<span class="nc" id="L88">		stage.show();</span>
+<span class="nc" id="L89">	}</span>
+	
+	@FXML
+	protected void onHelloButtonClick(){
+<span class="nc" id="L93">		welcomeText.setText(&quot;Welcome to JavaFX Application!&quot;);</span>
+<span class="nc" id="L94">	}</span>
+	
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

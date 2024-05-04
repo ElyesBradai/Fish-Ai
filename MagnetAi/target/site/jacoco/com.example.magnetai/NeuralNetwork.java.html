@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NeuralNetwork.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MagnetAi</a> &gt; <a href="index.source.html" class="el_package">com.example.magnetai</a> &gt; <span class="el_source">NeuralNetwork.java</span></div><h1>NeuralNetwork.java</h1><pre class="source lang-java linenums">package com.example.magnetai;
+
+import java.util.Arrays;
+
+/**
+ * This class consists of the design of the neuralNetwork used for our project.
+ */
+public class NeuralNetwork {
+
+    private final HiddenLayer[] hiddenLayers;
+    private final double[][] activations; // weights : lets say the layer 1 has X nb of nodes, and layer 2 Y nb of nodes, then the 2d arr is Component[x][y]
+    // for each &quot;input&quot; node, there is a Y amount of &quot;output&quot; nodes that has its own weight
+    private final float learningRate; // Mutation Rate
+    private final int[] layers;
+
+    /**
+     * creates a neural network.
+     * @param learningRate the learning rate of the neural network
+     * @param layers the array of layers
+     */
+<span class="nc" id="L21">    public NeuralNetwork(float learningRate, int[] layers) {</span>
+<span class="nc" id="L22">        this.learningRate = learningRate;</span>
+<span class="nc" id="L23">        this.layers = layers;</span>
+<span class="nc" id="L24">        activations = new double[layers.length][];</span>
+<span class="nc" id="L25">        hiddenLayers = new HiddenLayer[layers.length - 1];</span>
+<span class="nc" id="L26">        activations[0] = new double[layers[0]];</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        for (int i = 1; i &lt; layers.length; i++) {</span>
+<span class="nc" id="L28">            activations[i] = new double[layers[i]];</span>
+<span class="nc" id="L29">            hiddenLayers[i - 1] = new HiddenLayer(layers[i], layers[i - 1]);</span>
+        }
+<span class="nc" id="L31">    }</span>
+
+    /**
+     * clones an object of NeuralNetwork.
+     * @return the cloned NeuralNetwork.
+     */
+    @Override
+    public NeuralNetwork clone() {
+<span class="nc" id="L39">        NeuralNetwork neuralNetwork = new NeuralNetwork(this.learningRate, this.layers);</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        for (int i = 0; i &lt; this.hiddenLayers.length; i++) {</span>
+<span class="nc" id="L41">            neuralNetwork.hiddenLayers[i] = this.hiddenLayers[i].clone();</span>
+        }
+<span class="nc" id="L43">        return neuralNetwork;</span>
+    }
+    
+    /**
+     * clones an object of NeuralNetwork with the specified learning rate.
+     * @param learningRate the learning rate of the object ot be cloned
+     * @return a clone of this Neural Network,
+     */
+    public NeuralNetwork clone(float learningRate) {
+<span class="nc" id="L52">        NeuralNetwork neuralNetwork = new NeuralNetwork(learningRate, this.layers);</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        for (int i = 0; i &lt; this.hiddenLayers.length; i++) {</span>
+<span class="nc" id="L54">            neuralNetwork.hiddenLayers[i] = this.hiddenLayers[i].clone();</span>
+        }
+<span class="nc" id="L56">        return neuralNetwork;</span>
+    }
+
+    /**
+     * returns an output layer based on the inlut layer.
+     * @param input the input layer
+     * @return the output layer.
+     */
+    public double[] predict(double[] input) {
+<span class="nc" id="L65">        activations[0] = input;</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        for (int i = 0; i &lt; hiddenLayers.length; i++) {</span>
+<span class="nc" id="L67">            activations[i + 1] = hiddenLayers[i].activate(activations[i]);</span>
+        }
+<span class="nc" id="L69">        return activations[activations.length - 1];</span>
+    }
+
+    /**
+     * mutates the hidden layers.
+     */
+    public void mutate() {
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        for (HiddenLayer layer : this.hiddenLayers) {</span>
+<span class="nc" id="L77">            layer.mutate(this.learningRate);</span>
+        }
+<span class="nc" id="L79">    }</span>
+    
+    public double[][] getActivations() {
+<span class="nc" id="L82">        return activations;</span>
+    }
+    
+    public HiddenLayer[] getHiddenLayers() {
+<span class="nc" id="L86">        return hiddenLayers;</span>
+    }
+
+    public float getLearningRate() {
+<span class="nc" id="L90">        return this.learningRate;</span>
+    }
+    
+    public int[] getLayers() {
+<span class="nc" id="L94">        return this.layers;</span>
+    }
+
+
+    public String toString() {
+<span class="nc" id="L99">        String ret = &quot;learning rate : &quot; + this.learningRate + &quot;\n&quot;;</span>
+<span class="nc" id="L100">        ret += &quot;Hidden Layers : &quot; + Arrays.toString(this.hiddenLayers) + &quot;\n&quot;;</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        for (int i = 0; i &lt; this.layers.length; i++) {</span>
+<span class="nc" id="L102">            ret += &quot;Hidden layer &quot; + i + Arrays.toString(this.activations[i]) + &quot;\n&quot;;</span>
+        }
+<span class="nc" id="L104">        ret += &quot;Output layer: &quot; + Arrays.toString(this.activations[this.activations.length - 1]) + &quot;\n&quot;;</span>
+<span class="nc" id="L105">        return ret;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

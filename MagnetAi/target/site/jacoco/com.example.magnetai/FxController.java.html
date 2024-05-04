@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FxController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MagnetAi</a> &gt; <a href="index.source.html" class="el_package">com.example.magnetai</a> &gt; <span class="el_source">FxController.java</span></div><h1>FxController.java</h1><pre class="source lang-java linenums">package com.example.magnetai;
+
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+/**
+ * the controller class for the main page in the application
+ */
+<span class="nc" id="L26">public class FxController {</span>
+
+
+<span class="nc" id="L29">    public static String polarity = null;</span>
+    @FXML
+    public ChoiceBox chargeChoiceBox;
+    @FXML
+    public Button saveButton;
+    @FXML
+    public Button startButton;
+    @FXML
+    public Button resetButton;
+    @FXML
+    public Button recommendedButton;
+    @FXML
+    public TextField velocityTextField;
+    @FXML
+    public TextField velocityTextFieldY;
+    @FXML
+    public Slider velocitySlider;
+    @FXML
+    public Slider velocitySliderY;
+    @FXML
+    public TextField inwardTextField;
+    @FXML
+    public TextField outwardTextField;
+    @FXML
+    public TextField mutationRateTextField;
+    @FXML
+    public TextField HiddenLayersTextField;
+    @FXML
+    public TextField simulationsTextField;
+    @FXML
+    public TextField generationCounterTextField;
+    @FXML
+    public TextField strengthTextField;
+    @FXML
+    public Slider strengthSlider;
+    @FXML
+    public MenuBar menuBar;
+    @FXML
+    public BorderPane borderPane;
+    @FXML
+    public TextField sizeYTextField;
+    @FXML
+    public TextField sizeXTextField;
+    public MenuItem closeButtonMenuBar;
+    public MenuItem deleteButtonMenuBar;
+    public MenuItem aboutButtonMenuBar;
+    Charge c1;
+    SimulationDisplay s1;
+    @FXML
+    private Label welcomeText;
+    @FXML
+    private FlowPane simDisplayPane;
+    @FXML
+    private Circle chargeSelector;
+    @FXML
+    private Rectangle obstacleSelector;
+    @FXML
+    private Rectangle fLSelector;
+    @FXML
+    private Rectangle sCSelector;
+    @FXML
+    private Rectangle eraserSelector;
+<span class="nc" id="L91">    private double speed = 0;</span>
+<span class="nc" id="L92">    private int simulationSize = 0;</span>
+    
+<span class="nc" id="L94">    public static double[] dimension = new double[2];</span>
+    
+    /**
+     * initializes the application.
+     */
+    @FXML
+    public void initialize() {
+<span class="nc" id="L101">        handle();</span>
+<span class="nc" id="L102">        setupMenuBar();</span>
+<span class="nc" id="L103">    }</span>
+    
+    /**
+     * sets up the menu bar.
+     */
+    private void setupMenuBar() {
+<span class="nc" id="L109">        closeButtonMenuBar.setOnAction((ActionEvent t) -&gt; {</span>
+<span class="nc" id="L110">            System.exit(0);</span>
+<span class="nc" id="L111">        });</span>
+<span class="nc" id="L112">        deleteButtonMenuBar.setOnAction(actionEvent -&gt; {</span>
+<span class="nc" id="L113">            s1.emptyDisplay();</span>
+<span class="nc" id="L114">            simDisplayPane.getChildren().remove(s1.getSimPane());</span>
+<span class="nc" id="L115">        });</span>
+<span class="nc" id="L116">        aboutButtonMenuBar.setOnAction(actionEvent -&gt; showaboutpage());</span>
+<span class="nc" id="L117">    }</span>
+    
+    /**
+     * shows the about page
+     */
+    private void showaboutpage(){
+<span class="nc" id="L123">        Text text1 = new Text(30, 50, &quot;About&quot;);</span>
+<span class="nc" id="L124">        text1.setFont(new Font(&quot;SansSerif&quot;,40));</span>
+<span class="nc" id="L125">        String text = &quot;&quot;&quot;</span>
+                The goal of this project is to demonstrate the phenomena of magnetic fields by displaying how magnetic fields 
+                are able to redirect the direction of charges. A charge (shown in red in the following visual representation) 
+                will have an initial velocity.e goal of the program is to get the charge to the finish line (in yellow). We will 
+                also implement superconductors (shown in blue) which are squares that are not obstacles for the charge, but for 
+                the magnetic fields. This means that on blue squares, it is impossible to place a magnetic field, but the electron 
+                will not be affected by them.We will also implement an Ai that chooses the location of the magnetic fields and try 
+                to get the best arrangement of the two types of magnetic fields (inwards or outwards) to get the electron as close
+                as possible to the finish line.
+                &quot;&quot;&quot;;
+<span class="nc" id="L135">        Text text2 = new Text(30, 100, text);</span>
+<span class="nc" id="L136">        text2.setFont(new Font(&quot;SansSerif&quot;,17));</span>
+<span class="nc" id="L137">        Text text3 = new Text(30, 200, &quot;Team Members: Elyes Bradai, Ziad Agha, Amine Ait Yakoub&quot;);</span>
+<span class="nc" id="L138">        text3.setFont(new Font(&quot;SansSerif&quot;,10));</span>
+<span class="nc" id="L139">        VBox vbox = new VBox(text1, text2,text3);</span>
+<span class="nc" id="L140">        vbox.setAlignment(Pos.CENTER);</span>
+<span class="nc" id="L141">        Scene scene = new Scene(vbox, 1200, 600);</span>
+<span class="nc" id="L142">        scene.getStylesheets().add(Simulation.class.getResource(&quot;Style.css&quot;).toExternalForm());</span>
+<span class="nc" id="L143">        Stage aboutPageStage = new Stage();</span>
+<span class="nc" id="L144">        aboutPageStage.setTitle(&quot;About Page&quot;);</span>
+<span class="nc" id="L145">        aboutPageStage.setScene(scene);</span>
+<span class="nc" id="L146">        aboutPageStage.show();</span>
+<span class="nc" id="L147">    }</span>
+
+    /**
+     * sets the UI for the application.
+     */
+    public void handle() {
+<span class="nc" id="L153">        startButton.setOnAction(event -&gt; {</span>
+<span class="nc bnc" id="L154" title="All 6 branches missed.">            if (s1.findFinish() != null &amp;&amp; s1.findCharge() != null &amp;&amp; s1.checkValidPathDisplay()){</span>
+<span class="nc" id="L155">                s1.findCharge().setSpeed(speed);</span>
+<span class="nc" id="L156">                s1.saveDesign();</span>
+<span class="nc" id="L157">                s1.showAllSimulations((Stage)startButton.getScene().getWindow());</span>
+<span class="nc" id="L158">                velocitySlider.setDisable(true);</span>
+                
+            }
+<span class="nc bnc" id="L161" title="All 4 branches missed.">            else if (s1.findFinish() == null || s1.findCharge() == null){</span>
+<span class="nc" id="L162">                Alert alert = new Alert(Alert.AlertType.ERROR,&quot;Please place a Charge and a FinishLine on your map! &quot; ,</span>
+                        ButtonType.OK);
+<span class="nc" id="L164">                alert.initOwner(startButton.getScene().getWindow());</span>
+<span class="nc" id="L165">                alert.show();</span>
+<span class="nc" id="L166">            }</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">            else if (!s1.checkValidPathDisplay()) {</span>
+<span class="nc" id="L168">                Alert noPathAlert = new Alert(Alert.AlertType.ERROR, &quot;Make sure there is a path from the charge to the finish line!&quot;,</span>
+                        ButtonType.OK);
+<span class="nc" id="L170">                noPathAlert.initOwner(startButton.getScene().getWindow());</span>
+<span class="nc" id="L171">                noPathAlert.show();</span>
+            }
+<span class="nc" id="L173">        });</span>
+<span class="nc" id="L174">        resetButton.setOnAction(actionEvent -&gt; {</span>
+<span class="nc" id="L175">            s1.emptyDisplay();</span>
+<span class="nc" id="L176">            simDisplayPane.getChildren().remove(s1.getSimPane());</span>
+<span class="nc" id="L177">        });</span>
+<span class="nc" id="L178">        recommendedButton.setOnAction(actionEvent -&gt; {</span>
+<span class="nc" id="L179">            chargeChoiceBox.setValue(&quot;Proton&quot;);</span>
+<span class="nc" id="L180">            velocitySlider.valueProperty().setValue(3.5);</span>
+<span class="nc" id="L181">            velocityTextField.setText(&quot;3.5&quot;);</span>
+<span class="nc" id="L182">            speed = 3.5;</span>
+<span class="nc" id="L183">            strengthSlider.setValue(1);</span>
+<span class="nc" id="L184">            strengthTextField.setText(&quot;1&quot;);</span>
+<span class="nc" id="L185">            MagneticField.STRENGTH_COEFFICIENT = 0.1;</span>
+<span class="nc" id="L186">            mutationRateTextField.setText(&quot;0.5&quot;);</span>
+<span class="nc" id="L187">            Simulation.mutationRate = 0.5f;</span>
+<span class="nc" id="L188">            HiddenLayersTextField.setText(&quot;n,n,8&quot;);</span>
+<span class="nc" id="L189">            simulationsTextField.setText(&quot;10&quot;);</span>
+<span class="nc" id="L190">            sizeXTextField.setText(&quot;8&quot;);</span>
+<span class="nc" id="L191">            sizeYTextField.setText(&quot;8&quot;);</span>
+<span class="nc" id="L192">        });</span>
+<span class="nc" id="L193">        saveButton.setOnAction(actionEvent -&gt; {</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">            if (s1 != null) {</span>
+<span class="nc" id="L195">                s1.emptyDisplay();</span>
+<span class="nc" id="L196">                simDisplayPane.getChildren().remove(s1.getSimPane());</span>
+<span class="nc" id="L197">                Simulation.getSimulationList().clear();</span>
+            }
+<span class="nc" id="L199">            simulationSize = Integer.parseInt(simulationsTextField.getText());</span>
+<span class="nc" id="L200">            Simulation.mutationRate = Float.valueOf(mutationRateTextField.getText());</span>
+<span class="nc" id="L201">            Simulation.GRID_SIZE_X = Integer.parseInt(sizeXTextField.getText());</span>
+<span class="nc" id="L202">            Simulation.GRID_SIZE_Y = Integer.parseInt(sizeYTextField.getText());</span>
+<span class="nc" id="L203">            int xPadding = 20;</span>
+<span class="nc" id="L204">            Simulation.dimensions[0] = simDisplayPane.getWidth() - 2 * xPadding;</span>
+<span class="nc" id="L205">            Simulation.dimensions[1] = simDisplayPane.getHeight();</span>
+<span class="nc" id="L206">            simDisplayPane.setAlignment(Pos.TOP_LEFT);</span>
+<span class="nc" id="L207">            Simulation.calculateSquareSize();</span>
+<span class="nc" id="L208">            double gridHeight = Simulation.GRID_SIZE_Y * Simulation.SQUARE_SIZE;</span>
+<span class="nc" id="L209">            double padding = (simDisplayPane.getHeight()-gridHeight) / 2;</span>
+<span class="nc" id="L210">            Simulation.layerInput = setupLayers(HiddenLayersTextField.getText());</span>
+<span class="nc" id="L211">            s1 = new SimulationDisplay();</span>
+<span class="nc" id="L212">            simDisplayPane.getChildren().add(s1.getSimPane());</span>
+<span class="nc" id="L213">            createDisplay();</span>
+<span class="nc" id="L214">            s1.bckg();</span>
+<span class="nc" id="L215">            s1.getSimPane().setTranslateY(padding);</span>
+<span class="nc" id="L216">            simDisplayPane.setPadding(new Insets(0,0,0,xPadding));</span>
+<span class="nc" id="L217">            s1.addClickable();</span>
+<span class="nc" id="L218">            startButton.setDisable(false);</span>
+<span class="nc" id="L219">            resetButton.setDisable(false);</span>
+<span class="nc" id="L220">        });</span>
+<span class="nc" id="L221">        chargeChoiceBox.getItems().addAll(&quot;Proton&quot;, &quot;Electron&quot;);</span>
+<span class="nc" id="L222">        chargeChoiceBox.setOnAction(actionEvent -&gt; {</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">            polarity = (chargeChoiceBox.getValue() == null) ? null : chargeChoiceBox.getValue().toString();</span>
+<span class="nc" id="L224">        });</span>
+<span class="nc" id="L225">        velocitySlider.valueProperty().addListener((observableValue, newValue, oldValue) -&gt; {</span>
+<span class="nc" id="L226">            speed = newValue.doubleValue();</span>
+<span class="nc" id="L227">            velocityTextField.setText(newValue.toString());</span>
+<span class="nc" id="L228">        });</span>
+<span class="nc" id="L229">        strengthSlider.valueProperty().addListener((observableValue, newValue, oldValue) -&gt; {</span>
+<span class="nc" id="L230">            MagneticField.STRENGTH_COEFFICIENT = newValue.doubleValue() / 10;</span>
+<span class="nc" id="L231">            strengthTextField.setText(newValue.toString());</span>
+<span class="nc" id="L232">        });</span>
+<span class="nc" id="L233">    }</span>
+
+    /**
+     * creates the simulations and the selector in the display.
+     */
+    public void createDisplay(){
+
+        // Create an object property to hold the selected rectangle
+<span class="nc bnc" id="L241" title="All 2 branches missed.">        for (int i = 0; i &lt; simulationSize; i++) {</span>
+<span class="nc" id="L242">            new Simulation();</span>
+        }
+<span class="nc" id="L244">        ObjectProperty&lt;Shape&gt; selectedShape = new SimpleObjectProperty&lt;&gt;();</span>
+<span class="nc" id="L245">        Circle selected = new Circle(50);</span>
+<span class="nc" id="L246">        selected.setStrokeWidth(3);</span>
+
+        // Bind the fill property of the circle to the fill property of the selected rectangle
+<span class="nc" id="L249">        selected.fillProperty().bind(Bindings.createObjectBinding(() -&gt;</span>
+<span class="nc bnc" id="L250" title="All 2 branches missed.">                selectedShape.get() != null ? selectedShape.get().getFill() : Color.BLACK, selectedShape));</span>
+<span class="nc" id="L251">        chargeSelector.setOnMouseClicked(event -&gt; {</span>
+<span class="nc" id="L252">            s1.setSelectedComponentType(Charge.TYPE);</span>
+<span class="nc" id="L253">            selectedShape.set(chargeSelector);</span>
+<span class="nc" id="L254">        });</span>
+<span class="nc" id="L255">        obstacleSelector.setOnMouseClicked(event -&gt; {</span>
+<span class="nc" id="L256">            s1.setSelectedComponentType(Obstacle.TYPE);</span>
+<span class="nc" id="L257">            selectedShape.set(obstacleSelector);</span>
+<span class="nc" id="L258">        });</span>
+<span class="nc" id="L259">        fLSelector.setOnMouseClicked(event -&gt; {</span>
+<span class="nc" id="L260">            s1.setSelectedComponentType(FinishLine.TYPE);</span>
+<span class="nc" id="L261">            selectedShape.set(fLSelector);</span>
+<span class="nc" id="L262">        });</span>
+<span class="nc" id="L263">        sCSelector.setOnMouseClicked(event -&gt; {</span>
+<span class="nc" id="L264">            s1.setSelectedComponentType(Superconductor.TYPE);</span>
+<span class="nc" id="L265">            selectedShape.set(sCSelector);</span>
+<span class="nc" id="L266">        });</span>
+<span class="nc" id="L267">        eraserSelector.setOnMouseClicked(mouseEvent -&gt;{</span>
+<span class="nc" id="L268">            s1.setSelectedComponentType(&quot;eraser&quot;);</span>
+<span class="nc" id="L269">            selectedShape.set(eraserSelector);</span>
+            
+<span class="nc" id="L271">        });</span>
+<span class="nc" id="L272">    }</span>
+
+    /**
+     * sets up the input layer.
+     * @param layerInput the input layer
+     * @return the array of the input layer.
+     */
+    private int[] setupLayers(String layerInput) {
+        try {
+<span class="nc" id="L281">            String[] neuronsPerLayerArray = layerInput.split(&quot;,&quot;);</span>
+<span class="nc" id="L282">            int[] neuronsPerLayer = new int[neuronsPerLayerArray.length];</span>
+
+            // Convert the string values to integers
+<span class="nc bnc" id="L285" title="All 2 branches missed.">            for (int i = 0; i &lt; neuronsPerLayerArray.length; i++) {</span>
+<span class="nc bnc" id="L286" title="All 2 branches missed.">                if (neuronsPerLayerArray[i].trim().equals(&quot;n&quot;)) {</span>
+<span class="nc" id="L287">                    neuronsPerLayer[i] = Simulation.GRID_SIZE_Y * Simulation.GRID_SIZE_X;</span>
+                }
+                else {
+<span class="nc" id="L290">                    neuronsPerLayer[i] = Integer.parseInt(neuronsPerLayerArray[i].trim());</span>
+                }
+            }
+<span class="nc" id="L293">            return neuronsPerLayer;</span>
+<span class="nc" id="L294">        } catch (NumberFormatException ex) {</span>
+            // Handle the case where the input is not a valid integer
+<span class="nc" id="L296">            System.err.println(&quot;Invalid input. Please enter valid integers for neurons per layer.&quot;);</span>
+        }
+<span class="nc" id="L298">        return null;</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

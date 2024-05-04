@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SimulationDisplay.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MagnetAi</a> &gt; <a href="index.source.html" class="el_package">com.example.magnetai</a> &gt; <span class="el_source">SimulationDisplay.java</span></div><h1>SimulationDisplay.java</h1><pre class="source lang-java linenums">package com.example.magnetai;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+
+/**
+ * the simulation class used in designing the simulations.
+ */
+public class SimulationDisplay extends Simulation {
+    private String selectedComponentType;
+    private boolean isScaled;
+    
+    /**
+     *
+     */
+    public SimulationDisplay() {
+<span class="nc" id="L27">        super();</span>
+<span class="nc" id="L28">        selectedComponentType = &quot;&quot;;</span>
+<span class="nc" id="L29">        isScaled = false;</span>
+<span class="nc" id="L30">    }</span>
+
+    /**
+     * Makes the simulation display clickable and editable to add the components
+     */
+    public void addClickable() {
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        for (Rectangle square : squareList) {</span>
+<span class="nc" id="L37">            square.setOnMouseClicked(event -&gt; {</span>
+<span class="nc" id="L38">                int index = posToIndex(absolutePosToGridPosDisplay(square.getTranslateX(), square.getTranslateY()));</span>
+<span class="nc bnc" id="L39" title="All 7 branches missed.">                switch (this.selectedComponentType) {</span>
+                    case Charge.TYPE -&gt; {
+<span class="nc bnc" id="L41" title="All 2 branches missed.">                        if (FxController.polarity != null) {</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">                            Charge c1 = (FxController.polarity.equals(&quot;Proton&quot;))</span>
+<span class="nc" id="L43">                                    ? new Charge(index, ChargeType.POSITIVE) : new Charge(index, ChargeType.NEGATIVE);</span>
+<span class="nc" id="L44">                            this.addToMap(c1, c1.getIndex());</span>
+<span class="nc" id="L45">                        }</span>
+
+                    }
+                    case Obstacle.TYPE -&gt; {
+<span class="nc" id="L49">                        Obstacle obs = new Obstacle(index);</span>
+<span class="nc" id="L50">                        this.addToMap(obs, obs.getIndex());</span>
+
+<span class="nc" id="L52">                    }</span>
+                    case FinishLine.TYPE -&gt; {
+<span class="nc" id="L54">                        FinishLine finish = new FinishLine(index);</span>
+<span class="nc" id="L55">                        this.addToMap(finish, finish.getIndex());</span>
+
+<span class="nc" id="L57">                    }</span>
+                    case Superconductor.TYPE -&gt; {
+<span class="nc" id="L59">                        Superconductor sup = new Superconductor(index);</span>
+<span class="nc" id="L60">                        this.addToMap(sup, sup.getIndex());</span>
+
+<span class="nc" id="L62">                    }</span>
+                    case MagneticField.TYPE -&gt; {
+<span class="nc" id="L64">                        MagneticField mag = new MagneticField(index, new double[]{0, 0, 0.06});</span>
+<span class="nc" id="L65">                        this.addToMap(mag, mag.getIndex());</span>
+<span class="nc" id="L66">                    } case &quot;eraser&quot; -&gt; {</span>
+<span class="nc" id="L67">                        int[] pos = indexToPos(index);</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">                        if(this.map[pos[0]][pos[1]] != null){</span>
+<span class="nc" id="L69">                            simPane.getChildren().remove(this.map[pos[0]][pos[1]].getBody());</span>
+<span class="nc" id="L70">                            this.map[pos[0]][pos[1]] = null;</span>
+                        }
+<span class="nc" id="L72">                    }</span>
+                    default -&gt; {
+<span class="nc" id="L74">                        Alert alert = new Alert(Alert.AlertType.ERROR,&quot;Please select a valid component before editing the map&quot; ,</span>
+                                ButtonType.OK);
+<span class="nc" id="L76">                        alert.show();</span>
+                    }
+                }
+<span class="nc" id="L79">            });</span>
+<span class="nc" id="L80">        }</span>
+<span class="nc" id="L81">    }</span>
+
+    /**
+     * copies the design from the display and paste it into all simulations
+     */
+    public void saveDesign() {
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        for (Simulation sim : Simulation.getSimulationList()) {</span>
+<span class="nc" id="L88">            Component[][] copiedMap = new Component[map.length][map[0].length];</span>
+            
+<span class="nc bnc" id="L90" title="All 2 branches missed.">            for (int i = 0; i &lt; map.length; i++) {</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">                for (int j = 0; j &lt; map[0].length; j++) {</span>
+                    // Perform deep copy of each Component object
+<span class="nc bnc" id="L93" title="All 2 branches missed.">                    if (map[i][j] != null) {</span>
+<span class="nc" id="L94">                        copiedMap[i][j] = map[i][j].clone();</span>
+<span class="nc" id="L95">                        sim.addToMap(copiedMap[i][j], copiedMap[i][j].getIndex());</span>
+                    }
+                }
+            }
+<span class="nc" id="L99">            sim.map = copiedMap;</span>
+<span class="nc" id="L100">        }</span>
+<span class="nc" id="L101">        createBrains();</span>
+<span class="nc" id="L102">    }</span>
+
+    /**
+     * opens a new stage with all the simulations running
+     */
+    public void showAllSimulations(Stage stage) {
+        //This method opens a window with all the simulations with copied map
+<span class="nc" id="L109">        double scale = calculateScale();</span>
+<span class="nc" id="L110">        Screen screen = Screen.getPrimary();</span>
+<span class="nc" id="L111">        Rectangle2D bounds = screen.getVisualBounds();</span>
+<span class="nc" id="L112">        double screenWidth = bounds.getWidth();</span>
+<span class="nc" id="L113">        double screenHeight = bounds.getHeight();</span>
+<span class="nc" id="L114">        Simulation.getSimulationList().remove(this);</span>
+<span class="nc" id="L115">        root = new FlowPane();</span>
+<span class="nc" id="L116">        ScrollPane scrollPane = new ScrollPane(root);</span>
+<span class="nc" id="L117">        scrollPane.setFitToWidth(false);</span>
+<span class="nc" id="L118">        scrollPane.setFitToHeight(false);</span>
+<span class="nc" id="L119">        root.setAlignment(Pos.TOP_LEFT);</span>
+<span class="nc" id="L120">        root.setPrefWidth(screenWidth);</span>
+<span class="nc" id="L121">        root.setPrefHeight(screenHeight+(GRID_SIZE_Y * SQUARE_SIZE + SQUARE_SIZE) * scale);</span>
+<span class="nc" id="L122">        root.setPadding(new Insets(10,GRID_SIZE_X*SQUARE_SIZE * scale,GRID_SIZE_Y*SQUARE_SIZE * scale,GRID_SIZE_X * SQUARE_SIZE*scale));</span>
+        
+<span class="nc bnc" id="L124" title="All 2 branches missed.">        for (Simulation sim : Simulation.getSimulationList()) {</span>
+<span class="nc" id="L125">            root.getChildren().add(sim.getSimPane());</span>
+<span class="nc" id="L126">        }</span>
+<span class="nc" id="L127">        root.setHgap((GRID_SIZE_X * SQUARE_SIZE + SQUARE_SIZE) * scale);</span>
+<span class="nc" id="L128">        root.setVgap((GRID_SIZE_Y * SQUARE_SIZE + SQUARE_SIZE) * scale);</span>
+<span class="nc" id="L129">        root.setPrefWrapLength(screenWidth);</span>
+
+        //looping through each component to scale them down
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        for (Simulation sim : Simulation.getSimulationList()) {</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">            for (Rectangle square : sim.squareList) {</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">                if (!isScaled) {</span>
+<span class="nc" id="L135">                    square.setWidth(square.getWidth() * scale);</span>
+<span class="nc" id="L136">                    square.setHeight(square.getHeight() * scale);</span>
+<span class="nc" id="L137">                    square.setTranslateX(square.getTranslateX() * scale);</span>
+<span class="nc" id="L138">                    square.setTranslateY(square.getTranslateY() * scale);</span>
+                }
+<span class="nc" id="L140">            }</span>
+<span class="nc bnc" id="L141" title="All 2 branches missed.">            for (Component[] row : sim.map) {</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">                for (Component component : row) {</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">                    if (component != null) {</span>
+<span class="nc bnc" id="L144" title="All 3 branches missed.">                        switch (component.getType()) {</span>
+                            case Obstacle.TYPE , Superconductor.TYPE , FinishLine.TYPE -&gt; {
+<span class="nc" id="L146">                                ((Rectangle) component.getBody()).setWidth(((Rectangle) component.getBody()).getWidth() * scale);</span>
+<span class="nc" id="L147">                                ((Rectangle) component.getBody()).setHeight(((Rectangle) component.getBody()).getHeight() * scale);</span>
+<span class="nc" id="L148">                                component.getBody().setTranslateX(component.getBody().getTranslateX() * scale);</span>
+<span class="nc" id="L149">                                component.getBody().setTranslateY(component.getBody().getTranslateY() * scale);</span>
+<span class="nc" id="L150">                                component.getBody().setStrokeWidth(component.getBody().getStrokeWidth() * scale);</span>
+<span class="nc" id="L151">                            }</span>
+                            case &quot;charge&quot; -&gt; {
+<span class="nc" id="L153">                                ((Circle) component.getBody()).setRadius(((Circle) component.getBody()).getRadius() * scale);</span>
+<span class="nc" id="L154">                                component.getBody().setTranslateX(component.getBody().getTranslateX() * scale);</span>
+<span class="nc" id="L155">                                component.getBody().setTranslateY(component.getBody().getTranslateY() * scale);</span>
+
+                            }
+                        }
+                    }
+                }
+            }
+<span class="nc" id="L162">        }</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">        for (Simulation sim : Simulation.simulationList) {</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">            for (Component[] row : sim.map) {</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">                for (Component charge : row) {</span>
+<span class="nc bnc" id="L166" title="All 4 branches missed.">                    if (charge != null &amp;&amp; charge.getType().equals(Charge.TYPE)) {</span>
+<span class="nc" id="L167">                        charge.getBody().toFront();</span>
+                    }
+                }
+            }
+<span class="nc" id="L171">        }</span>
+<span class="nc" id="L172">        isScaled = true;</span>
+<span class="nc" id="L173">        this.getTimerInstance().start();</span>
+<span class="nc" id="L174">        Scene scene = new Scene(scrollPane,600,600);</span>
+<span class="nc" id="L175">        scene.getStylesheets().add(getClass().getResource(&quot;Style.css&quot;).toExternalForm());</span>
+<span class="nc" id="L176">        stage.setTitle(&quot;Magnet Ai: Training simulations&quot;);</span>
+<span class="nc" id="L177">        stage.setScene(scene);</span>
+<span class="nc" id="L178">        stage.setFullScreen(true);</span>
+<span class="nc" id="L179">    }</span>
+
+    public void setSelectedComponentType(String selectedComponentType) {
+<span class="nc" id="L182">        this.selectedComponentType = selectedComponentType;</span>
+<span class="nc" id="L183">    }</span>
+
+    public void emptyDisplay() {
+<span class="nc bnc" id="L186" title="All 2 branches missed.">        for (Component[] row : this.map) {</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">            for (Component comp : row) {</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">                if (comp != null) {</span>
+<span class="nc" id="L189">                    this.simPane.getChildren().remove(comp.getBody());</span>
+                }
+            }
+        }
+<span class="nc" id="L193">        this.map = new Component[GRID_SIZE_X][GRID_SIZE_Y];</span>
+
+<span class="nc" id="L195">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

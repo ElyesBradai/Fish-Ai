@@ -90,4 +90,5 @@ public class TestMain {
         assertEquals(-1.0, ActivationFunctions.tanh(-100), 0.001);
         assertEquals(0.986, ActivationFunctions.tanh(2.5), 0.001);
     }
+    
 }

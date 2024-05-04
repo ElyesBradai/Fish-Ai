@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Simulation.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MagnetAi</a> &gt; <a href="index.source.html" class="el_package">com.example.magnetai</a> &gt; <span class="el_source">Simulation.java</span></div><h1>Simulation.java</h1><pre class="source lang-java linenums">package com.example.magnetai;
+
+import javafx.animation.AnimationTimer;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+
+import java.util.*;
+
+/**
+ * the simulation class manages every simulation and simulation pane.
+ */
+public class Simulation {
+    public static int GRID_SIZE_X;
+    public static int GRID_SIZE_Y;
+    public static double SQUARE_SIZE;
+<span class="nc" id="L28">    public static int generationCounter = 0;</span>
+    public static int[] layerInput;
+    public static float mutationRate;
+<span class="nc" id="L31">    private static boolean isSolved = false;</span>
+    public static double universalScale;
+<span class="nc" id="L33">    public static boolean isScaleCalculated = false;</span>
+<span class="nc" id="L34">    private static boolean isEndScreenShown = false;</span>
+<span class="nc" id="L35">    private static Simulation bestFitnessSim = null;</span>
+    public static FlowPane root;
+    public static NeuralDisplay neuralDisplay;
+<span class="nc" id="L38">    public static ArrayList&lt;Simulation&gt; simulationList = new ArrayList();</span>
+<span class="nc" id="L39">    private final myTimer timer = new myTimer(); // timer is a singleton within the class</span>
+<span class="nc" id="L40">    private final int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};</span>
+    Component[][] map;
+    Pane simPane;
+<span class="nc" id="L43">    public static double[] dimensions = new double[2];</span>
+    
+
+    ArrayList&lt;Rectangle&gt; squareList;
+    private NeuralNetwork brain;
+    int fitnessScore;
+
+    /**
+     * creates an object of Simulation.
+     */
+<span class="nc" id="L53">    public Simulation() {</span>
+<span class="nc" id="L54">        map = new Component[GRID_SIZE_X][GRID_SIZE_Y];</span>
+<span class="nc" id="L55">        simPane = new Pane();</span>
+<span class="nc" id="L56">        squareList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L57">        simulationList.add(this);</span>
+<span class="nc" id="L58">        fitnessScore = Integer.MAX_VALUE;</span>
+<span class="nc" id="L59">        brain = null;</span>
+<span class="nc" id="L60">    }</span>
+
+    public static ArrayList&lt;Simulation&gt; getSimulationList() {
+<span class="nc" id="L63">        return simulationList;</span>
+    }
+
+    /**
+     * draws a background of tiles.
+     */
+    void bckg() {
+<span class="nc" id="L70">        boolean isColored = true;</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        for (int i = 0; i &lt; map.length; i++) {</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (map[0].length % 2 == 0) {</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">                isColored = !isColored;</span>
+            }
+<span class="nc bnc" id="L75" title="All 2 branches missed.">            for (int j = 0; j &lt; map[i].length; j++) {</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">                isColored = !isColored;</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">                Rectangle temp = new Rectangle(SQUARE_SIZE, SQUARE_SIZE, isColored ? Color.BROWN : Color.BEIGE);</span>
+<span class="nc" id="L78">                simPane.getChildren().add(temp);</span>
+<span class="nc" id="L79">                squareList.add(temp);</span>
+<span class="nc" id="L80">                temp.setTranslateX(i * SQUARE_SIZE);</span>
+<span class="nc" id="L81">                temp.setTranslateY(j * SQUARE_SIZE);</span>
+            }
+        }
+<span class="nc" id="L84">    }</span>
+
+    /**
+     * add the specified component at the specified index.
+     * a charge and a finishline can only be added once.
+     * @param component the component to be added
+     * @param index the index where the component will be added
+     */
+    public void addToMap(Component component, int index) {
+<span class="nc" id="L93">        int[] pos = indexToPos(index);</span>
+<span class="nc bnc" id="L94" title="All 4 branches missed.">        if (component.getType().equals(Charge.TYPE) &amp;&amp; findCharge() != null) {</span>
+<span class="nc" id="L95">            Charge charge = findCharge();</span>
+<span class="nc" id="L96">            int[] posOfCharge = indexToPos(charge.getIndex());</span>
+<span class="nc" id="L97">            simPane.getChildren().remove(charge.getBody());</span>
+<span class="nc" id="L98">            map[posOfCharge[0]][posOfCharge[1]] = null;</span>
+        }
+<span class="nc bnc" id="L100" title="All 4 branches missed.">        if (component.getType().equals(FinishLine.TYPE) &amp;&amp; findFinish() != null) {</span>
+<span class="nc" id="L101">            FinishLine fl = findFinish();</span>
+<span class="nc" id="L102">            int[] posOfCharge = indexToPos(fl.getIndex());</span>
+<span class="nc" id="L103">            simPane.getChildren().remove(fl.getBody());</span>
+<span class="nc" id="L104">            map[posOfCharge[0]][posOfCharge[1]] = null;</span>
+        }
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (map[pos[0]][pos[1]] == null) {</span>
+<span class="nc" id="L107">            simPane.getChildren().add(component.getBody());</span>
+        } else {
+<span class="nc" id="L109">            simPane.getChildren().remove(map[pos[0]][pos[1]].getBody());</span>
+<span class="nc" id="L110">            simPane.getChildren().add(component.getBody());</span>
+        }
+<span class="nc" id="L112">        map[pos[0]][pos[1]] = component;</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">        boolean isObstacle = component.getType().equals(Obstacle.TYPE)</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">                || component.getType().equals(Superconductor.TYPE)</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">                || component.getType().equals(FinishLine.TYPE)</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">                || component.getType().equals(MagneticField.TYPE);</span>
+
+<span class="nc bnc" id="L118" title="All 2 branches missed.">        component.getBody().setTranslateX(isObstacle ? pos[0] * SQUARE_SIZE : pos[0] * SQUARE_SIZE + SQUARE_SIZE / 2);</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">        component.getBody().setTranslateY(isObstacle ? pos[1] * SQUARE_SIZE : pos[1] * SQUARE_SIZE + SQUARE_SIZE / 2);</span>
+<span class="nc" id="L120">    }</span>
+
+    /**
+     * takes an index and returns its corresponding 2d position.
+     * @param index the index to be converted to a position
+     * @return an int array of position (x,y).
+     */
+    public int[] indexToPos(int index) {
+<span class="nc" id="L128">        return new int[]{index / map[0].length, index % map[0].length};</span>
+    }
+
+    /**
+     * finds the charge in the simulation.
+     *
+     * @return charge of this simulation.
+     */
+    public Charge findCharge() {
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        for (Component[] row : this.map) {</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">            for (Component comp : row) {</span>
+<span class="nc bnc" id="L139" title="All 4 branches missed.">                if (comp != null &amp;&amp; comp.getType().equals(Charge.TYPE)) {</span>
+<span class="nc" id="L140">                    return (Charge) comp;</span>
+                }
+            }
+        }
+<span class="nc" id="L144">        return null;</span>
+    }
+
+    /**
+     * finds the finishLine in the simulation.
+     * @return the finishLine in the simulation.
+     */
+    public FinishLine findFinish() {
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        for (Component[] row : this.map) {</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">            for (Component comp : row) {</span>
+<span class="nc bnc" id="L154" title="All 4 branches missed.">                if (comp != null &amp;&amp; comp.getType().equals(FinishLine.TYPE)) {</span>
+<span class="nc" id="L155">                    return (FinishLine) comp;</span>
+                }
+            }
+        }
+<span class="nc" id="L159">        return null;</span>
+    }
+
+    /**
+     * returns a grid position arr(x,y) using absolute positions on the screen, only used for sim display.
+     *
+     * @param translateX the translateX of the node on the simulation display pane
+     * @param translateY the translateY of the node on the simulation display pane
+     * @return an int array of position (x,y).
+     */
+    public int[] absolutePosToGridPosDisplay(double translateX, double translateY) {
+<span class="nc" id="L170">        return new int[]{(int) (translateX / SQUARE_SIZE), (int) (translateY / SQUARE_SIZE)};</span>
+    }
+
+    /**
+     * calls the move method for the charge in all simulations.
+     */
+    public void moveAllCharges() {
+<span class="nc bnc" id="L177" title="All 2 branches missed.">        for (Simulation sim : simulationList) {</span>
+<span class="nc bnc" id="L178" title="All 2 branches missed.">            for (Component[] row : sim.map) {</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">                for (Component charge : row) {</span>
+<span class="nc bnc" id="L180" title="All 6 branches missed.">                    if (charge != null &amp;&amp; charge.getType().equals(Charge.TYPE) &amp;&amp; ((Charge) charge).isAlive()) {</span>
+<span class="nc" id="L181">                        Charge tempCharge = (Charge) charge;</span>
+<span class="nc" id="L182">                        tempCharge.move(sim.checkCollision());</span>
+
+<span class="nc bnc" id="L184" title="All 4 branches missed.">                        if (tempCharge.getTranslateX() &lt; 0 || tempCharge.getTranslateX() &gt; (SQUARE_SIZE * calculateScale()) * GRID_SIZE_X) {</span>
+<span class="nc" id="L185">                            tempCharge.setAlive(false);</span>
+                        }
+<span class="nc bnc" id="L187" title="All 4 branches missed.">                        if (tempCharge.getTranslateY() &lt; 0 || tempCharge.getTranslateY() &gt; (SQUARE_SIZE * calculateScale()) * GRID_SIZE_Y) {</span>
+<span class="nc" id="L188">                            tempCharge.setAlive(false);</span>
+                        }
+                    }
+                }
+            }
+<span class="nc" id="L193">        }</span>
+<span class="nc" id="L194">    }</span>
+
+    /**
+     * returns the component colliding with the charge.
+     *
+     * @return the component colliding with the charge.
+     */
+    public Component checkCollision() {
+<span class="nc" id="L202">        Charge charge = this.findCharge();</span>
+<span class="nc" id="L203">        int[] componentPos = absolutePosToGridPos(charge.getTranslateX(), charge.getTranslateY());</span>
+<span class="nc" id="L204">        return this.map[componentPos[0]][componentPos[1]];</span>
+    }
+
+    /**
+     * checks of all the charges are alive.
+     * @return true if atleast one charge is alive amongst all the simulations in the simulation list.
+     */
+    public boolean checkAllAlive() {
+<span class="nc" id="L212">        boolean alive = false;</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">        for (Simulation sim : simulationList) {</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">            if (sim.findCharge().isAlive) {</span>
+<span class="nc" id="L215">                alive = true;</span>
+            }
+<span class="nc" id="L217">        }</span>
+<span class="nc" id="L218">        return alive;</span>
+    }
+
+    /**
+     * sets up the following generation of simulations when all the charges are dead.
+     */
+    public void setupNextGeneration() {
+<span class="nc bnc" id="L225" title="All 2 branches missed.">        if (!checkAllAlive()) {</span>
+<span class="nc bnc" id="L226" title="All 2 branches missed.">            for (Simulation sim : simulationList) {</span>
+<span class="nc" id="L227">                sim.setFitnessScore(sim.calculateFitnessScore());</span>
+<span class="nc" id="L228">            }</span>
+<span class="nc" id="L229">            resetAllSim();</span>
+<span class="nc bnc" id="L230" title="All 2 branches missed.">            if (!isSolved) {</span>
+<span class="nc" id="L231">                mutateAllSim();</span>
+<span class="nc" id="L232">                createBrains();</span>
+<span class="nc" id="L233">                System.out.println(++generationCounter);</span>
+            }
+            else {
+<span class="nc" id="L236">                showEndScreen();</span>
+            }
+        }
+<span class="nc" id="L239">    }</span>
+
+    /**
+     * mutates all the simulations according to the best performing simulation.
+     * scales the learning rate according to the performance of the best simulation.
+     */
+    public void mutateAllSim() {
+<span class="nc" id="L246">        int bestFitnessValue = Integer.MAX_VALUE;</span>
+<span class="nc" id="L247">        Simulation solvedSim = null;</span>
+<span class="nc bnc" id="L248" title="All 2 branches missed.">        for (Simulation sim : simulationList) {</span>
+<span class="nc" id="L249">            int currentFitness = sim.getFitnessScore();</span>
+<span class="nc bnc" id="L250" title="All 2 branches missed.">            if (currentFitness &lt; bestFitnessValue) {</span>
+<span class="nc" id="L251">                bestFitnessSim = sim;</span>
+<span class="nc" id="L252">                bestFitnessValue = currentFitness;</span>
+<span class="nc bnc" id="L253" title="All 2 branches missed.">                if (sim.findCharge().isFinished()) {</span>
+<span class="nc" id="L254">                    solvedSim = sim;</span>
+<span class="nc" id="L255">                    bestFitnessSim = sim;</span>
+<span class="nc" id="L256">                    break;</span>
+                }
+            }
+<span class="nc" id="L259">        }</span>
+<span class="nc" id="L260">        float baseLearningRate = bestFitnessSim.getBrain().getLearningRate();</span>
+<span class="nc" id="L261">        float minLearningRate = 0.05f;</span>
+<span class="nc" id="L262">        float scaledLearningRate = baseLearningRate / (fitnessScore + minLearningRate);</span>
+        // Ensure the learning rate doesn't exceed the base learning rate or go below the minimum
+<span class="nc" id="L264">        scaledLearningRate = Math.max(minLearningRate, scaledLearningRate);</span>
+<span class="nc" id="L265">        scaledLearningRate = Math.min(baseLearningRate, scaledLearningRate);</span>
+<span class="nc bnc" id="L266" title="All 2 branches missed.">        for (Simulation sim : simulationList) {</span>
+<span class="nc bnc" id="L267" title="All 4 branches missed.">            if (sim != bestFitnessSim &amp;&amp; sim != solvedSim) {</span>
+<span class="nc bnc" id="L268" title="All 2 branches missed.">                sim.setBrain(solvedSim == null ? bestFitnessSim.getBrain().clone(scaledLearningRate) : solvedSim.getBrain().clone(scaledLearningRate));</span>
+<span class="nc" id="L269">                sim.getBrain().mutate();</span>
+<span class="nc" id="L270">                sim.setFitnessScore(Integer.MAX_VALUE);</span>
+            }
+<span class="nc" id="L272">        }</span>
+<span class="nc" id="L273">    }</span>
+
+    /**
+     * creates the neural network for every simulation.
+     * adds the magnetic fields to the simulation.
+     */
+    public static void createBrains() {
+        //this part creates decides the values (0 if empty or 1 if other)
+<span class="nc" id="L281">        int emptyCounter = 0;</span>
+<span class="nc" id="L282">        Deque&lt;Double&gt; inputMap = new ArrayDeque();</span>
+<span class="nc bnc" id="L283" title="All 2 branches missed.">        for (Component[] row : simulationList.get(0).map) {</span>
+<span class="nc bnc" id="L284" title="All 2 branches missed.">            for (Component component: row) {</span>
+<span class="nc bnc" id="L285" title="All 4 branches missed.">                if (component == null || component.getType().equals(MagneticField.TYPE)){</span>
+<span class="nc" id="L286">                    inputMap.add(-1.0);</span>
+<span class="nc" id="L287">                    emptyCounter++;</span>
+                 }
+                else {
+<span class="nc" id="L290">                    inputMap.add(1.0);</span>
+                }
+            }
+        }
+
+        //this part creates the brain (neural network) and call the predict method
+<span class="nc bnc" id="L296" title="All 2 branches missed.">        for (Simulation sim : simulationList) {</span>
+<span class="nc" id="L297">            int counter = 1; //to use within the empty array</span>
+<span class="nc bnc" id="L298" title="All 2 branches missed.">            if (sim.getBrain() == null)</span>
+                {
+<span class="nc" id="L300">                    Deque&lt;Integer&gt; allLayersList = new ArrayDeque&lt;Integer&gt;();</span>
+<span class="nc bnc" id="L301" title="All 2 branches missed.">                    if (layerInput != null)</span>
+                    {
+<span class="nc bnc" id="L303" title="All 2 branches missed.">                        for (int nbNeurons : layerInput) {</span>
+<span class="nc" id="L304">                            allLayersList.add(nbNeurons);</span>
+                        }
+                    }
+<span class="nc" id="L307">                    allLayersList.addFirst(GRID_SIZE_X * GRID_SIZE_Y);</span>
+<span class="nc" id="L308">                    allLayersList.addLast(emptyCounter + 1);</span>
+<span class="nc" id="L309">                    int[] input = allLayersList.stream().mapToInt(Integer::intValue).toArray();</span>
+<span class="nc" id="L310">                    sim.setBrain(new NeuralNetwork(mutationRate, input));</span>
+                }
+<span class="nc" id="L312">            double[] predictions = sim.getBrain().predict(inputMap.stream().mapToDouble(Double::doubleValue).toArray());</span>
+<span class="nc" id="L313">            double angle = predictions[0] * Math.PI; //index 0 is the angle for the charge and the rest is the strength</span>
+<span class="nc" id="L314">            Charge charge = sim.findCharge();</span>
+<span class="nc" id="L315">            charge.setAngle(angle);</span>
+<span class="nc" id="L316">            charge.setNewVelocity(angle);</span>
+<span class="nc" id="L317">            int index = 0;</span>
+<span class="nc bnc" id="L318" title="All 2 branches missed.">            for (Component[] row : sim.map) {</span>
+<span class="nc bnc" id="L319" title="All 2 branches missed.">                for (Component component : row) {</span>
+<span class="nc bnc" id="L320" title="All 4 branches missed.">                    if (component == null || component.getType().equals(MagneticField.TYPE)) {</span>
+<span class="nc" id="L321">                        component = new MagneticField(index, new double[] {0, 0, predictions[counter]*MagneticField.STRENGTH_COEFFICIENT});</span>
+<span class="nc" id="L322">                        sim.addToMap(component, component.getIndex());</span>
+<span class="nc" id="L323">                        double scale = calculateScale();</span>
+<span class="nc" id="L324">                        ((Rectangle) component.getBody()).setWidth(((Rectangle) component.getBody()).getWidth() * scale);</span>
+<span class="nc" id="L325">                        ((Rectangle) component.getBody()).setHeight(((Rectangle) component.getBody()).getHeight() * scale);</span>
+<span class="nc" id="L326">                        component.getBody().setTranslateX(component.getBody().getTranslateX() * scale);</span>
+<span class="nc" id="L327">                        component.getBody().setTranslateY(component.getBody().getTranslateY() * scale);</span>
+<span class="nc" id="L328">                        component.getBody().setStrokeWidth(component.getBody().getStrokeWidth() * scale);</span>
+<span class="nc bnc" id="L329" title="All 2 branches missed.">                        if (((MagneticField)component).getStrength()[2] &gt; 0) {</span>
+<span class="nc" id="L330">                            component.getBody().setFill(Color.DARKGREEN);</span>
+                        }
+<span class="nc" id="L332">                        counter++;</span>
+                    }
+<span class="nc" id="L334">                    sim.findCharge().toFront();</span>
+<span class="nc" id="L335">                    index++;</span>
+                }
+            }
+<span class="nc" id="L338">        }</span>
+<span class="nc" id="L339">    }</span>
+
+    /**
+     * resets all the simulations.
+     */
+    public void resetAllSim() {
+        //resets all charges
+<span class="nc bnc" id="L346" title="All 2 branches missed.">        for (Simulation sim : simulationList) {</span>
+<span class="nc" id="L347">            Charge charge = sim.findCharge();</span>
+<span class="nc" id="L348">            int[] pos = indexToPos(charge.getIndex());</span>
+<span class="nc" id="L349">            charge.getBody().setTranslateX((pos[0] * SQUARE_SIZE + SQUARE_SIZE / 2) * calculateScale());</span>
+<span class="nc" id="L350">            charge.getBody().setTranslateY((pos[1] * SQUARE_SIZE + SQUARE_SIZE / 2) * calculateScale());</span>
+<span class="nc" id="L351">            charge.setAlive(true);</span>
+<span class="nc" id="L352">            charge.setSpeed(charge.getSpeed());</span>
+<span class="nc" id="L353">            charge.setNewVelocity(charge.getAngle());</span>
+<span class="nc" id="L354">        }</span>
+<span class="nc" id="L355">    }</span>
+
+    /**
+     * calculates the shortest path to the finishLine form the Charge.
+     * @return the number of squares in the shortest path to the finishLine from the charge.
+     */
+    public int calculateFitnessScore() {
+<span class="nc" id="L362">        Charge charge = this.findCharge();</span>
+<span class="nc" id="L363">        int[] endPosition = findNearestEmpty(charge);</span>
+<span class="nc" id="L364">        return calculateShortestPath(endPosition);</span>
+    }
+
+    /**
+     * checks if it is impossible to reach the finishLine in the simulation display.
+     * @return true if there is a possible path to the finishLine in the simulation display.
+     */
+    public boolean checkValidPathDisplay() {
+<span class="nc" id="L372">        boolean isValid = true;</span>
+<span class="nc" id="L373">        Charge charge = this.findCharge();</span>
+<span class="nc" id="L374">        int[] endPosition = absolutePosToGridPosDisplay(charge.getTranslateX(), charge.getTranslateY());</span>
+<span class="nc bnc" id="L375" title="All 2 branches missed.">        if (calculateShortestPath(endPosition) == -1){</span>
+<span class="nc" id="L376">            isValid = false;</span>
+        }
+<span class="nc" id="L378">        return isValid;</span>
+    }
+
+    /**
+     * finds the nearest square in which the charge was on before it died.
+     * @param charge the charge in the simulation
+     * @return an array of (x,y) position.
+     */
+    public int[] findNearestEmpty(Charge charge) {
+<span class="nc" id="L387">        return absolutePosToGridPos(charge.getTranslateX() - charge.getVelocity()[0] * calculateScale(),</span>
+<span class="nc" id="L388">                                    charge.getTranslateY() - charge.getVelocity()[1] * calculateScale());</span>
+    }
+
+    /**
+     * finds the shortest path to the finishLine from the charge.
+     * @param endPosition the final position of the charge before it died
+     * @return the number of squares in the shortest path from the charge to the finishLine.
+     */
+    public int calculateShortestPath(int[] endPosition) {
+<span class="nc" id="L397">        int[][] distance = new int[GRID_SIZE_X][GRID_SIZE_Y];</span>
+<span class="nc" id="L398">        int finalDist = -1;</span>
+<span class="nc bnc" id="L399" title="All 2 branches missed.">        for (int[] row : distance) {</span>
+<span class="nc" id="L400">            Arrays.fill(row, Integer.MAX_VALUE);</span>
+        }
+<span class="nc" id="L402">        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; a[2] - b[2]); // {row, col, distance}</span>
+
+
+<span class="nc" id="L405">        pq.offer(new int[]{endPosition[0], endPosition[1], 0});</span>
+<span class="nc" id="L406">        distance[endPosition[0]][endPosition[1]] = 0;</span>
+
+<span class="nc bnc" id="L408" title="All 2 branches missed.">        while (!pq.isEmpty()) {</span>
+<span class="nc" id="L409">            int[] current = pq.poll();</span>
+<span class="nc" id="L410">            int row = current[0];</span>
+<span class="nc" id="L411">            int col = current[1];</span>
+<span class="nc" id="L412">            int dist = current[2];</span>
+
+            // Reached finish line
+<span class="nc bnc" id="L415" title="All 4 branches missed.">            if (map[row][col] != null &amp;&amp; map[row][col].getType().equals(FinishLine.TYPE)) {</span>
+<span class="nc" id="L416">                finalDist = dist;</span>
+            }
+
+<span class="nc bnc" id="L419" title="All 2 branches missed.">            for (int[] dir : directions) {</span>
+<span class="nc" id="L420">                int newRow = row + dir[0];</span>
+<span class="nc" id="L421">                int newCol = col + dir[1];</span>
+<span class="nc bnc" id="L422" title="All 4 branches missed.">                if (isValid(newRow, newCol) &amp;&amp;</span>
+                        (map[newRow][newCol] == null ||
+<span class="nc bnc" id="L424" title="All 2 branches missed.">                                map[newRow][newCol].getType().equals(Charge.TYPE) ||</span>
+<span class="nc bnc" id="L425" title="All 2 branches missed.">                                map[newRow][newCol].getType().equals(FinishLine.TYPE) ||</span>
+<span class="nc bnc" id="L426" title="All 2 branches missed.">                                map[newRow][newCol].getType().equals(Superconductor.TYPE) ||</span>
+<span class="nc bnc" id="L427" title="All 2 branches missed.">                                map[newRow][newCol].getType().equals(MagneticField.TYPE))) {</span>
+<span class="nc" id="L428">                    int newDist = dist + 1;</span>
+<span class="nc bnc" id="L429" title="All 2 branches missed.">                    if (newDist &lt; distance[newRow][newCol]) {</span>
+<span class="nc" id="L430">                        distance[newRow][newCol] = newDist;</span>
+<span class="nc" id="L431">                        pq.offer(new int[]{newRow, newCol, newDist});</span>
+                    }
+                }
+            }
+<span class="nc" id="L435">        }</span>
+<span class="nc" id="L436">        int maxLoop = 0;</span>
+<span class="nc" id="L437">        int[] current = indexToPos(findFinish().getIndex());</span>
+<span class="nc" id="L438">        int steps = distance[current[0]][current[1]];</span>
+<span class="nc bnc" id="L439" title="All 2 branches missed.">        while (steps &gt; 0) {</span>
+<span class="nc bnc" id="L440" title="All 2 branches missed.">            if (maxLoop &gt;= Math.pow(GRID_SIZE_X * GRID_SIZE_Y + 1,2)) {</span>
+<span class="nc" id="L441">                break;</span>
+            }
+<span class="nc bnc" id="L443" title="All 2 branches missed.">            for (int[] dir : directions) {</span>
+<span class="nc" id="L444">                int newRow = current[0] + dir[0];</span>
+<span class="nc" id="L445">                int newCol = current[1] + dir[1];</span>
+<span class="nc bnc" id="L446" title="All 4 branches missed.">                if (isValid(newRow, newCol) &amp;&amp; distance[newRow][newCol] == steps - 1) {</span>
+<span class="nc" id="L447">                    current = new int[]{newRow, newCol};</span>
+<span class="nc" id="L448">                    steps--;</span>
+<span class="nc" id="L449">                    break;</span>
+                }
+            }
+<span class="nc" id="L452">            maxLoop++;</span>
+        }
+<span class="nc" id="L454">        return finalDist;</span>
+    }
+    
+    /**
+     * returns a grid position arr(x,y) using absolute positions on the screen, used for all simulations.
+     *
+     * @param translateX the translateX of the node on the simulation pane
+     * @param translateY the translateY of the node on the simulation pane
+     * @return an int array of position (x,y).
+     */
+    public int[] absolutePosToGridPos(double translateX, double translateY) {
+<span class="nc" id="L465">        return new int[]{(int) (translateX / (SQUARE_SIZE * calculateScale())), (int) (translateY / (SQUARE_SIZE * calculateScale()))};</span>
+    }
+    
+    /**
+     * checks whether there is a square in a certain position.
+     * @param row the row of the position of the square being checked
+     * @param col the column of the position of the square being checked
+     * @return true if the row and column are in the simulation.
+     */
+    private boolean isValid(int row, int col) {
+<span class="nc bnc" id="L475" title="All 8 branches missed.">        return row &gt;= 0 &amp;&amp; row &lt; GRID_SIZE_X &amp;&amp; col &gt;= 0 &amp;&amp; col &lt; GRID_SIZE_Y;</span>
+    }
+
+    /**
+     * takes an int array of position (x,y) and returns its corresponding index.
+     *
+     * @param pos the position of the component
+     * @return an int index of the component.
+     */
+    int posToIndex(int[] pos) {
+<span class="nc" id="L485">        return pos[0] * GRID_SIZE_Y + pos[1];</span>
+    }
+
+    /**
+     * calculates the scale depending on the number of simulations.
+     *
+     * @return double array(scaleX,scaleY).
+     */
+    public static double calculateScale() {
+<span class="nc bnc" id="L494" title="All 2 branches missed.">        if (!isScaleCalculated) {</span>
+<span class="nc" id="L495">        Screen screen = Screen.getPrimary();</span>
+<span class="nc" id="L496">        Rectangle2D bounds = screen.getVisualBounds();</span>
+<span class="nc" id="L497">        double screenWidth = bounds.getWidth();</span>
+<span class="nc" id="L498">        double screenHeight = bounds.getHeight();</span>
+<span class="nc" id="L499">        double realSquareSizeW = screenWidth/ GRID_SIZE_X;</span>
+<span class="nc" id="L500">        double realSquareSizeH = screenHeight/ GRID_SIZE_Y;</span>
+<span class="nc" id="L501">        double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);</span>
+<span class="nc" id="L502">        double ratioSquareSize = minSquareSize/ SQUARE_SIZE;</span>
+<span class="nc" id="L503">        int numSimulations = Simulation.getSimulationList().size();</span>
+<span class="nc" id="L504">        double numRows = Math.sqrt(numSimulations);</span>
+<span class="nc" id="L505">        double numCols = ((double) numSimulations / numRows);</span>
+<span class="nc" id="L506">        double maxDimension = Math.max(numRows, numCols);</span>
+<span class="nc" id="L507">        double scale = 1.0 / maxDimension;</span>
+        
+<span class="nc" id="L509">        isScaleCalculated = true;</span>
+<span class="nc" id="L510">        universalScale = ratioSquareSize * scale;</span>
+<span class="nc" id="L511">        return ratioSquareSize * scale;</span>
+        }
+<span class="nc" id="L513">        else return universalScale;</span>
+    }
+    
+    /**
+     * shows the neural display of the simulation.
+     * @param sim the simulation that succeeds
+     * @param displayRoot the pane in which the neural display will be added
+     * @param slider the zoom slider
+     */
+    private static void showNeuralDisplay(Simulation sim, ScrollPane displayRoot, Slider slider) {
+<span class="nc bnc" id="L523" title="All 2 branches missed.">        if (sim != null) {</span>
+<span class="nc bnc" id="L524" title="All 2 branches missed.">            if (displayRoot.getContent() != null) {</span>
+<span class="nc" id="L525">                displayRoot.setContent(null);</span>
+            }
+<span class="nc" id="L527">            neuralDisplay = new NeuralDisplay(sim);</span>
+<span class="nc" id="L528">            displayRoot.setContent(neuralDisplay);</span>
+<span class="nc" id="L529">            neuralDisplay.setMinSize(NeuralDisplay.width, NeuralDisplay.height);</span>
+
+<span class="nc" id="L531">            slider.setShowTickLabels(true);</span>
+<span class="nc" id="L532">            slider.setShowTickMarks(true);</span>
+<span class="nc" id="L533">            slider.setMajorTickUnit(0.1);</span>
+<span class="nc" id="L534">            slider.setBlockIncrement(0.1);</span>
+<span class="nc" id="L535">            slider.valueProperty().addListener((observable, oldValue, newValue) -&gt; {</span>
+<span class="nc" id="L536">                neuralDisplay.setScaleX(newValue.doubleValue());</span>
+<span class="nc" id="L537">                neuralDisplay.setScaleY(newValue.doubleValue());</span>
+<span class="nc" id="L538">            });</span>
+<span class="nc" id="L539">            displayRoot.setPrefViewportWidth(500);</span>
+<span class="nc" id="L540">            displayRoot.setPrefViewportHeight(500);</span>
+        }
+<span class="nc" id="L542">    }</span>
+    
+    /**
+     * shows the end screen that displays the successful simulation.
+     */
+    public static void showEndScreen() {
+<span class="nc bnc" id="L548" title="All 2 branches missed.">        if (!isEndScreenShown) {</span>
+<span class="nc" id="L549">            isEndScreenShown = true;</span>
+            //find the best simulation
+            //show end screen
+<span class="nc" id="L552">            Simulation showedSim = null;</span>
+<span class="nc bnc" id="L553" title="All 2 branches missed.">            for (Simulation sim : simulationList) {</span>
+<span class="nc" id="L554">                Charge charge = sim.findCharge();</span>
+<span class="nc bnc" id="L555" title="All 2 branches missed.">                if (charge.isFinished()) {</span>
+<span class="nc" id="L556">                    showedSim = sim;</span>
+                }
+<span class="nc" id="L558">            }</span>
+
+<span class="nc" id="L560">            Text endText = new Text(&quot;The Ai solved the maze! Here is the best attempt.\n&quot; +</span>
+                    &quot;Use the slider to see the neural network!&quot;);
+<span class="nc" id="L562">            endText.setFont(new Font(&quot;SansSerif&quot;,25));</span>
+<span class="nc" id="L563">            VBox endVbox = new VBox(endText, showedSim.getSimPane());</span>
+<span class="nc" id="L564">            endVbox.setSpacing(20);</span>
+<span class="nc" id="L565">            endVbox.setAlignment(Pos.CENTER);</span>
+<span class="nc" id="L566">            ScrollPane endScroll = new ScrollPane();</span>
+<span class="nc" id="L567">            endScroll.getStylesheets().add(Simulation.class.getResource(&quot;Style.css&quot;).toExternalForm());</span>
+<span class="nc" id="L568">            Slider slider = new Slider(0.1, 1, 1);</span>
+<span class="nc" id="L569">            showNeuralDisplay(showedSim,endScroll,slider);</span>
+<span class="nc" id="L570">            FlowPane endRoot = new FlowPane(endVbox,slider,endScroll);</span>
+<span class="nc" id="L571">            endScroll.setMinHeight(400);</span>
+<span class="nc" id="L572">            endScroll.setMinWidth(400);</span>
+<span class="nc" id="L573">            endRoot.setAlignment(Pos.CENTER);</span>
+<span class="nc" id="L574">            endRoot.setVgap(30);</span>
+<span class="nc" id="L575">            simulationList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L576">            simulationList.add(showedSim);</span>
+<span class="nc" id="L577">            Scene scene = new Scene(endRoot);</span>
+<span class="nc" id="L578">            scene.getStylesheets().add(Simulation.class.getResource(&quot;Style.css&quot;).toExternalForm());</span>
+<span class="nc" id="L579">            Stage stage = (Stage) root.getScene().getWindow();</span>
+<span class="nc" id="L580">            stage.setFullScreen(true);</span>
+<span class="nc" id="L581">            stage.setTitle(&quot;Magnet Ai: Training simulations&quot;);</span>
+<span class="nc" id="L582">            stage.setScene(scene);</span>
+<span class="nc" id="L583">            stage.setFullScreen(true);</span>
+
+        }
+<span class="nc" id="L586">    }</span>
+    
+    /**
+     * sets the square size of the simulations to fit the screen after they all start.
+     */
+    public static void calculateSquareSize(){
+<span class="nc" id="L592">        double width = dimensions[0];</span>
+<span class="nc" id="L593">        double height = dimensions[1];</span>
+<span class="nc" id="L594">        double realSquareSizeW = width / GRID_SIZE_X;</span>
+<span class="nc" id="L595">        double realSquareSizeH = height / GRID_SIZE_Y;</span>
+<span class="nc" id="L596">        double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);</span>
+<span class="nc" id="L597">        Simulation.SQUARE_SIZE = minSquareSize;</span>
+<span class="nc" id="L598">        MagneticField.square_size = SQUARE_SIZE;</span>
+<span class="nc" id="L599">        FinishLine.square_size = SQUARE_SIZE;</span>
+<span class="nc" id="L600">        Obstacle.square_size = SQUARE_SIZE;</span>
+<span class="nc" id="L601">        Superconductor.square_size = SQUARE_SIZE;</span>
+<span class="nc" id="L602">        Charge.CHARGE_RADIUS = SQUARE_SIZE / 4;</span>
+<span class="nc" id="L603">    }</span>
+
+    public Pane getSimPane() {
+<span class="nc" id="L606">        return this.simPane;</span>
+    }
+
+    public NeuralNetwork getBrain() {
+<span class="nc" id="L610">        return this.brain;</span>
+    }
+
+    public int getFitnessScore() {
+<span class="nc" id="L614">        return this.fitnessScore;</span>
+    }
+
+    public void setFitnessScore(int fitnessScore) {
+<span class="nc" id="L618">        this.fitnessScore = fitnessScore;</span>
+<span class="nc" id="L619">    }</span>
+
+    public static void setSolved(boolean solved) {
+<span class="nc" id="L622">        isSolved = solved;</span>
+<span class="nc" id="L623">    }</span>
+
+    public static boolean isSolved() {
+<span class="nc" id="L626">        return isSolved;</span>
+    }
+
+    public void setBrain(NeuralNetwork brain) {
+<span class="nc" id="L630">        this.brain = brain;</span>
+<span class="nc" id="L631">    }</span>
+
+    public myTimer getTimerInstance() {
+<span class="nc bnc" id="L634" title="All 2 branches missed.">        return (timer == null) ? new myTimer() : timer;</span>
+    }
+    
+    public ArrayList&lt;Rectangle&gt; getSquareList(){
+<span class="nc" id="L638">        return squareList;</span>
+    }
+
+<span class="nc" id="L641">    public class myTimer extends AnimationTimer {</span>
+        @Override
+        public void handle(long now) {
+<span class="nc" id="L644">            moveAllCharges();</span>
+<span class="nc" id="L645">            setupNextGeneration();</span>
+<span class="nc" id="L646">        }</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

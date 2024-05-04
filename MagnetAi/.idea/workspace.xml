@@ -6,11 +6,32 @@
   <component name="ChangeListManager">
     <list default="true" id="8e71936f-fdf9-4254-a68c-e279714d1f69" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/NeuralDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/NeuralDisplay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/testpage.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/testpage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MagnetAi-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/ActivationFunctions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/ActivationFunctions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Charge.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Charge.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/ChargeType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/ChargeType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Component.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Component.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/FinishLine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/FinishLine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/FxController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/FxController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/HiddenLayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/HiddenLayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/MagneticField.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/MagneticField.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/MainClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/MainClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/MathFunctions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/MathFunctions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/MenuPageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/MenuPageController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/NeuralDisplay.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/NeuralDisplay.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/NeuralNetwork.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/NeuralNetwork.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Obstacle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Obstacle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation$myTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation$myTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Simulation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/SimulationDisplay.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/SimulationDisplay.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/Superconductor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/magnetai/Superconductor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/TestMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/TestMain.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,13 +54,33 @@
   "keyToString": {
     "Application.MainClass.executor": "Run",
     "JUnit.TestMain.executor": "Run",
-    "JUnit.TestMain.testCalcFinalVelocity1.executor": "Run",
+    "JUnit.TestMain.testCalcFinalVelocity1.executor": "Coverage",
+    "Maven.MagnetAi [clean,install].executor": "Run",
+    "Maven.MagnetAi [clean,install]].executor": "Run",
+    "Maven.MagnetAi [clean,test].executor": "Run",
+    "Maven.MagnetAi [install].executor": "Run",
+    "Maven.MagnetAi [java,--version].executor": "Run",
+    "Maven.MagnetAi [test].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "Elyes's-GRIND",
-    "kotlin-language-version-configured": "true"
+    "kotlin-language-version-configured": "true",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn java --version" />
+      <command value="mvn clean install]" />
+      <command value="mvn install" />
+      <command value="mvn clean install" />
+      <command value="mvn clean test" />
+      <command value="mvn test" />
+    </option>
+  </component>
   <component name="RunManager">
     <configuration name="MainClass" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.magnetai.MainClass" />
@@ -56,6 +97,7 @@
     </configuration>
     <configuration name="TestMain.testCalcFinalVelocity1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MagnetAi" />
+      <extension name="coverage" sample_coverage="false" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestMain" />
       <option name="METHOD_NAME" value="testCalcFinalVelocity1" />
@@ -64,6 +106,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.MainClass" />
+      <item itemvalue="JUnit.TestMain.testCalcFinalVelocity1" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.TestMain.testCalcFinalVelocity1" />
@@ -88,5 +134,8 @@
       <updated>1714571399991</updated>
     </task>
     <servers />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/MagnetAi$TestMain_testCalcFinalVelocity1.ic" NAME="TestMain.testCalcFinalVelocity1 Coverage Results" MODIFIED="1714802614591" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>

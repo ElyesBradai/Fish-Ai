@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MagneticField.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MagnetAi</a> &gt; <a href="index.source.html" class="el_package">com.example.magnetai</a> &gt; <span class="el_source">MagneticField.java</span></div><h1>MagneticField.java</h1><pre class="source lang-java linenums">package com.example.magnetai;
+
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+
+/**
+ * the magneticField class.
+ */
+public class MagneticField extends Rectangle implements Component {
+    static final String TYPE = &quot;magneticfield&quot;;
+    int index;
+    private double[] strength;
+<span class="nc" id="L14">    public static double STRENGTH_COEFFICIENT = 0.3;</span>
+<span class="nc" id="L15">    public static double square_size = Simulation.SQUARE_SIZE;</span>
+
+    /**
+     * creates a magnetic field with the specified index and strength.
+     * @param index the index where the magnetic field will be placed
+     * @param strength the strength vector of the magnetic field
+     */
+    public MagneticField(int index, double[] strength) {
+<span class="nc" id="L23">        super(square_size, square_size, Color.GREEN); //creates a square of size 50 by 50</span>
+<span class="nc" id="L24">        this.index = index;</span>
+<span class="nc" id="L25">        this.strength = strength;</span>
+<span class="nc" id="L26">        this.setStroke(Color.BLACK);</span>
+<span class="nc" id="L27">        this.setStrokeWidth(3);</span>
+<span class="nc" id="L28">        this.setMouseTransparent(true);</span>
+<span class="nc" id="L29">    }</span>
+
+    @Override
+    public Component clone() {
+<span class="nc" id="L33">        return new MagneticField(this.getIndex(), this.getStrength());</span>
+    }
+
+    @Override
+    public int getIndex() {
+<span class="nc" id="L38">        return this.index;</span>
+    }
+    
+
+    @Override
+    public String getType() {
+<span class="nc" id="L44">        return TYPE;</span>
+    }
+
+    @Override
+    public Shape getBody() {
+<span class="nc" id="L49">        return this;</span>
+    }
+    
+    public double[] getStrength(){
+<span class="nc" id="L53">        return strength;</span>
+    }
+    
+    public void setStrength(double[] strength) {
+<span class="nc" id="L57">        this.strength = strength;</span>
+<span class="nc" id="L58">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

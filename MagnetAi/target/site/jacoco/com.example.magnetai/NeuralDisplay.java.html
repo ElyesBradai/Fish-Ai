@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NeuralDisplay.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MagnetAi</a> &gt; <a href="index.source.html" class="el_package">com.example.magnetai</a> &gt; <span class="el_source">NeuralDisplay.java</span></div><h1>NeuralDisplay.java</h1><pre class="source lang-java linenums">package com.example.magnetai;
+
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.stage.Screen;
+
+
+import java.util.ArrayList;
+
+/**
+ *
+ * This class consists of the visible Neural Display accessible in Simulation.
+ */
+public class NeuralDisplay extends Pane {
+    public static double width;
+    public static double height;
+    private static double panePadding;
+    private Simulation displayedSim;
+    private NeuralNetwork neuralNetwork;
+    private double[][] activations;
+    private HiddenLayer[] layers;
+    private int[] nbLayers;
+<span class="nc" id="L28">    private ArrayList&lt;Line&gt; lineWeights = new ArrayList();</span>
+<span class="nc" id="L29">    private ArrayList&lt;ArrayList&lt;Circle&gt;&gt; neuronList = new ArrayList();</span>
+
+    /**
+     * creates a Neural Display for the simulation.
+     * @param simulation the Neural Display's simulation
+     */
+<span class="nc" id="L35">    public NeuralDisplay(Simulation simulation) {</span>
+<span class="nc" id="L36">        this.setPrefSize(width, height);</span>
+<span class="nc" id="L37">        width = 2.5 * Simulation.SQUARE_SIZE * simulation.getBrain().getLayers().length * calculateNeuralScale();</span>
+<span class="nc" id="L38">        height = 2 * Simulation.SQUARE_SIZE * simulation.getBrain().getLayers()[0] * calculateNeuralScale() / 16;</span>
+<span class="nc" id="L39">        panePadding = 25 * calculateNeuralScale();</span>
+<span class="nc" id="L40">        this.displayedSim = simulation;</span>
+<span class="nc" id="L41">        this.activations = displayedSim.getBrain().getActivations();</span>
+<span class="nc" id="L42">        this.neuralNetwork = displayedSim.getBrain();</span>
+<span class="nc" id="L43">        this.layers = displayedSim.getBrain().getHiddenLayers();</span>
+
+<span class="nc" id="L45">        nbLayers = simulation.getBrain().getLayers();</span>
+<span class="nc" id="L46">        generateNeurons();</span>
+<span class="nc" id="L47">        generateWeight();</span>
+<span class="nc" id="L48">    }</span>
+    
+    /**
+     * generates the neuron circles for the Neural Display.
+     */
+    private void generateNeurons() {
+<span class="nc" id="L54">        int numberOfLayers = activations.length;</span>
+<span class="nc" id="L55">        double disposableWidth = width - 2 * panePadding;</span>
+<span class="nc" id="L56">        double disposableHeight = height - 2 * panePadding;</span>
+<span class="nc" id="L57">        double layerGap = disposableWidth / (numberOfLayers + 1);</span>
+
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        for (int i = 0; i &lt; activations.length; i++) {</span>
+<span class="nc" id="L60">            neuronList.add(new ArrayList&lt;&gt;());</span>
+<span class="nc" id="L61">            double heightGap = disposableHeight / (activations[i].length + 1);</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">            for (int j = 0; j &lt; activations[i].length; j++) {</span>
+
+<span class="nc" id="L64">                Label value = new Label();</span>
+<span class="nc" id="L65">                value.setId(&quot;neuronNet&quot;);</span>
+<span class="nc" id="L66">                DoubleProperty prop = new SimpleDoubleProperty(activations[i][j]);</span>
+<span class="nc" id="L67">                value.textProperty().bind(prop.asString(&quot;%.2f&quot;));</span>
+<span class="nc" id="L68">                Circle neuron = new Circle(20 * calculateNeuralScale());</span>
+<span class="nc" id="L69">                neuron.setUserData(prop);</span>
+<span class="nc" id="L70">                neuron.setCenterX(layerGap * (i + 0.5) - (this.getWidth()));</span>
+<span class="nc" id="L71">                neuron.setCenterY(heightGap * (j + 0.5) - (this.getHeight()));</span>
+<span class="nc" id="L72">                value.setTranslateX(layerGap * (i + 0.5) - (10));</span>
+<span class="nc" id="L73">                value.setTranslateY(heightGap * (j + 0.5) - (5));</span>
+
+<span class="nc" id="L75">                this.getChildren().addAll(neuron, value);</span>
+<span class="nc" id="L76">                neuronList.get(i).add(neuron);</span>
+            }
+        }
+<span class="nc" id="L79">    }</span>
+    
+    /**
+     * generates the weight lines for the Neural Display.
+     */
+    private void generateWeight() {
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        for (int layer = 0; layer &lt; layers.length; layer++) {</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">            for (int currNeuron = 0; currNeuron &lt; layers[layer].getWeights().length; currNeuron++) {</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">                for (int prevNeuron = 0; prevNeuron &lt; activations[layer].length; prevNeuron++) {</span>
+<span class="nc" id="L88">                    double k =  layers[layer].getWeights()[currNeuron][prevNeuron];</span>
+<span class="nc" id="L89">                    k = Math.abs(k);</span>
+<span class="nc" id="L90">                    Line line = new Line();</span>
+<span class="nc" id="L91">                    DoubleProperty value = new SimpleDoubleProperty(k);</span>
+<span class="nc" id="L92">                    line.setUserData(value);</span>
+<span class="nc" id="L93">                    line.startXProperty().bind(neuronList.get(layer+1).get(currNeuron).centerXProperty());</span>
+<span class="nc" id="L94">                    line.startYProperty().bind(neuronList.get(layer+1).get(currNeuron).centerYProperty());</span>
+<span class="nc" id="L95">                    line.endXProperty().bind(neuronList.get(layer).get(prevNeuron).centerXProperty());</span>
+<span class="nc" id="L96">                    line.endYProperty().bind(neuronList.get(layer).get(prevNeuron).centerYProperty());</span>
+<span class="nc" id="L97">                    line.opacityProperty().bind((value.divide(2)).multiply(calculateNeuralScale()).add(0.2));</span>
+<span class="nc" id="L98">                    line.strokeWidthProperty().bind(((value.divide(1.5)).add(0.5)).multiply(3 * calculateNeuralScale()));</span>
+<span class="nc" id="L99">                    line.setOnMouseClicked((e) -&gt; {</span>
+<span class="nc" id="L100">                        System.out.println(value.get());</span>
+<span class="nc" id="L101">                    });</span>
+<span class="nc" id="L102">                    this.getChildren().add(line);</span>
+<span class="nc" id="L103">                    line.toBack();</span>
+                }
+            }
+        }
+<span class="nc" id="L107">    }</span>
+    
+    /**
+     *
+     * @return a double value for the scaling of the Neural Display.
+     */
+    public double calculateNeuralScale() {
+<span class="nc bnc" id="L114" title="All 2 branches missed.">        if (this.displayedSim != null) {</span>
+<span class="nc" id="L115">            Screen screen = Screen.getPrimary();</span>
+<span class="nc" id="L116">            Rectangle2D bounds = screen.getVisualBounds();</span>
+<span class="nc" id="L117">            double screenWidth = bounds.getWidth();</span>
+<span class="nc" id="L118">            double screenHeight = bounds.getHeight();</span>
+<span class="nc" id="L119">            double realSquareSizeW = screenWidth/ this.displayedSim.getBrain().getLayers().length;</span>
+<span class="nc" id="L120">            double realSquareSizeH = screenHeight/ this.displayedSim.getBrain().getLayers()[0];</span>
+<span class="nc" id="L121">            double minSquareSize = Math.min(realSquareSizeH, realSquareSizeW);</span>
+<span class="nc" id="L122">            double ratioSquareSize = minSquareSize/ Simulation.SQUARE_SIZE;</span>
+<span class="nc" id="L123">            int numSimulations = Simulation.getSimulationList().size();</span>
+<span class="nc" id="L124">            double numRows = Math.sqrt(numSimulations);</span>
+<span class="nc" id="L125">            double numCols = ((double) numSimulations / numRows);</span>
+<span class="nc" id="L126">            double maxDimension = Math.max(numRows, numCols);</span>
+<span class="nc" id="L127">            double scale = 1.0 / maxDimension;</span>
+<span class="nc" id="L128">            return ratioSquareSize * scale;</span>
+            }
+<span class="nc" id="L130">        return 1;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
