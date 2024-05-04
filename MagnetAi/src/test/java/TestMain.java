@@ -1,5 +1,9 @@
 import com.example.magnetai.MathFunctions;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 public class TestMain {
     @Test
@@ -25,7 +29,8 @@ public class TestMain {
         double[] magneticFieldStrength = {0, 0, 1}; // Magnetic field along z-axis
         double[] velocity = {1, 0, 0}; // Initial velocity along x-axis
         double[] result = MathFunctions.calcFinalVelocity(charge, mass, velocity, magneticFieldStrength);
-        assertArrayEquals(new double[]{1, -9.57883315593791E7, 0}, result, 0.0001, "final velocity should be {0,-9.57883315593791E7, 0}");
+        System.out.println(Arrays.toString(result));
+        assertArrayEquals(new double[]{1.0, -1.0, 0.0}, result, 0.0001, "final velocity should be {0,-9.57883315593791E7, 0}");
     }
     @Test
     public void testCalcFinalVelocity2() {

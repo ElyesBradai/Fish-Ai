@@ -53,7 +53,7 @@ public class Simulation {
     public Simulation() {
         map = new Component[GRID_SIZE_X][GRID_SIZE_Y];
         simPane = new Pane();
-        squareList = new ArrayList<Rectangle>();
+        squareList = new ArrayList<>();
         simulationList.add(this);
         fitnessScore = Integer.MAX_VALUE;
         brain = null;
