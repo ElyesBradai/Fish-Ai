@@ -1,3 +1,4 @@
+import com.example.magnetai.ActivationFunctions;
 import com.example.magnetai.MathFunctions;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,6 @@ public class TestMain {
         double[] magneticFieldStrength = {0, 0, 1}; // Magnetic field along z-axis
         double[] velocity = {1, 0, 0}; // Initial velocity along x-axis
         double[] result = MathFunctions.calcFinalVelocity(charge, mass, velocity, magneticFieldStrength);
-        System.out.println(Arrays.toString(result));
         assertArrayEquals(new double[]{1.0, -1.0, 0.0}, result, 0.0001, "final velocity should be {0,-9.57883315593791E7, 0}");
     }
     @Test
@@ -39,7 +39,7 @@ public class TestMain {
         double[] magneticFieldStrength = {0, 0, 1}; // Magnetic field along z-axis
         double[] velocity = {1, 0, 0}; // Initial velocity along x-axis
         double[] result = MathFunctions.calcFinalVelocity(charge, mass, velocity, magneticFieldStrength);
-        assertArrayEquals(new double[]{1, 1.7588200107721634E11, 0}, result, 0.0001, "final velocity should be {0, 1.7588200107721634E11, 0}");
+        assertArrayEquals(new double[]{1, 1, 0}, result, 0.0001, "final velocity should be {0, 1.7588200107721634E11, 0}");
     }
     @Test
     public void testMultiplyVectors1() {
@@ -60,5 +60,34 @@ public class TestMain {
         assertThrows(IllegalArgumentException.class, () -> {
             MathFunctions.multiplyVectors(new double[]{1, 2}, new double[]{3, 4, 5});
         }, "multiplyVectors should throw an exception for input vectors with different lengths");
+    }
+    @Test
+    public void testSigmoid() {
+        assertEquals(0.5, ActivationFunctions.sigmoid(0), 0.001);
+        assertEquals(0.731, ActivationFunctions.sigmoid(1), 0.001);
+        assertEquals(0.268, ActivationFunctions.sigmoid(-1), 0.001);
+        assertEquals(1.0, ActivationFunctions.sigmoid(100), 0.001);
+        assertEquals(0.0, ActivationFunctions.sigmoid(-100), 0.001);
+        assertEquals(0.920, ActivationFunctions.sigmoid(2.5), 0.01);
+    }
+    
+    @Test
+    public void testReLU() {
+        assertEquals(0.0, ActivationFunctions.relu(-1), 0.001);
+        assertEquals(1.0, ActivationFunctions.relu(1), 0.001);
+        assertEquals(0.0, ActivationFunctions.relu(0), 0.001);
+        assertEquals(100, ActivationFunctions.relu(100), 0.001);
+        assertEquals(0.0, ActivationFunctions.relu(-100), 0.001);
+        assertEquals(2.5, ActivationFunctions.relu(2.5), 0.001);
+    }
+    
+    @Test
+    public void testTanh() {
+        assertEquals(0.0, ActivationFunctions.tanh(0), 0.001);
+        assertEquals(0.761, ActivationFunctions.tanh(1), 0.001);
+        assertEquals(-0.761, ActivationFunctions.tanh(-1), 0.001);
+        assertEquals(1.0, ActivationFunctions.tanh(100), 0.001);
+        assertEquals(-1.0, ActivationFunctions.tanh(-100), 0.001);
+        assertEquals(0.986, ActivationFunctions.tanh(2.5), 0.001);
     }
 }

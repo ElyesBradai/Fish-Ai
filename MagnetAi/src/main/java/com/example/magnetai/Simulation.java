@@ -440,7 +440,6 @@ public class Simulation {
             if (maxLoop >= Math.pow(GRID_SIZE_X * GRID_SIZE_Y + 1,2)) {
                 break;
             }
-            //	System.out.println(steps);
             for (int[] dir : directions) {
                 int newRow = current[0] + dir[0];
                 int newCol = current[1] + dir[1];

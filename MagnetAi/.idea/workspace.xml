@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e71936f-fdf9-4254-a68c-e279714d1f69" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/NeuralDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/NeuralDisplay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/magnetai/Simulation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/magnetai/testpage.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/magnetai/testpage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/TestMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/TestMain.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +32,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.MainClass.executor": "Run",
+    "JUnit.TestMain.executor": "Run",
     "JUnit.TestMain.testCalcFinalVelocity1.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -35,7 +40,7 @@
     "kotlin-language-version-configured": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.MainClass">
+  <component name="RunManager">
     <configuration name="MainClass" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.magnetai.MainClass" />
       <module name="MagnetAi" />
@@ -61,8 +66,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MainClass" />
         <item itemvalue="JUnit.TestMain.testCalcFinalVelocity1" />
+        <item itemvalue="Application.MainClass" />
       </list>
     </recent_temporary>
   </component>

@@ -37,7 +37,6 @@ public class NeuralDisplay extends Pane {
         width = 2.5 * Simulation.SQUARE_SIZE * simulation.getBrain().getLayers().length * calculateNeuralScale();
         height = 2 * Simulation.SQUARE_SIZE * simulation.getBrain().getLayers()[0] * calculateNeuralScale() / 16;
         panePadding = 25 * calculateNeuralScale();
-        System.out.println(height);
         this.displayedSim = simulation;
         this.activations = displayedSim.getBrain().getActivations();
         this.neuralNetwork = displayedSim.getBrain();
