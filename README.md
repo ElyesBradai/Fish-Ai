@@ -28,19 +28,20 @@ To get started with Magnet AI, follow these steps:
 ## Screenshots
 
 ![Screenshot 1](https://github.com/ElyesBradai/Fish-Ai/blob/main/ReadME-pictures/Capture1.PNG)
-sc1
+This is a screenshot of the user interface and level design.
 
 ![Screenshot 2](https://github.com/ElyesBradai/Fish-Ai/blob/main/ReadME-pictures/Capture2.PNG)
-sc2
+This is a screenshot of the simulations runnning and the Ai trying to solve the maze.
 
 ![Screenshot 3](https://github.com/ElyesBradai/Fish-Ai/blob/main/ReadME-pictures/Capture3.PNG)
-sc3
+This is a screenshot of the completed level running in loop and an image of the inputed neural network.
 
 ## Contributing
 
 Contributions to Magnet AI are welcome! If you have any ideas for improvements or new features, feel free to open an issue or submit a pull request.
 
 ## Authors
+
 Agha Ziad
 Ait-Yakoub Amine
 Bradai Elyes
