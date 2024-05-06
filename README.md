@@ -34,7 +34,7 @@ This is a screenshot of the user interface and level design.
 This is a screenshot of the simulations runnning and the Ai trying to solve the maze.
 
 ![Screenshot 3](https://github.com/ElyesBradai/Fish-Ai/blob/main/ReadME-pictures/Capture3.PNG)
-This is a screenshot of the completed level running in loop and an image of the inputed neural network.
+This is a screenshot of the completed level running in loop and an image of the inputted neural network.
 
 ## Contributing
 
