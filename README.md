@@ -27,17 +27,14 @@ To get started with Magnet AI, follow these steps:
    
 ## Screenshots
 
-![Screenshot 1](https://raw.githubusercontent.com/ElyesBradai/Fish-Ai/main/ReadME-pictures/Capture1.PNG?token=GHSAT0AAAAAACPBNDGHZEUR3BPOKEBQH2O2ZRYIREA)
+![Screenshot 1](https://github.com/ElyesBradai/Fish-Ai/blob/main/ReadME-pictures/Capture1.PNG)
 sc1
 
 ![Screenshot 2](https://github.com/ElyesBradai/Fish-Ai/blob/main/ReadME-pictures/Capture2.PNG)
 sc2
 
-![Screenshot 3](/path/to/screenshot3.png)
+![Screenshot 3](https://github.com/ElyesBradai/Fish-Ai/blob/main/ReadME-pictures/Capture3.PNG)
 sc3
-
-![Screenshot 4](/path/to/screenshot4.png)
-sc4
 
 ## Contributing
 
